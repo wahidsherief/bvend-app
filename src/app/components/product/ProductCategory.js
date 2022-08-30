@@ -3,6 +3,10 @@ import PageTitle from "../common/PageTitle"
 import { useSelector, useDispatch } from "react-redux"
 import { create, update, remove } from "../../../features/product_category/product_category_slice"
 
+
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+
 const ProductCategory = () => {
 
     const product_category_state = useSelector((state) => {
@@ -13,13 +17,13 @@ const ProductCategory = () => {
 
     const { categories } = product_category_state
 
-    const [category, setCategory] = useState("")
-    const [brand, setBrand] = useState("")
+    const [category, setCategory] = useState('')
+    const [brand, setBrand] = useState('')
     const [updatedcategory, setUpdatedCategory] = useState("")
     const [updatedbrand, setUpdatedBrand] = useState("")
-
     const [editPanel, setEditPanel] = useState(null)
     const [removePanel, setRemovePanel] = useState(null)
+    const [validated, setValidated] = useState(false);
 
     const showEditPanel = (id) => {
         if (removePanel !== null) {
@@ -41,10 +45,24 @@ const ProductCategory = () => {
 
     }
 
-    const createProductCategory = () => {
-        const id = (categories.length - 1) + 1
-        const new_category = { id, category, brand }
-        dispatch(create(new_category))
+    const createProductCategory = (e) => {
+        e.preventDefault();
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
+            e.stopPropagation();
+            setValidated(true);
+
+        }
+        else {
+            const id = categories.length + 1
+            const new_category = { id, category, brand }
+
+            if (dispatch(create(new_category))) {
+                setValidated(false);
+                form.category.value = ""
+                form.brand.value = ""
+            }
+        }
     }
 
     const updateProductCategory = (id) => {
@@ -65,10 +83,8 @@ const ProductCategory = () => {
                 <div className="row">
                     <div className="col-lg-7">
                         <div className="card-style mb-30">
-                            <h6 className="mb-10">Data Table</h6>
                             <p className="text-sm mb-20">
-                                For basic styling—light padding and only horizontal
-                                dividers—use the className table.
+                                Total categories: {categories.length}
                             </p>
                             {
                                 categories.length > 0 &&
@@ -128,23 +144,36 @@ const ProductCategory = () => {
                     <div className="col-lg-5">
                         <div className="card-style mb-30">
                             <h4 className="mb-25">Add Category</h4>
-                            <div className="input-style-1">
-                                <input
-                                    type="text"
-                                    placeholder="Enter category name"
-                                    onChange={(e) => { setCategory(e.target.value) }}
-                                />
-                            </div>
-                            <div className="input-style-1">
-                                <input
-                                    type="text"
-                                    placeholder="Enter brand name"
-                                    onChange={(e) => { setBrand(e.target.value) }}
-                                />
-                            </div>
-                            <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <button onClick={() => createProductCategory} className="main-btn primary-btn btn-hover btn-sm">Save Category</button>
-                            </div>
+                            <Form noValidate validated={validated} onSubmit={createProductCategory}>
+                                <Form.Group controlId="validationCustom01" className="input-style-1">
+                                    <Form.Control
+                                        name="category"
+                                        required
+                                        type="text"
+                                        placeholder="Enter category name"
+                                        onChange={(e) => { setCategory(e.target.value) }}
+                                    />
+                                    <Form.Control.Feedback type="invalid">
+                                        *Category is required
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                                <Form.Group controlId="validationCustom02" className="input-style-1">
+                                    <Form.Control
+                                        name="brand"
+                                        required
+                                        type="text"
+                                        placeholder="Enter brand name"
+                                        onChange={(e) => { setBrand(e.target.value) }}
+                                        defaultValue={brand}
+                                    />
+                                    <Form.Control.Feedback type="invalid">
+                                        *Brand is required
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                                <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <Button type="submit" className="main-btn primary-btn btn-hover btn-sm">Save Category</Button>
+                                </div>
+                            </Form>
                         </div>
                     </div>
                 </div>
