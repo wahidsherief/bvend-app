@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import PageTitle from "../common/PageTitle"
 import { useSelector, useDispatch } from "react-redux"
-import { create, update, remove } from "../../../features/product_category/product_category_slice"
+import { create, update, remove } from "../../../features/product/product_category_slice"
 
 
 import Form from 'react-bootstrap/Form';
