@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 import './assets/css/main.css'
 import './assets/css/lineicons.css'

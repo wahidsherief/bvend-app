@@ -4,8 +4,15 @@ import { useSelector, useDispatch } from "react-redux"
 import { create, update, remove } from "../../../features/product/product_list_slice"
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { Typeahead } from 'react-bootstrap-typeahead';
+import { product_category_types_data } from "../../../assets/data";
+
 
 const ProductList = () => {
+
+    const category_options = product_category_types_data.types
+
+    // console.log(category_options)
 
     const product_list_state = useSelector((state) => {
         return state['product_list']
@@ -16,7 +23,8 @@ const ProductList = () => {
     const { products } = product_list_state
 
     const [name, setName] = useState('')
-    const [category, setCategory] = useState('')
+    const [category, setCategory] = useState('');
+    const [image, setImage] = useState('')
     const [updatedproduct, setUpdatedProduct] = useState('')
     const [updatedcategory, setUpdatedCategory] = useState('')
     const [editPanel, setEditPanel] = useState(null)
@@ -46,10 +54,10 @@ const ProductList = () => {
     const createProduct = (e) => {
         e.preventDefault();
         const form = e.currentTarget;
+        console.log(form)
         if (form.checkValidity() === false) {
             e.stopPropagation();
             setValidated(true);
-
         }
         else {
             const id = products.length + 1
@@ -73,6 +81,10 @@ const ProductList = () => {
             setRemovePanel(null)
     }
 
+    const handleSetCategory = selected => {
+        const selected_category = selected.toString()
+        setCategory(selected_category)
+    }
 
     return (
         <React.Fragment>
@@ -90,7 +102,9 @@ const ProductList = () => {
                                     <div key={product.id} className="accordion mb-2" id="accordionExample">
                                         <div className="accordion-item">
                                             <div className="accordion-header p-3" id="headingOne">
-                                                <img src="..." className="img-thumbnail" alt="..." />
+
+                                                <img src={product.image} className="image-in-list" alt={product.name} />
+
                                                 <span className="ms-3">{product.name}</span>
                                                 <span className="ms-3">{product.category}</span>
                                                 <span className="float-end">
@@ -113,11 +127,16 @@ const ProductList = () => {
                                                         />
                                                     </div>
                                                     <div className="input-style-1">
-                                                        <input
-                                                            type="text"
-                                                            placeholder={product.category}
-                                                            onChange={(e) => { setUpdatedCategory(e.target.value) }}
-                                                        />
+                                                        <div class="select-style-2">
+                                                            <div class="select-position">
+                                                                <select onChange={(e) => { setUpdatedCategory(e.target.value) }}>
+                                                                    <option value="">Select category</option>
+                                                                    <option value="">Category one</option>
+                                                                    <option value="">Category two</option>
+                                                                    <option value="">Category three</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">
                                                         <button onClick={() => updateProduct(product.id)} className="main-btn dark-btn btn-hover btn-sm">Update Category</button>
@@ -158,17 +177,30 @@ const ProductList = () => {
                                     </Form.Control.Feedback>
                                 </Form.Group>
                                 <Form.Group controlId="validationCustom02" className="input-style-1">
-                                    <Form.Control
+
+                                    <Typeahead
+                                        className="is-invalid"
+                                        id="basic-typeahead-single"
+                                        inputProps={{ required: true }}
+                                        // isInvalid
                                         name="category"
-                                        required
-                                        type="text"
-                                        placeholder="Enter brand name"
-                                        onChange={(e) => { setCategory(e.target.value) }}
-                                        defaultValue={category}
+                                        onChange={handleSetCategory}
+                                        options={category_options}
+                                        placeholder="Choose a category..."
                                     />
                                     <Form.Control.Feedback type="invalid">
                                         *Category is required
                                     </Form.Control.Feedback>
+                                </Form.Group>
+                                <Form.Group controlId="formFileLg" className="mb-3">
+                                    <Form.Control
+                                        size="lg"
+                                        name="image"
+                                        required
+                                        type="file"
+                                        placeholder="Choose product image"
+                                        onChange={(e) => { setImage(e.target.value) }}
+                                    />
                                 </Form.Group>
                                 <div className="d-grid gap-2 d-md-flex justify-content-md-end">
                                     <Button type="submit" className="main-btn primary-btn btn-hover btn-sm">Save Product</Button>

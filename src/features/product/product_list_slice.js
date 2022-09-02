@@ -1,27 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { product_list_data } from "../../assets/data";
 
-const initialState = {
-    products: [
-        {
-            id: 1,
-            name: 'Chips',
-            category: 'Bombay Sweets',
-            display: false
-        },
-        {
-            id: 2,
-            name: 'Shoe',
-            category: 'Apex',
-            display: false
-        },
-        {
-            id: 3,
-            name: 'Laptop',
-            category: 'HP',
-            display: false
-        }
-    ]
-}
+
+const initialState = product_list_data
 
 export const product_list = createSlice({
     name: 'product_list',
