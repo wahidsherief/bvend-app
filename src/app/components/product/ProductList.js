@@ -89,8 +89,9 @@ const ProductList = () => {
                                 products.map((product) => (
                                     <div key={product.id} className="accordion mb-2" id="accordionExample">
                                         <div className="accordion-item">
-                                            <p className="accordion-header p-3" id="headingOne">
-                                                <span>{product.name}</span>
+                                            <div className="accordion-header p-3" id="headingOne">
+                                                <img src="..." className="img-thumbnail" alt="..." />
+                                                <span className="ms-3">{product.name}</span>
                                                 <span className="ms-3">{product.category}</span>
                                                 <span className="float-end">
                                                     <button onClick={() => showEditPanel(product.id)} className='p-0 text-primary btn-link btn'>
@@ -100,7 +101,7 @@ const ProductList = () => {
                                                         <i className="lni lni-trash-can"></i>
                                                     </button>
                                                 </span>
-                                            </p>
+                                            </div>
                                             <div id='edit-panel' className={editPanel === product.id ? 'd-block' : 'd-none'}>
                                                 <div className="accordion-body bg-light">
                                                     <h4 className="mb-3">Edit Product</h4>
