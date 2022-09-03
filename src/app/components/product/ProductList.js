@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import PageTitle from "../common/PageTitle"
 import { useSelector, useDispatch } from "react-redux"
 import { create, update, remove } from "../../../features/product/product_list_slice"
@@ -12,8 +12,6 @@ const ProductList = () => {
 
     const category_options = product_category_types_data.types
 
-    // console.log(category_options)
-
     const product_list_state = useSelector((state) => {
         return state['product_list']
     })
@@ -21,6 +19,8 @@ const ProductList = () => {
     const dispatch = useDispatch()
 
     const { products } = product_list_state
+    const formRef = useRef(null)
+    const categoryRef = useRef(null)
 
     const [name, setName] = useState('')
     const [category, setCategory] = useState('');
@@ -51,22 +51,40 @@ const ProductList = () => {
 
     }
 
-    const createProduct = (e) => {
-        e.preventDefault();
-        const form = e.currentTarget;
-        console.log(form)
-        if (form.checkValidity() === false) {
-            e.stopPropagation();
-            setValidated(true);
+    const uploadImage = (e) => {
+        setImage(e.target.files[0].name);
+    }
+
+    const createProductFormValidation = (e) => {
+        if (category === '') {
+            setCategory(null)
         }
-        else {
+        e.preventDefault()
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
+            e.stopPropagation()
+            setValidated(true)
+            return false
+        }
+
+        return true
+    }
+
+    const resetCreateProductForm = () => {
+        formRef.current.product.value = ""
+        formRef.current.image.value = ""
+        categoryRef.current.clear()
+        setValidated(false);
+    };
+
+    const createProduct = (e) => {
+        if (createProductFormValidation(e)) {
             const id = products.length + 1
-            const new_product = { id, name, category }
+            const new_product = { id, name, category, image }
 
             if (dispatch(create(new_product))) {
                 setValidated(false);
-                form.name.value = ""
-                form.category.value = ""
+                resetCreateProductForm()
             }
         }
     }
@@ -102,9 +120,7 @@ const ProductList = () => {
                                     <div key={product.id} className="accordion mb-2" id="accordionExample">
                                         <div className="accordion-item">
                                             <div className="accordion-header p-3" id="headingOne">
-
-                                                <img src={product.image} className="image-in-list" alt={product.name} />
-
+                                                <img src={require(`../../../../public/bvend/products/${product.image}`)} className="image-in-list" alt={product.name} />
                                                 <span className="ms-3">{product.name}</span>
                                                 <span className="ms-3">{product.category}</span>
                                                 <span className="float-end">
@@ -127,8 +143,8 @@ const ProductList = () => {
                                                         />
                                                     </div>
                                                     <div className="input-style-1">
-                                                        <div class="select-style-2">
-                                                            <div class="select-position">
+                                                        <div className="select-style-2">
+                                                            <div className="select-position">
                                                                 <select onChange={(e) => { setUpdatedCategory(e.target.value) }}>
                                                                     <option value="">Select category</option>
                                                                     <option value="">Category one</option>
@@ -162,7 +178,7 @@ const ProductList = () => {
                     <div className="col-lg-5">
                         <div className="card-style mb-30">
                             <h4 className="mb-25">Add Product</h4>
-                            <Form noValidate validated={validated} onSubmit={createProduct}>
+                            <Form ref={formRef} noValidate validated={validated} onSubmit={createProduct}>
                                 <Form.Group controlId="validationCustom01" className="input-style-1">
                                     <Form.Control
                                         name="product"
@@ -177,12 +193,11 @@ const ProductList = () => {
                                     </Form.Control.Feedback>
                                 </Form.Group>
                                 <Form.Group controlId="validationCustom02" className="input-style-1">
-
                                     <Typeahead
-                                        className="is-invalid"
+                                        ref={categoryRef}
+                                        className={category === null ? 'is-invalid' : ''}
                                         id="basic-typeahead-single"
                                         inputProps={{ required: true }}
-                                        // isInvalid
                                         name="category"
                                         onChange={handleSetCategory}
                                         options={category_options}
@@ -192,15 +207,17 @@ const ProductList = () => {
                                         *Category is required
                                     </Form.Control.Feedback>
                                 </Form.Group>
-                                <Form.Group controlId="formFileLg" className="mb-3">
+                                <Form.Group controlId="formFileLg" className="input-style-1">
                                     <Form.Control
-                                        size="lg"
                                         name="image"
                                         required
                                         type="file"
                                         placeholder="Choose product image"
-                                        onChange={(e) => { setImage(e.target.value) }}
+                                        onChange={uploadImage}
                                     />
+                                    <Form.Control.Feedback type="invalid">
+                                        *Product image is required
+                                    </Form.Control.Feedback>
                                 </Form.Group>
                                 <div className="d-grid gap-2 d-md-flex justify-content-md-end">
                                     <Button type="submit" className="main-btn primary-btn btn-hover btn-sm">Save Product</Button>
