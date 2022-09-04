@@ -19,17 +19,21 @@ const ProductList = () => {
     const dispatch = useDispatch()
 
     const { products } = product_list_state
-    const formRef = useRef(null)
+    const createFormRef = useRef(null)
+    const updateFormRef = useRef(null)
     const categoryRef = useRef(null)
+    const updateCategoryRef = useRef(null)
 
     const [name, setName] = useState('')
     const [category, setCategory] = useState('');
     const [image, setImage] = useState('')
-    const [updatedproduct, setUpdatedProduct] = useState('')
+    const [updatedname, setUpdatedName] = useState('')
     const [updatedcategory, setUpdatedCategory] = useState('')
+    const [updatedimage, setUpdatedImage] = useState('')
     const [editPanel, setEditPanel] = useState(null)
     const [removePanel, setRemovePanel] = useState(null)
     const [validated, setValidated] = useState(false);
+    const [updateValidated, setUpdateValidated] = useState(false);
 
     const showEditPanel = (id) => {
         if (removePanel !== null) {
@@ -51,10 +55,6 @@ const ProductList = () => {
 
     }
 
-    const uploadImage = (e) => {
-        setImage(e.target.files[0].name);
-    }
-
     const createProductFormValidation = (e) => {
         if (category === '') {
             setCategory(null)
@@ -71,13 +71,14 @@ const ProductList = () => {
     }
 
     const resetCreateProductForm = () => {
-        formRef.current.product.value = ""
-        formRef.current.image.value = ""
+        createFormRef.current.product.value = ""
+        createFormRef.current.image.value = ""
         categoryRef.current.clear()
         setValidated(false);
     };
 
     const createProduct = (e) => {
+        console.log(e.target)
         if (createProductFormValidation(e)) {
             const id = products.length + 1
             const new_product = { id, name, category, image }
@@ -89,9 +90,27 @@ const ProductList = () => {
         }
     }
 
-    const updateProduct = (id) => {
-        if (dispatch(update({ id, updatedproduct, updatedcategory })))
+    const updateProductFormValidation = (e) => {
+        e.preventDefault()
+        const form = e.target;
+        if (form.checkValidity() === false) {
+            e.stopPropagation()
+            setUpdateValidated(true)
+            return false
+        }
+
+        if (updatedname !== '' && updatedcategory !== '' && updatedimage === '') {
+            return false
+        }
+
+        return true
+    }
+
+    const updateProduct = (id, e) => {
+        if (updateProductFormValidation(e)) {
+            dispatch(update({ id, updatedname, updatedcategory, updatedimage }))
             setEditPanel(null)
+        }
     }
 
     const removeProduct = (id) => {
@@ -103,6 +122,23 @@ const ProductList = () => {
         const selected_category = selected.toString()
         setCategory(selected_category)
     }
+
+
+    const handleSetUpdatedCategory = selected => {
+        console.log(selected)
+        const selected_category = selected.toString()
+        setUpdatedCategory(selected_category)
+    }
+
+    const handleUploadImage = (e) => {
+        setImage(e.target.files[0].name);
+    }
+
+
+    const handleSetUpdatedUploadImage = (e) => {
+        setUpdatedImage(e.target.files[0].name);
+    }
+
 
     return (
         <React.Fragment>
@@ -120,6 +156,7 @@ const ProductList = () => {
                                     <div key={product.id} className="accordion mb-2" id="accordionExample">
                                         <div className="accordion-item">
                                             <div className="accordion-header p-3" id="headingOne">
+
                                                 <img src={require(`../../../../public/bvend/products/${product.image}`)} className="image-in-list" alt={product.name} />
                                                 <span className="ms-3">{product.name}</span>
                                                 <span className="ms-3">{product.category}</span>
@@ -134,30 +171,50 @@ const ProductList = () => {
                                             </div>
                                             <div id='edit-panel' className={editPanel === product.id ? 'd-block' : 'd-none'}>
                                                 <div className="accordion-body bg-light">
-                                                    <h4 className="mb-3">Edit Product</h4>
-                                                    <div className="input-style-1">
-                                                        <input
-                                                            type="text"
-                                                            placeholder={product.name}
-                                                            onChange={(e) => { setUpdatedProduct(e.target.value) }}
-                                                        />
-                                                    </div>
-                                                    <div className="input-style-1">
-                                                        <div className="select-style-2">
-                                                            <div className="select-position">
-                                                                <select onChange={(e) => { setUpdatedCategory(e.target.value) }}>
-                                                                    <option value="">Select category</option>
-                                                                    <option value="">Category one</option>
-                                                                    <option value="">Category two</option>
-                                                                    <option value="">Category three</option>
-                                                                </select>
-                                                            </div>
+                                                    <Form ref={updateFormRef} id={product.id} noValidate validated={updateValidated} onSubmit={(e) => updateProduct(product.id, e)}>
+                                                        <Form.Group controlId="validationCustom01" className="input-style-1">
+                                                            <Form.Control
+                                                                required
+                                                                name="product"
+                                                                type="text"
+                                                                placeholder="Enter product name"
+                                                                onChange={(e) => { setUpdatedName(e.target.value) }}
+                                                                defaultValue={product.name}
+                                                            />
+                                                            <Form.Control.Feedback type="invalid">
+                                                                *Product name is required
+                                                            </Form.Control.Feedback>
+                                                        </Form.Group>
+                                                        <Form.Group controlId="validationCustom02" className="input-style-1">
+                                                            <Typeahead
+                                                                ref={updateCategoryRef}
+                                                                className={category === null ? 'is-invalid' : ''}
+                                                                id="basic-typeahead-single"
+                                                                inputProps={{ required: true, name: "category" }}
+                                                                onChange={handleSetUpdatedCategory}
+                                                                options={category_options}
+                                                                placeholder="Choose a category..."
+                                                                defaultInputValue={product.category}
+                                                            />
+                                                            <Form.Control.Feedback type="invalid">
+                                                                *Category is required
+                                                            </Form.Control.Feedback>
+                                                        </Form.Group>
+                                                        <Form.Group controlId="formFileLg" className="input-style-1">
+                                                            <Form.Control
+                                                                required={product.image === '' ? 'required' : ''}
+                                                                name="image"
+                                                                type="file"
+                                                                placeholder="Choose product image"
+                                                                onChange={handleSetUpdatedUploadImage}
+                                                            />
+                                                        </Form.Group>
+                                                        <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                                                            <button type='submit' className="main-btn dark-btn btn-hover btn-sm">Update Product</button>
+                                                            <button onClick={() => setEditPanel(null)} type='button' className="main-btn light-btn btn-hover btn-sm">Cancel</button>
                                                         </div>
-                                                    </div>
-                                                    <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                                                        <button onClick={() => updateProduct(product.id)} className="main-btn dark-btn btn-hover btn-sm">Update Category</button>
-                                                        <button onClick={() => setEditPanel(null)} className="main-btn light-btn btn-hover btn-sm">Cancel</button>
-                                                    </div>
+                                                    </Form>
+
                                                 </div>
                                             </div>
                                             <div id='remove-panel' className={removePanel === product.id ? 'd-block' : 'd-none'}>
@@ -178,7 +235,7 @@ const ProductList = () => {
                     <div className="col-lg-5">
                         <div className="card-style mb-30">
                             <h4 className="mb-25">Add Product</h4>
-                            <Form ref={formRef} noValidate validated={validated} onSubmit={createProduct}>
+                            <Form ref={createFormRef} noValidate validated={validated} onSubmit={createProduct}>
                                 <Form.Group controlId="validationCustom01" className="input-style-1">
                                     <Form.Control
                                         name="product"
@@ -186,7 +243,6 @@ const ProductList = () => {
                                         type="text"
                                         placeholder="Enter product name"
                                         onChange={(e) => { setName(e.target.value) }}
-                                        defaultValue={name}
                                     />
                                     <Form.Control.Feedback type="invalid">
                                         *Product name is required
@@ -213,7 +269,7 @@ const ProductList = () => {
                                         required
                                         type="file"
                                         placeholder="Choose product image"
-                                        onChange={uploadImage}
+                                        onChange={handleUploadImage}
                                     />
                                     <Form.Control.Feedback type="invalid">
                                         *Product image is required
