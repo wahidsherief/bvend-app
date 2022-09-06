@@ -34,6 +34,7 @@ const ProductList = () => {
     const [removePanel, setRemovePanel] = useState(null)
     const [validated, setValidated] = useState(false);
     const [updateValidated, setUpdateValidated] = useState(false);
+    const [updatedValues, setUpdatedValues] = useState([])
 
     const showEditPanel = (id) => {
         if (removePanel !== null) {
@@ -43,6 +44,11 @@ const ProductList = () => {
             return setEditPanel(null)
         setEditPanel(id)
 
+    }
+
+    const cancelEditPanel = (id) => {
+        setEditPanel(null)
+        setUpdateValidated(false)
     }
 
     const showRemovePanel = (id) => {
@@ -78,7 +84,6 @@ const ProductList = () => {
     };
 
     const createProduct = (e) => {
-        console.log(e.target)
         if (createProductFormValidation(e)) {
             const id = products.length + 1
             const new_product = { id, name, category, image }
@@ -93,22 +98,35 @@ const ProductList = () => {
     const updateProductFormValidation = (e) => {
         e.preventDefault()
         const form = e.target;
-        if (form.checkValidity() === false) {
+        if (form.checkValidity() === false && updatedcategory === '') {
+            setUpdatedCategory(null)
             e.stopPropagation()
             setUpdateValidated(true)
             return false
+        } else {
+            const updated_product_name = updateFormRef.current.product.value
+            const updated_product_category = updateCategoryRef.current.props.defaultInputValue
+            const updated_product_image = updateFormRef.current.image.value
+
+            const updated_values = []
+
+            updated_product_name !== '' && (updated_values.updatedname = updated_product_name)
+            updated_product_category !== '' && (updated_values.updatedcategory = updated_product_category)
+            updated_product_image !== '' && (updated_values.updatedimage = updated_product_image)
+
+            setUpdatedValues(updated_values)
+
+            return true
         }
 
-        if (updatedname !== '' && updatedcategory !== '' && updatedimage === '') {
-            return false
-        }
 
-        return true
     }
 
     const updateProduct = (id, e) => {
-        if (updateProductFormValidation(e)) {
-            dispatch(update({ id, updatedname, updatedcategory, updatedimage }))
+        console.log(updatedValues)
+        if (updateProductFormValidation(e) && updatedValues.length > 0) {
+            dispatch(update(updatedValues))
+            setValidated(false);
             setEditPanel(null)
         }
     }
@@ -125,7 +143,6 @@ const ProductList = () => {
 
 
     const handleSetUpdatedCategory = selected => {
-        console.log(selected)
         const selected_category = selected.toString()
         setUpdatedCategory(selected_category)
     }
@@ -156,7 +173,6 @@ const ProductList = () => {
                                     <div key={product.id} className="accordion mb-2" id="accordionExample">
                                         <div className="accordion-item">
                                             <div className="accordion-header p-3" id="headingOne">
-
                                                 <img src={require(`../../../../public/bvend/products/${product.image}`)} className="image-in-list" alt={product.name} />
                                                 <span className="ms-3">{product.name}</span>
                                                 <span className="ms-3">{product.category}</span>
@@ -188,7 +204,7 @@ const ProductList = () => {
                                                         <Form.Group controlId="validationCustom02" className="input-style-1">
                                                             <Typeahead
                                                                 ref={updateCategoryRef}
-                                                                className={category === null ? 'is-invalid' : ''}
+                                                                className={updatedcategory === null && 'is-invalid'}
                                                                 id="basic-typeahead-single"
                                                                 inputProps={{ required: true, name: "category" }}
                                                                 onChange={handleSetUpdatedCategory}
@@ -202,7 +218,7 @@ const ProductList = () => {
                                                         </Form.Group>
                                                         <Form.Group controlId="formFileLg" className="input-style-1">
                                                             <Form.Control
-                                                                required={product.image === '' ? 'required' : ''}
+                                                                required={product.image === '' && 'required'}
                                                                 name="image"
                                                                 type="file"
                                                                 placeholder="Choose product image"
@@ -211,7 +227,7 @@ const ProductList = () => {
                                                         </Form.Group>
                                                         <div className="d-grid gap-2 d-md-flex justify-content-md-end">
                                                             <button type='submit' className="main-btn dark-btn btn-hover btn-sm">Update Product</button>
-                                                            <button onClick={() => setEditPanel(null)} type='button' className="main-btn light-btn btn-hover btn-sm">Cancel</button>
+                                                            <button onClick={() => cancelEditPanel(product.id)} type='button' className="main-btn light-btn btn-hover btn-sm">Cancel</button>
                                                         </div>
                                                     </Form>
 
@@ -251,7 +267,7 @@ const ProductList = () => {
                                 <Form.Group controlId="validationCustom02" className="input-style-1">
                                     <Typeahead
                                         ref={categoryRef}
-                                        className={category === null ? 'is-invalid' : ''}
+                                        className={category === null && 'is-invalid'}
                                         id="basic-typeahead-single"
                                         inputProps={{ required: true }}
                                         name="category"

@@ -12,12 +12,12 @@ export const product_list = createSlice({
             state.products.push(action.payload)
         },
         update: (state, action) => {
-            console.log(action.payload)
+            // console.log(action.payload)
             state.products.forEach((product) => {
                 if (product.id === action.payload.id) {
                     product.name = action.payload.updatedname
                     product.category = action.payload.updatedcategory
-                    product.image = action.payload.updatedimage
+                    // product.image = action.payload.updatedimage
                 }
             })
         },
