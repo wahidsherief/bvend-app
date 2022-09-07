@@ -26,21 +26,21 @@ const product_list_data = {
         {
             id: 1,
             name: 'Soundbar',
-            category: 'Electronix',
+            category: 'Electronics',
             image: 'soundbar.jpg',
             display: false
         },
         {
             id: 2,
             name: 'Diet Coke',
-            category: 'Cold Drinks',
+            category: 'Drinks',
             image: 'coca.png',
             display: false
         },
         {
             id: 3,
             name: 'Adidas',
-            category: 'Shoes',
+            category: 'Shoe',
             image: 'adidas2.jpg',
             display: false
         }
@@ -48,7 +48,13 @@ const product_list_data = {
 }
 
 const product_category_types_data = {
-    types: ['Shoe', 'Computer', 'Electronix', 'Book',]
+    types: [
+        { id: 1, name: 'Shoe' },
+        { id: 2, name: 'Computer' },
+        { id: 3, name: 'Electronics' },
+        { id: 4, name: 'Book' },
+        { id: 5, name: 'Drinks' }
+    ]
 }
 
 export { product_category_data, product_list_data, product_category_types_data }

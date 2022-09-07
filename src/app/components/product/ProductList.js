@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { product_category_types_data } from "../../../assets/data";
+import CategorySelect from "../custom/CategorySelect";
 
 
 const ProductList = () => {
@@ -201,17 +202,8 @@ const ProductList = () => {
                                                                 *Product name is required
                                                             </Form.Control.Feedback>
                                                         </Form.Group>
-                                                        <Form.Group controlId="validationCustom02" className="input-style-1">
-                                                            <Typeahead
-                                                                ref={updateCategoryRef}
-                                                                className={updatedcategory === null && 'is-invalid'}
-                                                                id="basic-typeahead-single"
-                                                                inputProps={{ required: true, name: "category" }}
-                                                                onChange={handleSetUpdatedCategory}
-                                                                options={category_options}
-                                                                placeholder="Choose a category..."
-                                                                defaultInputValue={product.category}
-                                                            />
+                                                        <Form.Group controlId="validationCustom02" className="select-style-2">
+                                                            <CategorySelect filterOption={product.category} />
                                                             <Form.Control.Feedback type="invalid">
                                                                 *Category is required
                                                             </Form.Control.Feedback>
@@ -264,17 +256,8 @@ const ProductList = () => {
                                         *Product name is required
                                     </Form.Control.Feedback>
                                 </Form.Group>
-                                <Form.Group controlId="validationCustom02" className="input-style-1">
-                                    <Typeahead
-                                        ref={categoryRef}
-                                        className={category === null && 'is-invalid'}
-                                        id="basic-typeahead-single"
-                                        inputProps={{ required: true }}
-                                        name="category"
-                                        onChange={handleSetCategory}
-                                        options={category_options}
-                                        placeholder="Choose a category..."
-                                    />
+                                <Form.Group controlId="validationCustom02" className="select-style-2">
+                                    <CategorySelect filterOption={null} />
                                     <Form.Control.Feedback type="invalid">
                                         *Category is required
                                     </Form.Control.Feedback>
