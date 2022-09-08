@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import PageTitle from "../common/PageTitle"
 import { useSelector, useDispatch } from "react-redux"
 import { create, update, remove } from "../../../features/product/product_list_slice"
@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { product_category_types_data } from "../../../assets/data";
 import CategorySelect from "../custom/CategorySelect";
+import { getFileName } from "../../../services";
 
 
 const ProductList = () => {
@@ -35,7 +36,7 @@ const ProductList = () => {
     const [removePanel, setRemovePanel] = useState(null)
     const [validated, setValidated] = useState(false);
     const [updateValidated, setUpdateValidated] = useState(false);
-    const [updatedValues, setUpdatedValues] = useState([])
+    const [updatedValues, setUpdatedValues] = useState({})
 
     const showEditPanel = (id) => {
         if (removePanel !== null) {
@@ -77,10 +78,8 @@ const ProductList = () => {
         return true
     }
 
-    const resetCreateProductForm = () => {
-        createFormRef.current.product.value = ""
-        createFormRef.current.image.value = ""
-        categoryRef.current.clear()
+    const resetForm = (e) => {
+        e.target.reset()
         setValidated(false);
     };
 
@@ -90,45 +89,53 @@ const ProductList = () => {
             const new_product = { id, name, category, image }
 
             if (dispatch(create(new_product))) {
-                setValidated(false);
-                resetCreateProductForm()
+                resetForm(e)
             }
         }
     }
 
-    const updateProductFormValidation = (e) => {
+    useEffect(() => {
+        console.log('Updated State', updatedValues)
+    }, [updatedValues])
+
+
+    const composeUpdateValues = (id, e) => {
+        console.log(e.target.product.value)
+        console.log(e.target.category.value)
+        console.log(e.target.prevImage.value)
+        console.log(getFileName(e.target.image.value))
+        const prevImage = e.target.prevImage.value
+        const newImage = e.target.image.value !== '' && getFileName(e.target.image.value)
+        setUpdatedValues({
+            id: id,
+            name: e.target.product.value,
+            category: e.target.category.value,
+            image: newImage !== '' ? newImage : prevImage
+        })
+    }
+
+    const updateProductFormValidation = (id, e) => {
         e.preventDefault()
-        const form = e.target;
-        if (form.checkValidity() === false && updatedcategory === '') {
-            setUpdatedCategory(null)
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
             e.stopPropagation()
-            setUpdateValidated(true)
+            setValidated(true)
             return false
-        } else {
-            const updated_product_name = updateFormRef.current.product.value
-            const updated_product_category = updateCategoryRef.current.props.defaultInputValue
-            const updated_product_image = updateFormRef.current.image.value
-
-            const updated_values = []
-
-            updated_product_name !== '' && (updated_values.updatedname = updated_product_name)
-            updated_product_category !== '' && (updated_values.updatedcategory = updated_product_category)
-            updated_product_image !== '' && (updated_values.updatedimage = updated_product_image)
-
-            setUpdatedValues(updated_values)
-
-            return true
         }
 
-
+        return true
     }
 
     const updateProduct = (id, e) => {
-        console.log(updatedValues)
-        if (updateProductFormValidation(e) && updatedValues.length > 0) {
-            dispatch(update(updatedValues))
+        if (updateProductFormValidation(id, e)) {
+
+            composeUpdateValues(id, e)
+
+
+            console.log('t', updatedValues)
+            // dispatch(update(updatedValues))
             setValidated(false);
-            setEditPanel(null)
+            // setEditPanel(null)
         }
     }
 
@@ -195,22 +202,26 @@ const ProductList = () => {
                                                                 name="product"
                                                                 type="text"
                                                                 placeholder="Enter product name"
-                                                                onChange={(e) => { setUpdatedName(e.target.value) }}
                                                                 defaultValue={product.name}
+                                                                onChange={(e) => { setUpdatedName(e.target.value) }}
                                                             />
                                                             <Form.Control.Feedback type="invalid">
                                                                 *Product name is required
                                                             </Form.Control.Feedback>
                                                         </Form.Group>
                                                         <Form.Group controlId="validationCustom02" className="select-style-2">
-                                                            <CategorySelect filterOption={product.category} />
+                                                            <CategorySelect filterOption={product.category} selectedCategory={handleSetUpdatedCategory} />
                                                             <Form.Control.Feedback type="invalid">
                                                                 *Category is required
                                                             </Form.Control.Feedback>
                                                         </Form.Group>
                                                         <Form.Group controlId="formFileLg" className="input-style-1">
                                                             <Form.Control
-                                                                required={product.image === '' && 'required'}
+                                                                name="prevImage"
+                                                                type="hidden"
+                                                                defaultValue={product.image}
+                                                            />
+                                                            <Form.Control
                                                                 name="image"
                                                                 type="file"
                                                                 placeholder="Choose product image"
@@ -257,7 +268,7 @@ const ProductList = () => {
                                     </Form.Control.Feedback>
                                 </Form.Group>
                                 <Form.Group controlId="validationCustom02" className="select-style-2">
-                                    <CategorySelect filterOption={null} />
+                                    <CategorySelect filterOption={null} selectedCategory={handleSetCategory} />
                                     <Form.Control.Feedback type="invalid">
                                         *Category is required
                                     </Form.Control.Feedback>
