@@ -6,24 +6,29 @@ const category_types = product_category_types_data.types
 
 const CategorySelect = (props) => {
 
-    const handleChange = e => {
-        props.selectedCategory(e.target.value)
-    }
+    const { formik, filterOption } = props
+    const categories = filterOption === null ? category_types : category_types.filter((category) => category.name !== filterOption)
+    const default_value = filterOption === null ? formik.values.category : filterOption
 
-    const categories = props.filterOption === null ? category_types : category_types.filter((category) => category.name !== props.filterOption)
     return (
-        <Form.Control defaultValue={props.filterOption} name='category' required as="select" custom className="select-lg" onChange={handleChange}>
+        <Form.Control
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={default_value}
+            name='category'
+            required as="select" custom
+            className={formik.errors.category ? 'is-invalid select-lg' : 'select-lg'}  >
             {
-                props.filterOption === null
-                    ? <option value='' selected={false} hidden>Choose product category</option>
-                    : <option value={props.filterOption}>{props.filterOption}</option>
+                filterOption === null
+                    ? <option value='' hidden>Choose product category</option>
+                    : <option value={filterOption}>{filterOption}</option>
             }
             {
                 categories.map((category) => (
                     <option key={category.id} value={category.name}>{category.name}</option>
                 ))
             }
-        </Form.Control>
+        </Form.Control >
     )
 }
 
