@@ -1,12 +1,9 @@
 import React, { useState } from "react"
 import PageTitle from "../common/PageTitle"
 import { useSelector, useDispatch } from "react-redux"
-import { create, update, remove } from "../../../features/product/product_list_slice"
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import CategorySelect from "../custom/CategorySelect";
-import { Formik, useFormik } from "formik";
-import * as yup from "yup";
+import { remove } from "../../../features/product/product_list_slice"
+import EditForm from "./EditForm";
+import CreateForm from "./CreateForm";
 
 
 const ProductList = () => {
@@ -15,7 +12,6 @@ const ProductList = () => {
     })
 
     const dispatch = useDispatch()
-
     const { products } = product_list_state
 
     const [editPanel, setEditPanel] = useState(null)
@@ -45,58 +41,12 @@ const ProductList = () => {
 
     }
 
-    const createProduct = (values) => {
-        const id = products.length + 1
-        // const new_product = { id, name, category, image }
-        // dispatch(create(new_product))
-    }
-
-    const updateProduct = (id, e) => {
-        // dispatch(update(updatedValues))
-        // setEditPanel(null)
-    }
 
     const removeProduct = (id) => {
         if (dispatch(remove(id)))
             setRemovePanel(null)
     }
 
-
-    const createForm = useFormik({
-        initialValues: {
-            name: '',
-            category: '',
-            image: ''
-        },
-        validationSchema: yup.object({
-            name: yup.string().min(2, "Product name should be at least 2 characters").required('Product name is required'),
-            category: yup.string().required('Product category is required'),
-            image: yup.string().required('Product image is required'),
-        }),
-        onSubmit: (values) => {
-            // createProduct(values)
-        }
-    })
-
-
-    const updateForm = useFormik({
-        initialValues: {
-            name: '',
-            category: '',
-            image: ''
-        },
-        validationSchema: yup.object({
-            name: yup.string().min(2, "Product name should be at least 2 characters").required('Product name is required'),
-            category: yup.string().required('Product category is required'),
-            image: yup.string().required('Product image is required'),
-        }),
-        onSubmit: (values) => {
-            // updateProduct(values)
-            console.log(values)
-        }
-    })
-
-    console.log(createForm.errors)
     return (
         <React.Fragment>
             <PageTitle title='Product List' />
@@ -125,50 +75,12 @@ const ProductList = () => {
                                                     </button>
                                                 </span>
                                             </div>
-                                            <div id='edit-panel' className={editPanel === product.id ? 'd-block' : 'd-none'}>
-                                                <div className="accordion-body bg-light">
-                                                    <Form noValidate onSubmit={updateForm.handleSubmit}>
-                                                        <Form.Group controlId="validationCustom01" className="input-style-1">
-                                                            <Form.Control
-                                                                className={updateForm.errors.name && "is-invalid"}
-                                                                name="name"
-                                                                required
-                                                                type="text"
-                                                                placeholder="Enter product name"
-                                                                onChange={updateForm.handleChange}
-                                                                onBlur={updateForm.handleBlur}
-                                                                value={product.name}
-                                                            />
-                                                            <Form.Control.Feedback type="invalid">
-                                                                {updateForm.errors.name && updateForm.errors.name}
-                                                            </Form.Control.Feedback>
-                                                        </Form.Group>
-                                                        <Form.Group controlId="validationCustom02" className="select-style-2">
-                                                            <CategorySelect
-                                                                formik={updateForm}
-                                                                filterOption={product.category} />
-                                                            <Form.Control.Feedback type="invalid">
-                                                                {updateForm.errors.category && updateForm.errors.category}
-                                                            </Form.Control.Feedback>
-                                                        </Form.Group>
-                                                        <Form.Group controlId="formFileLg" className="input-style-1">
-                                                            <Form.Control
-                                                                className={updateForm.errors.image && "is-invalid"}
-                                                                name="image"
-                                                                required
-                                                                type="file"
-                                                                placeholder="Choose product image"
-                                                                onChange={updateForm.handleChange}
-                                                                onBlur={updateForm.handleBlur}
-                                                            />
-                                                            <Form.Control.Feedback type="invalid">
-                                                                {updateForm.errors.name && updateForm.errors.name}
-                                                            </Form.Control.Feedback>
-                                                        </Form.Group>
-                                                        <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                                                            <Button type="submit" className="main-btn primary-btn btn-hover btn-sm">Update Product</Button>
-                                                        </div>
-                                                    </Form>
+                                            <div
+                                                id='edit-panel'
+                                                className={editPanel === product.id ? 'd-block' : 'd-none'}
+                                            >
+                                                <div className="p-4">
+                                                    <EditForm product={product} />
                                                 </div>
                                             </div>
                                             <div id='remove-panel' className={removePanel === product.id ? 'd-block' : 'd-none'}>
@@ -189,49 +101,7 @@ const ProductList = () => {
                     <div className="col-lg-5">
                         <div className="card-style mb-30">
                             <h4 className="mb-25">Add Product</h4>
-                            <Form noValidate onSubmit={createForm.handleSubmit}>
-                                <Form.Group controlId="validationCustom01" className="input-style-1">
-                                    <Form.Control
-                                        className={createForm.errors.name && "is-invalid"}
-                                        name="name"
-                                        required
-                                        type="text"
-                                        placeholder="Enter product name"
-                                        onChange={createForm.handleChange}
-                                        onBlur={createForm.handleBlur}
-                                        value={createForm.values.name}
-                                    />
-                                    <Form.Control.Feedback type="invalid">
-                                        {createForm.errors.name && createForm.errors.name}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-                                <Form.Group controlId="validationCustom02" className="select-style-2">
-                                    <CategorySelect
-                                        formik={createForm}
-                                        filterOption={null} />
-                                    <Form.Control.Feedback type="invalid">
-                                        {createForm.errors.category && createForm.errors.category}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-                                <Form.Group controlId="formFileLg" className="input-style-1">
-                                    <Form.Control
-                                        className={createForm.errors.image && "is-invalid"}
-                                        name="image"
-                                        required
-                                        type="file"
-                                        placeholder="Choose product image"
-                                        onChange={createForm.handleChange}
-                                        onBlur={createForm.handleBlur}
-                                        value={createForm.values.image}
-                                    />
-                                    <Form.Control.Feedback type="invalid">
-                                        {createForm.errors.name && createForm.errors.name}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-                                <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <Button type="submit" className="main-btn primary-btn btn-hover btn-sm">Save Product</Button>
-                                </div>
-                            </Form>
+                            <CreateForm />
                         </div>
                     </div>
                 </div>

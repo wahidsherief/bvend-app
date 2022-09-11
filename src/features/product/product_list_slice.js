@@ -15,9 +15,9 @@ export const product_list = createSlice({
             // console.log(action.payload)
             state.products.forEach((product) => {
                 if (product.id === action.payload.id) {
-                    product.name = action.payload.updatedname
-                    product.category = action.payload.updatedcategory
-                    // product.image = action.payload.updatedimage
+                    product.name = action.payload.name
+                    product.category = action.payload.category
+                    product.image = action.payload.image
                 }
             })
         },

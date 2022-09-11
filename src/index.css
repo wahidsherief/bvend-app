@@ -16,3 +16,7 @@ code {
 .select-lg {
   height: 60px;
 }
+
+.error-text {
+  color: red
+}

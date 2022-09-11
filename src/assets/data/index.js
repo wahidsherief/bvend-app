@@ -28,21 +28,18 @@ const product_list_data = {
             name: 'Soundbar',
             category: 'Electronics',
             image: 'soundbar.jpg',
-            display: false
         },
         {
             id: 2,
             name: 'Diet Coke',
             category: 'Drinks',
             image: 'coca.png',
-            display: false
         },
         {
             id: 3,
             name: 'Adidas',
             category: 'Shoe',
             image: 'adidas2.jpg',
-            display: false
         }
     ]
 }
