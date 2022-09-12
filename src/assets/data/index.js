@@ -4,19 +4,16 @@ const product_category_data = {
             id: 1,
             category: 'Chips',
             brand: 'Bombay Sweets',
-            display: false
         },
         {
             id: 2,
             category: 'Shoe',
             brand: 'Apex',
-            display: false
         },
         {
             id: 3,
             category: 'Laptop',
             brand: 'HP',
-            display: false
         }
     ]
 }
@@ -44,6 +41,29 @@ const product_list_data = {
     ]
 }
 
+const vendor_list_data = {
+    vendors: [
+        {
+            id: 1,
+            name: 'Salauddin',
+            // category: 'Electronics',
+            image: 'soundbar.jpg',
+        },
+        {
+            id: 2,
+            name: 'Nilima',
+            // category: 'Drinks',
+            image: 'coca.png',
+        },
+        {
+            id: 3,
+            name: 'Rasel',
+            // category: 'Shoe',
+            image: 'adidas2.jpg',
+        }
+    ]
+}
+
 const product_category_types_data = {
     types: [
         { id: 1, name: 'Shoe' },
@@ -54,4 +74,9 @@ const product_category_types_data = {
     ]
 }
 
-export { product_category_data, product_list_data, product_category_types_data }
+export {
+    product_category_data,
+    product_list_data,
+    product_category_types_data,
+    vendor_list_data
+}

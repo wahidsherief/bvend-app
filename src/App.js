@@ -12,7 +12,7 @@ function App() {
       <div className="overlay"></div>
       <main className="main-wrapper">
         <Header />
-        <section className="section m-4 mt-0">
+        <section className="section m-4 mt-2 m-auto col-lg-9">
           <RootRoute />
         </section>
       </main>

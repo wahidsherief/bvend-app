@@ -1,10 +1,17 @@
 import React from "react";
 import PageTitle from "../common/PageTitle";
 
+const action = {
+    hasAction: true,
+    actionTitle: 'Add Product',
+    actionLink: '/product/create'
+}
+
+
 const TopSection = () => {
     return (
         <React.Fragment>
-            <PageTitle title='Dashboard' />
+            <PageTitle title='Dashboard' action={action} />
             <div className="row">
                 <div className="col-xl-3 col-lg-4 col-sm-6">
                     <div className="icon-card mb-30">

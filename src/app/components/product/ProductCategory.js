@@ -2,10 +2,12 @@ import React, { useState } from "react"
 import PageTitle from "../common/PageTitle"
 import { useSelector, useDispatch } from "react-redux"
 import { create, update, remove } from "../../../features/product/product_category_slice"
-
-
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+
+const action = {
+    hasAction: false
+}
 
 const ProductCategory = () => {
 
@@ -78,7 +80,7 @@ const ProductCategory = () => {
 
     return (
         <React.Fragment>
-            <PageTitle title='Product Category' />
+            <PageTitle title='Product Category' action={action} />
             <div className="tables-wrapper">
                 <div className="row">
                     <div className="col-lg-7">
