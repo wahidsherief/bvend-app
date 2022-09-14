@@ -1,6 +1,6 @@
 const ErrorText = (props) => {
     return (
-        <div className="error-text">
+        <div className="invalid-feedback">
             {props.children}
         </div>
     )

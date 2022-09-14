@@ -1,17 +1,19 @@
 import { Formik, Form } from "formik";
 import Button from 'react-bootstrap/Button';
 import { useDispatch } from "react-redux"
-import { Input } from "app/components/utils/form_elements"
-import { update } from "features/ProductCategorySlice";
+import { Input, File } from "app/components/utils/form_elements"
+import { update } from "features/VendorSlice";
+import { getFileName } from "services";
 import { UpdateFormValidationRules } from "../validation";
 
 const Edit = (props) => {
 
     const dispatch = useDispatch()
 
-    const updateProductCategory = (values, onSubmitProps) => {
-        let { id, category, brand } = values
-        const updatedValues = { id, category, brand }
+    const updateProduct = (values, onSubmitProps) => {
+        let { id, name, email, image, newImage } = values
+        image = newImage !== undefined ? getFileName(newImage) : image
+        const updatedValues = { id, name, email, image }
         dispatch(update(updatedValues)) && onSubmitProps.resetForm()
     }
 
@@ -19,21 +21,29 @@ const Edit = (props) => {
     const initialValues = { ...props.item }
 
     const onSubmit = (values, onSubmitProps) => {
-        updateProductCategory(values, onSubmitProps)
+        updateProduct(values, onSubmitProps)
     }
 
-    const categoryProps = {
-        id: `product_category_${id}`,
-        name: 'category',
+    const nameProps = {
+        id: `product_${id}`,
+        name: 'name',
         type: 'text',
-        placeholder: 'Choose product category name..',
+        placeholder: 'Enter vendor name..',
     }
 
-    const brandProps = {
-        id: `product_category_${id}`,
-        name: 'brand',
+
+    const emailProps = {
+        id: `product_${id}`,
+        name: 'email',
         type: 'text',
-        placeholder: 'Choose product brand name..',
+        placeholder: 'Enter vendor email..',
+    }
+
+    const imageProps = {
+        id: `product_${id}`,
+        name: 'newImage',
+        placeholder: 'Enter vendor image..',
+        type: 'file'
     }
 
     return (
@@ -47,11 +57,15 @@ const Edit = (props) => {
             {({ errors, touched }) => (
                 <Form>
                     <div className="input-style-1">
-                        <Input inputProps={categoryProps} error={errors.category && touched.category ? true : false} />
+                        <Input inputProps={nameProps} error={errors.name && touched.name ? true : false} />
                     </div>
 
                     <div className="input-style-1">
-                        <Input inputProps={brandProps} error={errors.brand && touched.brand ? true : false} />
+                        <Input inputProps={emailProps} error={errors.email && touched.email ? true : false} />
+                    </div>
+
+                    <div className="input-style-1">
+                        <File fileProps={imageProps} error={errors.image && touched.image ? true : false} />
                     </div>
 
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">

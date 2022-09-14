@@ -56,26 +56,28 @@ const Edit = (props) => {
             className="accordion-body bg-light"
             enableReinitialize={true}
         >
-            <Form>
-                <div className="input-style-1">
-                    <Input inputProps={nameProps} />
-                </div>
-
-                <div className="select-style-2">
-                    <div className="select-position">
-                        <Select selectProps={categoryProps} />
+            {({ errors, touched }) => (
+                <Form>
+                    <div className="input-style-1">
+                        <Input inputProps={nameProps} error={errors.name && touched.name ? true : false} />
                     </div>
-                </div>
 
-                <div className="input-style-1">
-                    <File fileProps={imageProps} />
-                </div>
+                    <div className="select-style-2">
+                        <div className="select-position">
+                            <Select selectProps={categoryProps} error={errors.category && touched.category ? true : false} />
+                        </div>
+                    </div>
 
-                <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <Button type="submit" className="primary-btn btn-hover btn-sm">Update Product</Button>
-                    <Button type="button" onClick={() => props.hideEditPanel(null)} className="btn-dark btn-hover btn-sm">Cancel</Button>
-                </div>
-            </Form>
+                    <div className="input-style-1">
+                        <File fileProps={imageProps} error={errors.image && touched.image ? true : false} />
+                    </div>
+
+                    <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <Button type="submit" className="primary-btn btn-hover btn-sm">Update</Button>
+                        <Button type="button" onClick={() => props.hideEditPanel(null)} className="btn-dark btn-hover btn-sm">Cancel</Button>
+                    </div>
+                </Form>
+            )}
         </Formik >
     )
 }

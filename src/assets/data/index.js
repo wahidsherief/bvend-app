@@ -51,27 +51,46 @@ const productCategoryTypesData = {
     ]
 }
 
-
 const vendorListData = {
     vendors: [
         {
             id: 1,
             name: 'Salauddin',
-            // category: 'Electronics',
-            image: 'soundbar.jpg',
+            email: 'dummy_1@bvend.com',
+            image: 'profile_1.jpg',
         },
         {
             id: 2,
             name: 'Nilima',
-            // category: 'Drinks',
-            image: 'coca.png',
+            email: 'dummy_2@bvend.com',
+            image: 'profile_2.jpg',
         },
         {
             id: 3,
-            name: 'Rasel',
-            // category: 'Shoe',
-            image: 'adidas2.jpg',
+            name: 'Prithika',
+            email: 'dummy_3@bvend.com',
+            image: 'profile_3.jpg',
         }
+    ]
+}
+
+const vendorRequestListData = {
+    vendor_requests: [
+        {
+            id: 1,
+            title: 'Registration Request 1',
+            description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.'
+        },
+        {
+            id: 2,
+            title: 'Registration Request 2',
+            description: 'Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search will uncover many web sites still in their infancy'
+        },
+        {
+            id: 3,
+            title: 'Registration Request 3',
+            description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.'
+        },
     ]
 }
 
@@ -80,5 +99,6 @@ export {
     productListData,
     productCategoryData,
     productCategoryTypesData,
-    vendorListData
+    vendorListData,
+    vendorRequestListData
 }

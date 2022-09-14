@@ -8,7 +8,7 @@ const Input = (props) => {
 
     return (
         <>
-            <Field name={name} {...rest} />
+            <Field name={name} {...rest} className={props.error === true ? 'form-control shadow-none is-invalid' : null} />
             <ErrorMessage name={name} component={ErrorText} />
         </>
     )

@@ -7,21 +7,22 @@ import Remove from "./actions/Remove";
 
 const action = {
     hasAction: true,
-    actionTitle: 'Add Product Category',
-    actionLink: '/product/category/create'
+    actionTitle: 'Add Vendor',
+    actionLink: '/vendor/create'
 }
 
-const ProductCategoryList = () => {
 
-    const productCategoryListState = useSelector((state) => {
-        return state['productCategory']
+const VendorList = () => {
+
+    const vendorListState = useSelector((state) => {
+        return state['vendor']
     })
 
-    const { categories } = productCategoryListState
+    const { vendors } = vendorListState
 
     const item = {
-        itemName: 'categories',
-        items: categories,
+        itemName: 'vendors',
+        items: vendors,
         hasEdit: true,
         edit: Edit,
         hasRemove: true,
@@ -30,10 +31,10 @@ const ProductCategoryList = () => {
 
     return (
         <React.Fragment>
-            <PageTitle title='Product Category List' action={action} />
+            <PageTitle title='Vendor List' action={action} />
             <ListContainer item={item} />
         </React.Fragment >
     )
 }
 
-export default ProductCategoryList
+export default VendorList

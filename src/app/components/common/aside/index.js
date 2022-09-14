@@ -79,9 +79,6 @@ const Aside = () => {
                                 <li>
                                     <Link to={'/vendor/requests'}>Vendor Requests</Link>
                                 </li>
-                                <li>
-                                    <Link to={'/vendor/create'}>Vendor Create</Link>
-                                </li>
                             </ul>
                         </li>
                     </ul>

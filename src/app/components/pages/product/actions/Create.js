@@ -47,7 +47,7 @@ const Create = () => {
 
 
     const imageProps = {
-        name: 'newImage',
+        name: 'image',
         placeholder: 'Choose product image..',
         type: 'file'
     }
@@ -59,25 +59,27 @@ const Create = () => {
             onSubmit={onSubmit}
             enableReinitialize={true}
         >
-            <Form>
-                <div className="input-style-1">
-                    <Input inputProps={nameProps} />
-                </div>
-
-                <div className="select-style-2">
-                    <div className="select-position">
-                        <Select selectProps={categoryProps} />
+            {({ errors, touched }) => (
+                <Form>
+                    <div className="input-style-1">
+                        <Input inputProps={nameProps} error={errors.name && touched.name ? true : false} />
                     </div>
-                </div>
 
-                <div className="input-style-1">
-                    <File fileProps={imageProps} />
-                </div>
+                    <div className="select-style-2">
+                        <div className="select-position">
+                            <Select selectProps={categoryProps} error={errors.category && touched.category ? true : false} />
+                        </div>
+                    </div>
 
-                <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <Button type="submit" className="main-btn primary-btn btn-hover btn-sm">Create Product</Button>
-                </div>
-            </Form>
+                    <div className="input-style-1">
+                        <File fileProps={imageProps} error={errors.image && touched.image ? true : false} />
+                    </div>
+
+                    <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <Button type="submit" className="main-btn primary-btn btn-hover btn-sm">Create</Button>
+                    </div>
+                </Form>
+            )}
         </Formik >
     )
 }

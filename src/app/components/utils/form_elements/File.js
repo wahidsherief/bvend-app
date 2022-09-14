@@ -6,7 +6,7 @@ const File = (props) => {
 
     return (
         <>
-            <Field name={name} type='file' {...rest} />
+            <Field name={name} type='file' {...rest} className={props.error === true ? 'form-control shadow-none is-invalid' : null} />
             <ErrorMessage name={name} component={ErrorText} />
         </>
     )

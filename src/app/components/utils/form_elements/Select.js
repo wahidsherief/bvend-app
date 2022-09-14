@@ -11,7 +11,7 @@ const Select = (props) => {
                 name={name}
                 as="select"
                 {...rest}
-            // className={formik.errors.category ? 'is-invalid select-lg' : 'select-lg'}
+                className={props.error === true ? 'form-control shadow-none is-invalid' : null}
             >
                 {
                     filterBy === null

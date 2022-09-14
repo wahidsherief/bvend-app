@@ -22,16 +22,17 @@ const ProductList = () => {
 
     const item = {
         itemName: 'products',
-        items: products
+        items: products,
+        hasEdit: true,
+        edit: Edit,
+        hasRemove: true,
+        remove: Remove
     }
 
     return (
         <React.Fragment>
             <PageTitle title='Product List' action={action} />
-            <ListContainer item={item}>
-                <Edit />
-                <Remove />
-            </ListContainer>
+            <ListContainer item={item} />
         </React.Fragment >
     )
 }

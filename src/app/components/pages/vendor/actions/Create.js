@@ -1,46 +1,52 @@
 import { Formik, Form } from "formik";
 import Button from 'react-bootstrap/Button';
-import { Input } from "app/components/utils/form_elements"
+import { Input, File } from "app/components/utils/form_elements"
 import { useSelector, useDispatch } from "react-redux"
-import { create } from "features/ProductCategorySlice"
+import { create } from "features/VendorSlice"
 import { getFileName } from "services";
 import { CreateFormValidationRules } from "../validation";
 
 
 const Create = () => {
 
-    const productCategorySlice = useSelector((state) => {
-        return state['productCategory']
+    const vendorListSlice = useSelector((state) => {
+        return state['vendor']
     })
 
     const dispatch = useDispatch()
 
-    const { categories } = productCategorySlice
+    const { vendors } = vendorListSlice
 
-    const createProductCategory = (values, onSubmitProps) => {
-        let { category, brand, image } = values
+    const createVendor = (values, onSubmitProps) => {
+        let { name, email, image } = values
         image = getFileName(image)
-        const id = categories.length + 1
-        const newValues = { id, category, brand, image }
+        const id = vendors.length + 1
+        const newValues = { id, name, email, image }
         dispatch(create(newValues)) && onSubmitProps.resetForm()
     }
 
-    const initialValues = { category: '', brand: '', image: '' }
+    const initialValues = { name: '', email: '', image: '' }
 
     const onSubmit = (values, onSubmitProps) => {
-        createProductCategory(values, onSubmitProps)
+        createVendor(values, onSubmitProps)
     }
 
-    const categoryProps = {
-        name: 'category',
+    const nameProps = {
+        name: 'name',
         type: 'text',
-        placeholder: 'Enter product category name..',
+        placeholder: 'Enter vendor name..',
     }
 
-    const brandProps = {
-        name: 'brand',
+    const emailProps = {
+        name: 'email',
         type: 'text',
-        placeholder: 'Enter product brand name..',
+        placeholder: 'Enter vendor email..',
+    }
+
+    const imageProps = {
+        name: 'image',
+        placeholder: 'Enter vendor image..',
+        type: 'file'
     }
 
     return (
@@ -53,11 +59,15 @@ const Create = () => {
             {({ errors, touched }) => (
                 <Form>
                     <div className="input-style-1">
-                        <Input inputProps={categoryProps} error={errors.category && touched.category ? true : false} />
+                        <Input inputProps={nameProps} error={errors.name && touched.name ? true : false} />
                     </div>
 
                     <div className="input-style-1">
-                        <Input inputProps={brandProps} error={errors.brand && touched.brand ? true : false} />
+                        <Input inputProps={emailProps} error={errors.email && touched.email ? true : false} />
+                    </div>
+
+                    <div className="input-style-1">
+                        <File fileProps={imageProps} error={errors.image && touched.image ? true : false} />
                     </div>
 
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">

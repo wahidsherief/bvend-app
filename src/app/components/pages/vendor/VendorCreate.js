@@ -6,11 +6,11 @@ const action = {
     hasAction: false
 }
 
-const ProductCreate = () => {
+const VendorCreate = () => {
 
     return (
         <React.Fragment>
-            <PageTitle title='Product Create' action={action} />
+            <PageTitle title='Create Vendor' action={action} />
             <div className="tables-wrapper">
                 <div className="row">
                     <div className="col-lg-12">
@@ -24,4 +24,4 @@ const ProductCreate = () => {
     )
 }
 
-export default ProductCreate
+export default VendorCreate

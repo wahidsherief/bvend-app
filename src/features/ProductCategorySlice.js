@@ -11,8 +11,8 @@ export const productCategory = createSlice({
         update: (state, action) => {
             state.categories.forEach((category) => {
                 if (category.id === action.payload.id) {
-                    category.category = action.payload.updatedcategory
-                    category.brand = action.payload.updatedbrand
+                    category.category = action.payload.category
+                    category.brand = action.payload.brand
                 }
             })
         },

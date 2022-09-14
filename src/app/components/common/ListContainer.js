@@ -2,13 +2,15 @@ import React, { useState } from "react"
 
 const ListContainer = (props) => {
 
-    const Edit = props.children[0].type
-    const Remove = props.children[1].type
+    const Edit = props.item.hasEdit ? props.item.edit : null
+    const Remove = props.item.hasRemove ? props.item.remove : null
+    const Detail = props.item.hasDetail ? props.item.detail : null
 
     const { itemName, items } = props.item
 
     const [editPanel, setEditPanel] = useState(null)
     const [removePanel, setRemovePanel] = useState(null)
+    const [detailPanel, setDetailPanel] = useState(null)
 
     const showEditPanel = (id) => {
         if (removePanel !== null) {
@@ -32,6 +34,13 @@ const ListContainer = (props) => {
         setRemovePanel(id)
     }
 
+    const toggleDetailPanel = (id) => {
+        if (detailPanel === id)
+            return setDetailPanel(null)
+        setDetailPanel(id)
+    }
+
+
 
     return (
         <React.Fragment>
@@ -52,25 +61,47 @@ const ListContainer = (props) => {
                                                     {item.image !== undefined &&
                                                         <img src={require(`../../../../public/bvend/${itemName}/${item.image}`)} className="image-in-list me-3" alt={item.name} />
                                                     }
-
-                                                    <span>{item.name}</span>
-                                                    <span className="ms-3">{item.category}</span>
+                                                    {item.title !== undefined && <span className="me-3 text-bold">{item.title}</span>}
+                                                    {item.name !== undefined && <span className="me-3 text-bold">{item.name}</span>}
+                                                    {item.category !== undefined && <span className="me-3 text-bold">{item.category}</span>}
+                                                    {item.brand !== undefined && <span className="me-3">{item.brand}</span>}
                                                 </div>
                                                 <div className="col-lg-5 d-flex justify-content-end align-items-center">
-                                                    <button onClick={() => showEditPanel(item.id)} className='text-decoration-none p-0 text-primary btn-link btn'>
-                                                        Edit <i className="lni lni-pencil-alt"></i>
-                                                    </button>
-                                                    <button onClick={() => showRemovePanel(item.id)} className='text-decoration-none p-0 ms-4 text-danger btn-link btn'>
-                                                        Delete  <i className="lni lni-trash-can"></i>
-                                                    </button>
+                                                    {Edit !== null &&
+                                                        <button onClick={() => showEditPanel(item.id)} className='text-decoration-none p-0 text-primary btn-link btn'>
+                                                            Edit <i className="lni lni-pencil-alt"></i>
+                                                        </button>
+                                                    }
+                                                    {Remove !== null &&
+                                                        <button onClick={() => showRemovePanel(item.id)} className='text-decoration-none p-0 ms-4 text-danger btn-link btn'>
+                                                            Delete  <i className="lni lni-trash-can"></i>
+                                                        </button>
+                                                    }
+                                                    {Detail !== null &&
+                                                        <button onClick={() => toggleDetailPanel(item.id)} className='text-decoration-none p-0 ms-4 text-danger btn-link btn'>
+                                                            <i className="lni lni-menu"></i>
+                                                        </button>
+                                                    }
                                                 </div>
                                             </div>
-                                            <div className={editPanel === item.id ? 'd-block p-4' : 'd-none'}>
-                                                <Edit item={item} hideEditPanel={hideEditPanel} />
-                                            </div>
-                                            <div id='remove-panel' className={removePanel === item.id ? 'd-block' : 'd-none'}>
-                                                <Remove item={item} setRemovePanel={setRemovePanel} />
-                                            </div>
+                                            {Edit !== null &&
+                                                <div className={editPanel === item.id ? 'd-block p-4' : 'd-none'}>
+                                                    <Edit item={item} hideEditPanel={hideEditPanel} />
+                                                </div>
+                                            }
+
+                                            {Remove !== null &&
+                                                <div id='remove-panel' className={removePanel === item.id ? 'd-block' : 'd-none'}>
+                                                    <Remove item={item} setRemovePanel={setRemovePanel} />
+                                                </div>
+                                            }
+
+                                            {Detail !== null &&
+                                                <div id='detail-panel' className={detailPanel === item.id ? 'd-block' : 'd-none'}>
+                                                    <Detail item={item} />
+                                                </div>
+                                            }
+
                                         </div>
                                     </div>
                                 ))
