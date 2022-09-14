@@ -1,4 +1,4 @@
-const product_category_data = {
+const productCategoryData = {
     categories: [
         {
             id: 1,
@@ -18,7 +18,7 @@ const product_category_data = {
     ]
 }
 
-const product_list_data = {
+const productListData = {
     products: [
         {
             id: 1,
@@ -41,7 +41,18 @@ const product_list_data = {
     ]
 }
 
-const vendor_list_data = {
+const productCategoryTypesData = {
+    types: [
+        { id: 1, name: 'Shoe' },
+        { id: 2, name: 'Computer' },
+        { id: 3, name: 'Electronics' },
+        { id: 4, name: 'Book' },
+        { id: 5, name: 'Drinks' }
+    ]
+}
+
+
+const vendorListData = {
     vendors: [
         {
             id: 1,
@@ -64,19 +75,10 @@ const vendor_list_data = {
     ]
 }
 
-const product_category_types_data = {
-    types: [
-        { id: 1, name: 'Shoe' },
-        { id: 2, name: 'Computer' },
-        { id: 3, name: 'Electronics' },
-        { id: 4, name: 'Book' },
-        { id: 5, name: 'Drinks' }
-    ]
-}
 
 export {
-    product_category_data,
-    product_list_data,
-    product_category_types_data,
-    vendor_list_data
+    productListData,
+    productCategoryData,
+    productCategoryTypesData,
+    vendorListData
 }

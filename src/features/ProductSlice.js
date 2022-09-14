@@ -1,12 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { product_list_data } from "../../assets/data";
+import { productListData } from "assets/data";
 
 
-const initialState = product_list_data
-
-export const product_list = createSlice({
-    name: 'product_list',
-    initialState: initialState,
+export const product = createSlice({
+    name: 'product',
+    initialState: productListData,
     reducers: {
         create: (state, action) => {
             state.products.push(action.payload)
@@ -27,5 +25,5 @@ export const product_list = createSlice({
     }
 })
 
-export const { create, update, remove } = product_list.actions
-export default product_list.reducer;
+export const { create, update, remove } = product.actions
+export default product.reducer;

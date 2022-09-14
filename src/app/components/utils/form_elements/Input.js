@@ -1,5 +1,5 @@
 import { Field, ErrorMessage } from "formik";
-import ErrorText from "./ErrorText";
+import ErrorText from "app/components/common/ErrorText";
 
 
 const Input = (props) => {

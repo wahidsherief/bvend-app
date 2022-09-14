@@ -1,8 +1,9 @@
 import React from "react"
-import ListContainer from "../common/ListContainer";
-import PageTitle from "../common/PageTitle"
-import EditForm from "./EditForm";
+import ListContainer from "app/components/common/ListContainer";
+import PageTitle from "app/components/common/PageTitle"
 import { useSelector } from "react-redux"
+import Edit from "./actions/Edit";
+import Remove from "./actions/Remove";
 
 const action = {
     hasAction: true,
@@ -14,7 +15,7 @@ const action = {
 const ProductList = () => {
 
     const productListState = useSelector((state) => {
-        return state['product_list']
+        return state['product']
     })
 
     const { products } = productListState
@@ -24,12 +25,13 @@ const ProductList = () => {
         items: products
     }
 
-    const editComponent = EditForm
-
     return (
         <React.Fragment>
             <PageTitle title='Product List' action={action} />
-            <ListContainer item={item} component={editComponent} />
+            <ListContainer item={item}>
+                <Edit />
+                <Remove />
+            </ListContainer>
         </React.Fragment >
     )
 }

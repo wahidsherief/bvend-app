@@ -1,24 +1,22 @@
 import { Formik, Form } from "formik";
 import Button from 'react-bootstrap/Button';
-import { product_category_types_data } from "../../../assets/data";
-import Input from "../form_elements/Input";
-import Select from "../form_elements/Select";
-import File from "../form_elements/File";
+import { Input, Select, File } from "app/components/utils/form_elements"
 import { useSelector, useDispatch } from "react-redux"
-import { create } from "../../../features/product/product_list_slice"
-import { getFileName } from "../../../services";
-import ProductCreateFormValidationRules from "../validation/ProductCreateFormValidationRules";
+import { create } from "features/ProductSlice"
+import { getFileName } from "services";
+import { CreateFormValidationRules } from "../validation";
+import { productCategoryTypesData } from "assets/data";
 
 
-const CreateForm = () => {
+const Create = () => {
 
-    const product_list_state = useSelector((state) => {
-        return state['product_list']
+    const productListSlice = useSelector((state) => {
+        return state['product']
     })
 
     const dispatch = useDispatch()
 
-    const { products } = product_list_state
+    const { products } = productListSlice
 
     const createProduct = (values, onSubmitProps) => {
         let { name, category, image } = values
@@ -34,22 +32,22 @@ const CreateForm = () => {
         createProduct(values, onSubmitProps)
     }
 
-    const inputProps = {
+    const nameProps = {
         name: 'name',
         type: 'text',
-        placeholder: 'Enter product name..',
+        placeholder: 'Choose product name..',
     }
 
-
-    const selectProps = {
+    const categoryProps = {
         name: 'category',
         placeholder: 'Choose product category..',
         filterBy: null,
-        optionFields: product_category_types_data.types,
+        optionFields: productCategoryTypesData.types,
     }
 
-    const fileProps = {
-        name: 'image',
+
+    const imageProps = {
+        name: 'newImage',
         placeholder: 'Choose product image..',
         type: 'file'
     }
@@ -57,23 +55,23 @@ const CreateForm = () => {
     return (
         <Formik
             initialValues={initialValues}
-            validationSchema={ProductCreateFormValidationRules}
+            validationSchema={CreateFormValidationRules}
             onSubmit={onSubmit}
             enableReinitialize={true}
         >
             <Form>
                 <div className="input-style-1">
-                    <Input inputProps={inputProps} />
+                    <Input inputProps={nameProps} />
                 </div>
 
                 <div className="select-style-2">
                     <div className="select-position">
-                        <Select selectProps={selectProps} />
+                        <Select selectProps={categoryProps} />
                     </div>
                 </div>
 
                 <div className="input-style-1">
-                    <File fileProps={fileProps} />
+                    <File fileProps={imageProps} />
                 </div>
 
                 <div className="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -84,4 +82,4 @@ const CreateForm = () => {
     )
 }
 
-export default CreateForm
+export default Create

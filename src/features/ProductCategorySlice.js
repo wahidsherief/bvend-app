@@ -1,17 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { product_category_data } from "../../assets/data";
+import { productCategoryData } from "assets/data";
 
-const initialState = product_category_data
-
-export const product_category = createSlice({
-    name: 'product_category',
-    initialState: initialState,
+export const productCategory = createSlice({
+    name: 'productCategory',
+    initialState: productCategoryData,
     reducers: {
         create: (state, action) => {
             state.categories.push(action.payload)
         },
         update: (state, action) => {
-            console.log(action.payload)
             state.categories.forEach((category) => {
                 if (category.id === action.payload.id) {
                     category.category = action.payload.updatedcategory
@@ -25,5 +22,5 @@ export const product_category = createSlice({
     }
 })
 
-export const { create, update, remove } = product_category.actions
-export default product_category.reducer;
+export const { create, update, remove } = productCategory.actions
+export default productCategory.reducer;

@@ -1,18 +1,11 @@
 import React, { useState } from "react"
-import { useDispatch } from "react-redux"
-// import { remove } from "../../../features/item/item_list_slice"
-
-
 
 const ListContainer = (props) => {
 
-
+    const Edit = props.children[0].type
+    const Remove = props.children[1].type
 
     const { itemName, items } = props.item
-
-    console.log('xy', props)
-
-    // const dispatch = useDispatch()
 
     const [editPanel, setEditPanel] = useState(null)
     const [removePanel, setRemovePanel] = useState(null)
@@ -24,10 +17,9 @@ const ListContainer = (props) => {
         if (editPanel === id)
             return setEditPanel(null)
         setEditPanel(id)
-
     }
 
-    const hideEditPanel = (id) => {
+    const hideEditPanel = () => {
         setEditPanel(null)
     }
 
@@ -38,14 +30,7 @@ const ListContainer = (props) => {
         if (removePanel === id)
             return setRemovePanel(null)
         setRemovePanel(id)
-
     }
-
-
-    // const removeitem = (id) => {
-    //     if (dispatch(remove(id)))
-    //         setRemovePanel(null)
-    // }
 
 
     return (
@@ -61,40 +46,31 @@ const ListContainer = (props) => {
                                 items.length > 0 &&
                                 items.map((item) => (
                                     <div key={item.id} className="accordion mb-2" id="accordionExample">
-                                        <div className="accordion-item">
-                                            <div className="accordion-header p-3" id="headingOne">
-                                                <img src={require(`../../../../public/bvend/${itemName}/${item.image}`)} className="image-in-list" alt={item.name} />
-                                                <span className="ms-3">{item.name}</span>
-                                                <span className="ms-3">{item.category}</span>
-                                                <span className="float-end">
+                                        <div className="accordion-item container">
+                                            <div className="accordion-header row p-3" id="headingOne">
+                                                <div className="col-lg-7 d-flex justify-content-start align-items-center">
+                                                    {item.image !== undefined &&
+                                                        <img src={require(`../../../../public/bvend/${itemName}/${item.image}`)} className="image-in-list me-3" alt={item.name} />
+                                                    }
 
-                                                    <button onClick={() => showEditPanel(item.id)} className='text-decoration-none p-0 mt-2 text-primary btn-link btn'>
+                                                    <span>{item.name}</span>
+                                                    <span className="ms-3">{item.category}</span>
+                                                </div>
+                                                <div className="col-lg-5 d-flex justify-content-end align-items-center">
+                                                    <button onClick={() => showEditPanel(item.id)} className='text-decoration-none p-0 text-primary btn-link btn'>
                                                         Edit <i className="lni lni-pencil-alt"></i>
                                                     </button>
-                                                    <button onClick={() => showRemovePanel(item.id)} className='text-decoration-none p-0 ms-4 mt-2 text-danger btn-link btn'>
+                                                    <button onClick={() => showRemovePanel(item.id)} className='text-decoration-none p-0 ms-4 text-danger btn-link btn'>
                                                         Delete  <i className="lni lni-trash-can"></i>
                                                     </button>
-                                                </span>
-                                            </div>
-                                            <div
-                                                id='edit-panel'
-                                                className={editPanel === item.id ? 'd-block' : 'd-none'}
-                                            >
-                                                <div className="p-4">
-                                                    {/* <EditForm item={item} /> */}
-                                                    {/* {props.editForm} */}
-                                                    {props.component}
                                                 </div>
                                             </div>
-                                            {/* <div id='remove-panel' className={removePanel === item.id ? 'd-block' : 'd-none'}>
-                                                <div className="accordion-body bg-light">
-                                                    <h3>Are you sure to delete?</h3>
-                                                    <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                                                        <button onClick={() => removeitem(item.id)} className="main-btn danger-btn btn-hover btn-sm">Move to trash</button>
-                                                        <button onClick={() => setRemovePanel(null)} className="main-btn dark-btn btn-hover btn-sm">Cancel</button>
-                                                    </div>
-                                                </div>
-                                            </div> */}
+                                            <div className={editPanel === item.id ? 'd-block p-4' : 'd-none'}>
+                                                <Edit item={item} hideEditPanel={hideEditPanel} />
+                                            </div>
+                                            <div id='remove-panel' className={removePanel === item.id ? 'd-block' : 'd-none'}>
+                                                <Remove item={item} setRemovePanel={setRemovePanel} />
+                                            </div>
                                         </div>
                                     </div>
                                 ))

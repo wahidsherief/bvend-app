@@ -1,22 +1,22 @@
 import React from "react"
-import PageTitle from "../common/PageTitle"
-import CreateForm from "./CreateForm";
+import PageTitle from "../../common/PageTitle"
+import Create from "./actions/Create"
 
 const action = {
     hasAction: false
 }
 
-const VendorCreate = () => {
+const ProductCategoryCreate = () => {
 
     return (
         <React.Fragment>
-            <PageTitle title='Vendor Create' action={action} />
+            <PageTitle title='Product Category Create' action={action} />
             <div className="tables-wrapper">
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="card-style mb-30">
-                            <h4 className="mb-25">Add Vendor</h4>
-                            <CreateForm />
+                            <h4 className="mb-25">Add Product Category</h4>
+                            <Create />
                         </div>
                     </div>
                 </div>
@@ -25,4 +25,4 @@ const VendorCreate = () => {
     )
 }
 
-export default VendorCreate
+export default ProductCategoryCreate

@@ -1,7 +1,7 @@
 import React from "react";
 import './App.css';
-import Header from "./app/components/header";
-import Aside from "./app/components/aside";
+import Header from "./app/components/common/header";
+import Aside from "./app/components/common/aside";
 
 import RootRoute from "./app/route";
 

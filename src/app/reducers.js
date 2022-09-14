@@ -1,9 +1,9 @@
-import product_list from "../features/product/product_list_slice";
-import product_category from "../features/product/product_category_slice";
+import product from "features/ProductSlice";
+import productCategory from "features/ProductCategorySlice";
 
 const rootReducer = {
-    product_list,
-    product_category
+    product,
+    productCategory,
 }
 
 export default rootReducer;

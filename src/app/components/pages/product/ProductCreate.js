@@ -1,6 +1,6 @@
 import React from "react"
-import PageTitle from "../common/PageTitle"
-import CreateForm from "./CreateForm";
+import PageTitle from "../../common/PageTitle"
+import Create from "./actions/Create"
 
 const action = {
     hasAction: false
@@ -16,7 +16,7 @@ const ProductCreate = () => {
                     <div className="col-lg-12">
                         <div className="card-style mb-30">
                             <h4 className="mb-25">Add Product</h4>
-                            <CreateForm />
+                            <Create />
                         </div>
                     </div>
                 </div>
