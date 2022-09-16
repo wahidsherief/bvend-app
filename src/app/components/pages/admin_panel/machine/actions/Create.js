@@ -1,51 +1,58 @@
 import { Formik, Form } from "formik";
 import Button from 'react-bootstrap/Button';
-import { Input, File } from "app/components/utils/form_elements"
+import { Input, Select, File, TextArea } from "app/components/utils/form_elements"
 import { useSelector, useDispatch } from "react-redux"
-import { create } from "features/VendorSlice"
+import { create } from "features/MachineSlice"
 import { getFileName } from "services";
 import { CreateFormValidationRules } from "../validation";
+import { machineCategoryTypesData } from "assets/data";
 
 
 const Create = () => {
 
-    const vendorListSlice = useSelector((state) => {
-        return state['vendor']
+    const machineListSlice = useSelector((state) => {
+        return state['machine']
     })
 
     const dispatch = useDispatch()
 
-    const { vendors } = vendorListSlice
+    const { machines } = machineListSlice
 
-    const createVendor = (values, onSubmitProps) => {
-        let { name, email, image } = values
+    const createMachine = (values, onSubmitProps) => {
+        let { name, category, description, image } = values
         image = getFileName(image)
-        const id = vendors.length + 1
-        const newValues = { id, name, email, image }
+        const id = machines.length + 1
+        const newValues = { id, name, category, description, image }
         dispatch(create(newValues)) && onSubmitProps.resetForm()
     }
 
-    const initialValues = { name: '', email: '', image: '' }
+    const initialValues = { name: '', category: '', description: '', image: '' }
 
     const onSubmit = (values, onSubmitProps) => {
-        createVendor(values, onSubmitProps)
+        createMachine(values, onSubmitProps)
     }
 
     const nameProps = {
         name: 'name',
         type: 'text',
-        placeholder: 'Enter vendor name..',
+        placeholder: 'Enter machine name..',
     }
 
-    const emailProps = {
-        name: 'email',
-        type: 'text',
-        placeholder: 'Enter vendor email..',
+    const categoryProps = {
+        name: 'category',
+        placeholder: 'Enter machine category..',
+        filterBy: null,
+        optionFields: machineCategoryTypesData.types,
+    }
+
+    const descriptionProps = {
+        name: 'description',
+        placeholder: 'Enter machine descriptions..',
     }
 
     const imageProps = {
         name: 'image',
-        placeholder: 'Enter vendor image..',
+        placeholder: 'Enter machine image..',
         type: 'file'
     }
 
@@ -62,8 +69,14 @@ const Create = () => {
                         <Input inputProps={nameProps} error={errors.name && touched.name ? true : false} />
                     </div>
 
+                    <div className="select-style-2">
+                        <div className="select-position">
+                            <Select selectProps={categoryProps} error={errors.category && touched.category ? true : false} />
+                        </div>
+                    </div>
+
                     <div className="input-style-1">
-                        <Input inputProps={emailProps} error={errors.email && touched.email ? true : false} />
+                        <TextArea inputProps={descriptionProps} error={errors.description && touched.description ? true : false} />
                     </div>
 
                     <div className="input-style-1">

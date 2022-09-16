@@ -1,16 +1,16 @@
 import React from "react"
-import PageTitle from "../../common/PageTitle"
+import PageTitle from "app/components/common/PageTitle"
 import Create from "./actions/Create"
 
 const action = {
     hasAction: false
 }
 
-const ProductCategoryCreate = () => {
+const ProductCreate = () => {
 
     return (
         <React.Fragment>
-            <PageTitle title='Create Product Category' action={action} />
+            <PageTitle title='Product Create' action={action} />
             <div className="tables-wrapper">
                 <div className="row">
                     <div className="col-lg-12">
@@ -24,4 +24,4 @@ const ProductCategoryCreate = () => {
     )
 }
 
-export default ProductCategoryCreate
+export default ProductCreate

@@ -14,7 +14,7 @@ const Remove = (props) => {
 
     return (
         <div className="accordion-body">
-            <h3>Are you sure to delete {props.item.name} ?</h3>
+            <h3>Are you sure to delete {props.item.category} ?</h3>
             <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
                 <button onClick={() => removeitem(props.item.id)} className="main-btn danger-btn btn-hover btn-sm">Move to trash</button>
                 <button onClick={() => props.setRemovePanel(null)} className="main-btn dark-btn btn-hover btn-sm">Cancel</button>

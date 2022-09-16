@@ -1,8 +1,9 @@
 import { Formik, Form } from "formik";
 import Button from 'react-bootstrap/Button';
 import { useDispatch } from "react-redux"
-import { Input, File } from "app/components/utils/form_elements"
-import { update } from "features/VendorSlice";
+import { machineCategoryTypesData } from "assets/data";
+import { Input, Select, File, TextArea } from "app/components/utils/form_elements"
+import { update } from "features/MachineSlice";
 import { getFileName } from "services";
 import { UpdateFormValidationRules } from "../validation";
 
@@ -10,39 +11,45 @@ const Edit = (props) => {
 
     const dispatch = useDispatch()
 
-    const updateProduct = (values, onSubmitProps) => {
-        let { id, name, email, image, newImage } = values
+    const updatemachine = (values, onSubmitProps) => {
+        let { id, name, category, description, image, newImage } = values
         image = newImage !== undefined ? getFileName(newImage) : image
-        const updatedValues = { id, name, email, image }
+        const updatedValues = { id, name, category, description, image }
         dispatch(update(updatedValues)) && onSubmitProps.resetForm()
     }
 
-    const { id } = props.item
+    const { id, category } = props.item
     const initialValues = { ...props.item }
 
     const onSubmit = (values, onSubmitProps) => {
-        updateProduct(values, onSubmitProps)
+        updatemachine(values, onSubmitProps)
     }
 
     const nameProps = {
-        id: `product_${id}`,
+        id: `machine_${id}`,
         name: 'name',
         type: 'text',
-        placeholder: 'Enter vendor name..',
+        placeholder: 'Enter machine name..',
     }
 
 
-    const emailProps = {
-        id: `product_${id}`,
-        name: 'email',
-        type: 'text',
-        placeholder: 'Enter vendor email..',
+    const categoryProps = {
+        id: `machine_${id}`,
+        name: 'category',
+        placeholder: 'Enter machine category..',
+        filterBy: category,
+        optionFields: machineCategoryTypesData.types,
+    }
+
+    const descriptionProps = {
+        name: 'description',
+        placeholder: 'Enter machine descriptions..',
     }
 
     const imageProps = {
-        id: `product_${id}`,
+        id: `machine_${id}`,
         name: 'newImage',
-        placeholder: 'Enter vendor image..',
+        placeholder: 'Enter machine image..',
         type: 'file'
     }
 
@@ -60,8 +67,14 @@ const Edit = (props) => {
                         <Input inputProps={nameProps} error={errors.name && touched.name ? true : false} />
                     </div>
 
+                    <div className="select-style-2">
+                        <div className="select-position">
+                            <Select selectProps={categoryProps} error={errors.category && touched.category ? true : false} />
+                        </div>
+                    </div>
+
                     <div className="input-style-1">
-                        <Input inputProps={emailProps} error={errors.email && touched.email ? true : false} />
+                        <TextArea inputProps={descriptionProps} error={errors.description && touched.description ? true : false} />
                     </div>
 
                     <div className="input-style-1">

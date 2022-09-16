@@ -1,6 +1,6 @@
 import React from "react"
 import { useDispatch } from "react-redux"
-import { remove } from "features/ProductSlice"
+import { remove } from "features/MachineSlice"
 
 
 const Remove = (props) => {

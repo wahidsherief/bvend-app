@@ -1,12 +1,12 @@
 import React, { useState } from "react"
 
-const ListContainer = (props) => {
+const ListContainer = ({ item }) => {
 
-    const Edit = props.item.hasEdit ? props.item.edit : null
-    const Remove = props.item.hasRemove ? props.item.remove : null
-    const Detail = props.item.hasDetail ? props.item.detail : null
+    const Edit = item.hasEdit ? item.edit : null
+    const Remove = item.hasRemove ? item.remove : null
+    const Detail = item.hasDetail ? item.detail : null
 
-    const { itemName, items } = props.item
+    const { itemName, items } = item
 
     const [editPanel, setEditPanel] = useState(null)
     const [removePanel, setRemovePanel] = useState(null)
@@ -39,8 +39,6 @@ const ListContainer = (props) => {
             return setDetailPanel(null)
         setDetailPanel(id)
     }
-
-
 
     return (
         <React.Fragment>
@@ -84,6 +82,7 @@ const ListContainer = (props) => {
                                                     }
                                                 </div>
                                             </div>
+
                                             {Edit !== null &&
                                                 <div className={editPanel === item.id ? 'd-block p-4' : 'd-none'}>
                                                     <Edit item={item} hideEditPanel={hideEditPanel} />

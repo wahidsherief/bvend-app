@@ -1,5 +1,5 @@
 import React from "react"
-import PageTitle from "../../common/PageTitle"
+import PageTitle from "app/components/common/PageTitle"
 import Create from "./actions/Create"
 
 const action = {
