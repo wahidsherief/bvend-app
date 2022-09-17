@@ -6,7 +6,7 @@ import BackButton from "./BackButton";
 const PageTitle = (props) => {
     return (
         <React.Fragment>
-            <div className="container title-wrapper pt-30">
+            <div className="title-wrapper pt-30">
                 <div className="row align-items-center">
                     <div className="col-lg-6 title mb-30">
                         <h2>{props.title}</h2>

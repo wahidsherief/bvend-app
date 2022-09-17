@@ -57,7 +57,7 @@ const ListContainer = ({ item }) => {
                                             <div className="accordion-header row p-3" id="headingOne">
                                                 <div className="col-lg-7 d-flex justify-content-start align-items-center">
                                                     {item.image !== undefined &&
-                                                        <img src={require(`../../../../public/bvend/${itemName}/${item.image}`)} className="image-in-list me-3" alt={item.name} />
+                                                        <img src={require(`assets/bvend/${itemName}/${item.image}`)} className="image-in-list me-3" alt={item.name} />
                                                     }
                                                     {item.title !== undefined && <span className="me-3 text-bold">{item.title}</span>}
                                                     {item.name !== undefined && <span className="me-3 text-bold">{item.name}</span>}

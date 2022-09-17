@@ -61,6 +61,9 @@ const Aside = () => {
                         <li className="nav-item">
                             <Link to={'/transactions'}>Transaction</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link to={'/vendor/machines'}>My Bvends</Link>
+                        </li>
                     </ul>
                 </nav>
             </aside>
