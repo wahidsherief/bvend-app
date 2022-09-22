@@ -37,3 +37,11 @@ code {
 .padding-10 {
   padding: 10px;
 }
+
+.border-radius-2 {
+  border-radius: 2px !important;
+}
+
+.card-image {
+  margin-bottom: 0px !important;
+}

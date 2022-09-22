@@ -23,7 +23,7 @@ const Refill = () => {
                             <div className="card-image">
                                 <img
                                     className="fit-image"
-                                    src={require(`assets/bvend/machines/machain_1.jpg`)}
+                                    src={require(`assets/bvend/machines/machine_1.jpg`)}
                                     alt=
                                         />
                             </div>
@@ -32,7 +32,7 @@ const Refill = () => {
                     <div className="row">
                         <div className="card-content">
                             <div class="d-grid gap-2 mt-4">
-                                <button class="btn btn-danger p-1" type="button">Refill</button>
+                                <button class="btn btn-danger p-1  rounded-2" type="button">Refill</button>
                             </div>
                         </div>
                     </div>
