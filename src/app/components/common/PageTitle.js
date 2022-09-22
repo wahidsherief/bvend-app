@@ -18,7 +18,7 @@ const PageTitle = (props) => {
                             </Link>
                         </div>
                     }
-                    {!props.action.hasAction &&
+                    {props.action.hasBack &&
                         <div className="col-lg-6 title mb-30 d-grid gap-2 d-md-flex justify-content-md-end">
                             <BackButton />
                         </div>

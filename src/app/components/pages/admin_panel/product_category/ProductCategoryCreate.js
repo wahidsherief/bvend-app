@@ -3,7 +3,8 @@ import PageTitle from "app/components/common/PageTitle"
 import Create from "./actions/Create"
 
 const action = {
-    hasAction: false
+    hasAction: false,
+    hasBack: true
 }
 
 const ProductCategoryCreate = () => {

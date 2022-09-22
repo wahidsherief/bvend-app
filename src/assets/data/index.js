@@ -108,24 +108,30 @@ const machineListData = {
     machines: [
         {
             id: 1,
-            name: 'Machine 1',
+            title: 'Machine One',
+            location: '33/A Gulshan, Dhaka',
+            image: 'machine_1.jpg',
+            totalAmount: '10,000',
             category: 'Category 1',
             description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
-            image: 'machine_1.jpg'
         },
         {
             id: 2,
-            name: 'Machine 2',
+            title: 'Machine Two',
+            location: '33/A Banani, Dhaka',
+            image: 'machine_2.jpg',
+            totalAmount: '30,000',
             category: 'Category 2',
             description: 'Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search will uncover many web sites still in their infancy',
-            image: 'machine_2.jpg'
         },
         {
             id: 3,
-            name: 'Machine 3',
+            title: 'Machine Three',
+            location: '33/A Rampura, Dhaka',
+            image: 'machine_3.jpg',
+            totalAmount: '20,000',
             category: 'Category 3',
             description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
-            image: 'machine_3.jpg'
         },
     ]
 }

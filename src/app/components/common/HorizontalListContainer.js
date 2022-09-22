@@ -1,27 +1,9 @@
-import React, { useState } from "react"
+import React from "react"
 import Machine from "app/components/pages/vendor_panel/machine/Machine"
 
-const machines = [{
-    title: 'Machine One',
-    location: '33/A Gulshan, Dhaka',
-    image: 'machine_1.jpg',
-    totalAmount: '10,000'
-},
-{
-    title: 'Machine Two',
-    location: '33/A Banani, Dhaka',
-    image: 'machine_2.jpg',
-    totalAmount: '30,000'
-},
-{
-    title: 'Machine Three',
-    location: '33/A Rampura, Dhaka',
-    image: 'machine_3.jpg',
-    totalAmount: '20,000'
-}]
 
-const HorizontalListContainer = () => {
-
+const HorizontalListContainer = ({ item }) => {
+    const machines = item.items
     return (
         <React.Fragment>
             <section className="card-components">
@@ -31,7 +13,7 @@ const HorizontalListContainer = () => {
                     </div>
                 </div>
             </section>
-        </React.Fragment >
+        </React.Fragment>
     )
 }
 
