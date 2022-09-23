@@ -6,11 +6,11 @@ export const refill = createSlice({
     name: 'refill',
     initialState: refillListData,
     reducers: {
-        get: (state, action) => {
-            state.refills = state.refills.filter((refill => refill.id !== action.payload))
+        getRefillData: (state, action) => {
+            state.refills = state.refills.filter((refill => refill.machine_id !== action.payload))
         }
     }
 })
 
-export const { get } = refill.actions
+export const { getRefillData } = refill.actions
 export default refill.reducer;

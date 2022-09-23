@@ -1,7 +1,9 @@
-import React from "react"
+import React, { useEffect } from "react"
 import PageTitle from "app/components/common/PageTitle"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import Refill from "./components/Refill"
+import { useParams } from "react-router-dom"
+import { getRefillData } from "features/RefillSlice"
 
 const action = {
     hasAction: false,
@@ -15,7 +17,15 @@ const VendorRefillList = () => {
         return state['refill']
     })
 
-    const { refills } = refillListState
+    console.log(refillListState)
+
+    const { machineID } = useParams()
+
+    const refills = refillListState.refills.filter((refill => refill.machine_id !== machineID))
+
+
+    console.log(refills)
+
 
     return (
         <React.Fragment>
@@ -23,7 +33,12 @@ const VendorRefillList = () => {
             <section className="card-components">
                 <div className="container-fluid p-0">
                     <div className="row">
-                        <Refill refills={refills} />
+                        {
+                            refills.map((refill) => (
+                                <Refill refills={refills} />
+                            ))
+                        }
+
                     </div>
                 </div>
             </section>

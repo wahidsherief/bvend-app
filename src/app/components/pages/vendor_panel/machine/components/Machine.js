@@ -61,7 +61,7 @@ const Machine = ({ machines }) => {
                                     </p>
 
                                     <div class="d-grid gap-2 mt-2">
-                                        <Link to={`/vendor/refill/${machine.id}`} class="btn btn-danger p-1 border-radius-2">
+                                        <Link to={`/vendor/refills/${machine.id}`} class="btn btn-danger p-1 border-radius-2">
                                             Refill
                                         </Link>
 
