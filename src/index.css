@@ -45,3 +45,7 @@ code {
 .card-image {
   margin-bottom: 0px !important;
 }
+
+.horizontal-scroll {
+  overflow-x: auto;
+}

@@ -1,7 +1,7 @@
 import React from "react";
 import { ProgressBar } from "react-bootstrap";
 
-const Refill = () => {
+const Refill = ({ refill }) => {
     return (
         <React.Fragment>
             <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3">
@@ -15,7 +15,7 @@ const Refill = () => {
                             <div className="card-image">
                                 <img
                                     className="fit-image"
-                                    src={require('assets/bvend/products/nike.jpg')}
+                                    src={require(`assets/bvend/products/${refill.image}`)}
                                     alt=""
                                 />
                             </div>
@@ -23,9 +23,9 @@ const Refill = () => {
 
                         <div className="col-xl-8 col-lg-8 col-md-8 col-sm-8">
                             <div className="card-title">
-                                <h6>Lays Chips</h6>
+                                <h6>{refill.title}</h6>
                                 <p className="fw-light custom-small-text-12">
-                                    Price: 500 BDT
+                                    Price: {refill.totalAmount} BDT
                                 </p>
                             </div>
                         </div>

@@ -1,9 +1,8 @@
-import React, { useEffect } from "react"
+import React from "react"
 import PageTitle from "app/components/common/PageTitle"
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 import Refill from "./components/Refill"
 import { useParams } from "react-router-dom"
-import { getRefillData } from "features/RefillSlice"
 
 const action = {
     hasAction: false,
@@ -13,33 +12,46 @@ const action = {
 
 const VendorRefillList = () => {
 
+    const { machineID } = useParams()
+
     const refillListState = useSelector((state) => {
         return state['refill']
     })
 
-    console.log(refillListState)
+    const refills = refillListState.refills.filter((refill => refill.machine_id == machineID))
 
-    const { machineID } = useParams()
+    const trays = () => {
+        const chunkSize = 6
+        const trayRows = []
+        for (let i = 0; i < refills.length; i += chunkSize) {
+            const trays = refills.slice(i, i + chunkSize);
+            trayRows.push(trays)
+        }
 
-    const refills = refillListState.refills.filter((refill => refill.machine_id !== machineID))
-
-
-    console.log(refills)
-
+        return (
+            trayRows.map((refillItems, i) => (
+                <>
+                    <h3 className={i === 0 ? 'mb-4 ms-0 me-0' : 'mt-4 mb-4 ms-0 me-0'}>Row {i + 1}</h3>
+                    <div className="row flex-row flex-nowrap horizontal-scroll">
+                        {
+                            refillItems.map((refillItem) => (
+                                <Refill key={refillItem.id} refill={refillItem} />
+                            ))
+                        }
+                    </div>
+                </>
+            ))
+        )
+    }
 
     return (
         <React.Fragment>
             <PageTitle title='Refill' action={action} />
             <section className="card-components">
                 <div className="container-fluid p-0">
-                    <div className="row">
-                        {
-                            refills.map((refill) => (
-                                <Refill refills={refills} />
-                            ))
-                        }
-
-                    </div>
+                    {
+                        trays()
+                    }
                 </div>
             </section>
         </React.Fragment>
