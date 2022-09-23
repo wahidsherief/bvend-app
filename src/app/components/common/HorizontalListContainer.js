@@ -1,5 +1,5 @@
 import React from "react"
-import Machine from "app/components/pages/vendor_panel/machine/Machine"
+import Machine from "app/components/pages/vendor_panel/machine/components/Machine"
 
 
 const HorizontalListContainer = ({ item }) => {

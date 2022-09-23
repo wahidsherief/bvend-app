@@ -34,7 +34,7 @@ const Refill = () => {
                     <ProgressBar now={60} label="6 / 10" className="border-radius-2" />
 
                     <div class="d-grid gap-2 mt-2">
-                        <button class="btn btn-danger p-1 border-radius-2" type="button">Refill</button>
+                        <button class="btn btn-danger p-1 border-radius-2" type="button">Change</button>
                     </div>
                 </div>
             </div>

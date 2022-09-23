@@ -1,7 +1,7 @@
 import React from "react"
 import PageTitle from "app/components/common/PageTitle"
 import { useSelector } from "react-redux"
-import Machine from "./components/Machine"
+import Refill from "./components/Refill"
 
 const action = {
     hasAction: false,
@@ -9,21 +9,21 @@ const action = {
 }
 
 
-const VendorMachineList = () => {
+const VendorRefillList = () => {
 
-    const machineListState = useSelector((state) => {
-        return state['machine']
+    const refillListState = useSelector((state) => {
+        return state['refill']
     })
 
-    const { machines } = machineListState
+    const { refills } = refillListState
 
     return (
         <React.Fragment>
-            <PageTitle title='Machine List' action={action} />
+            <PageTitle title='Refill' action={action} />
             <section className="card-components">
                 <div className="container-fluid p-0">
                     <div className="row">
-                        <Machine machines={machines} />
+                        <Refill refills={refills} />
                     </div>
                 </div>
             </section>
@@ -31,4 +31,4 @@ const VendorMachineList = () => {
     )
 }
 
-export default VendorMachineList
+export default VendorRefillList

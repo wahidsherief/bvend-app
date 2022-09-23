@@ -12,6 +12,7 @@ import TransactionList from "app/components/pages/admin_panel/transaction/Transa
 import MachineList from "app/components/pages/admin_panel/machine/MachineList";
 import MachineCreate from "app/components/pages/admin_panel/machine/MachineCreate";
 import VendorMachineList from "app/components/pages/vendor_panel/machine/VendorMachineList";
+import Refill from "app/components/pages/vendor_panel/machine/components/Refill";
 
 
 const RootRoute = () => {
@@ -30,6 +31,7 @@ const RootRoute = () => {
                 <Route path={'/machines'} element={<MachineList />} />
                 <Route path={'/machine/create'} element={<MachineCreate />} />
                 <Route path={'/vendor/machines'} element={<VendorMachineList />} />
+                <Route path={'/vendor/refill/:machineID'} element={<Refill />} />
             </Routes>
         </React.Fragment>
     )

@@ -137,6 +137,54 @@ const machineListData = {
 }
 
 
+const refillListData = {
+    refills: [
+        {
+            id: 1,
+            title: 'Product 1',
+            machine_id: 1,
+            image: 'product_1.jpg',
+            totalAmount: '10,000',
+        },
+        {
+            id: 1,
+            title: 'Product 2',
+            machine_id: 1,
+            image: 'product_2.jpg',
+            totalAmount: '10,000',
+        },
+        {
+            id: 1,
+            title: 'Product 3',
+            machine_id: 1,
+            image: 'product_3.jpg',
+            totalAmount: '10,000',
+        },
+        {
+            id: 1,
+            title: 'Product 4',
+            machine_id: 1,
+            image: 'product_3.jpg',
+            totalAmount: '10,000',
+        },
+        {
+            id: 1,
+            title: 'Product 5',
+            machine_id: 1,
+            image: 'product_2.jpg',
+            totalAmount: '10,000',
+        },
+        {
+            id: 1,
+            title: 'Product 6',
+            machine_id: 2,
+            image: 'product_1.jpg',
+            totalAmount: '10,000',
+        },
+    ]
+}
+
+
 const transactionListData = {
     transactions: [
         {
@@ -166,5 +214,6 @@ export {
     vendorRequestListData,
     transactionListData,
     machineCategoryTypesData,
-    machineListData
+    machineListData,
+    refillListData
 }
