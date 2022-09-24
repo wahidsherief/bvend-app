@@ -30,16 +30,16 @@ const VendorRefillList = () => {
 
         return (
             trayRows.map((refillItems, i) => (
-                <>
+                <div key={i}>
                     <h3 className={i === 0 ? 'mb-4 ms-0 me-0' : 'mt-4 mb-4 ms-0 me-0'}>Row {i + 1}</h3>
                     <div className="row flex-row flex-nowrap horizontal-scroll">
                         {
-                            refillItems.map((refillItem) => (
-                                <Refill key={refillItem.id} refill={refillItem} />
+                            refillItems.map((refillItem, col) => (
+                                <Refill key={col} colNumber={col + 1} refill={refillItem} />
                             ))
                         }
                     </div>
-                </>
+                </div>
             ))
         )
     }

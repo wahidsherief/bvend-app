@@ -1,13 +1,30 @@
-import React from "react";
-import { ProgressBar } from "react-bootstrap";
+import React, { useState } from "react";
+import { ProgressBar } from "react-bootstrap"
+import RefillModal from "./RefillModal";
 
-const Refill = ({ refill }) => {
+const Refill = (props) => {
+
+    let { colNumber, refill } = props
+
+    const [trigger, setTrigger] = useState(false);
+
+    const showRefillModal = () => {
+        setTrigger(trigger => !trigger)
+        console.log('r', trigger)
+    }
+
+    const setRefillModal = (props) => {
+        setTrigger(props)
+    }
+
     return (
         <React.Fragment>
+            <RefillModal trigger={trigger} setRefillModal={setRefillModal} />
+
             <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3">
                 <div className="card-style-2 p-2">
-                    <div class="bg-white d-grid border-radius-2">
-                        <h6 className="text-danger fw-bold">Tray: 1</h6>
+                    <div className="bg-white d-grid border-radius-2">
+                        <h6 className="text-danger fw-bold">Tray: {colNumber}</h6>
                     </div>
 
                     <div className="row mt-2 mb-2">
@@ -33,8 +50,8 @@ const Refill = ({ refill }) => {
 
                     <ProgressBar now={60} label="6 / 10" className="border-radius-2" />
 
-                    <div class="d-grid gap-2 mt-2">
-                        <button class="btn btn-danger p-1 border-radius-2" type="button">Change</button>
+                    <div className="d-grid gap-2 mt-2">
+                        <button onClick={showRefillModal} className="btn btn-danger p-1 border-radius-2" type="button">Change</button>
                     </div>
                 </div>
             </div>
