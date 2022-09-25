@@ -24,19 +24,19 @@ const productListData = {
             id: 1,
             name: 'Soundbar',
             category: 'Electronics',
-            image: 'soundbar.jpg',
+            image: 'product_1.jpg',
         },
         {
             id: 2,
             name: 'Diet Coke',
             category: 'Drinks',
-            image: 'coca.png',
+            image: 'product_2.jpg',
         },
         {
             id: 3,
             name: 'Adidas',
             category: 'Shoe',
-            image: 'adidas2.jpg',
+            image: 'product_3.jpg',
         }
     ]
 }

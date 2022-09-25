@@ -6,20 +6,16 @@ const Refill = (props) => {
 
     let { colNumber, refill } = props
 
-    const [trigger, setTrigger] = useState(false);
+    const [modal, setModal] = useState(false);
 
-    const showRefillModal = () => {
-        setTrigger(trigger => !trigger)
-        console.log('r', trigger)
-    }
+    const showRefillModal = () => setModal(modal => !modal)
 
-    const setRefillModal = (props) => {
-        setTrigger(props)
-    }
+    const hideRefillModal = () => setModal(false)
+
 
     return (
         <React.Fragment>
-            <RefillModal trigger={trigger} setRefillModal={setRefillModal} />
+            <RefillModal modal={modal} hideRefillModal={hideRefillModal} />
 
             <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3">
                 <div className="card-style-2 p-2">
