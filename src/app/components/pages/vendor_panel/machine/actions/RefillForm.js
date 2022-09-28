@@ -4,83 +4,83 @@ import { Input, Select, File, TextArea } from "app/components/utils/form_element
 import { useSelector, useDispatch } from "react-redux"
 import { create } from "features/MachineSlice"
 import { getFileName } from "services";
-import { CreateFormValidationRules } from "../validation";
-import { machineCategoryTypesData } from "assets/data";
+import { RefillFormValidationRules } from "../validation";
+import { productListData, noOfProductsData, productCategoryTypesData } from "assets/data";
 
 
-const Create = () => {
+const RefillForm = () => {
 
-    const machineListSlice = useSelector((state) => {
-        return state['machine']
-    })
+    // const productListSlice = useSelector((state) => {
+    //     return state['product']
+    // })
 
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
-    const { machines } = machineListSlice
+    // const { machines } = machineListSlice
 
-    const createMachine = (values, onSubmitProps) => {
-        let { name, category, description, image } = values
-        image = getFileName(image)
-        const id = machines.length + 1
-        const newValues = { id, name, category, description, image }
-        dispatch(create(newValues)) && onSubmitProps.resetForm()
-    }
+    // const createMachine = (values, onSubmitProps) => {
+    //     let { name, category, description, image } = values
+    //     image = getFileName(image)
+    //     const id = machines.length + 1
+    //     const newValues = { id, name, category, description, image }
+    //     dispatch(create(newValues)) && onSubmitProps.resetForm()
+    // }
 
-    const initialValues = { name: '', category: '', description: '', image: '' }
+    const initialValues = { product_id: '', no_of_products: '', price: '' }
 
     const onSubmit = (values, onSubmitProps) => {
-        createMachine(values, onSubmitProps)
+        //     createMachine(values, onSubmitProps)
     }
 
-    const nameProps = {
-        name: 'name',
-        type: 'text',
-        placeholder: 'Enter machine name..',
-    }
 
-    const categoryProps = {
-        name: 'category',
-        placeholder: 'Enter machine category..',
+    // keys cannot be changed in select
+    const productsProps = {
+        name: 'product_id',
+        placeholder: 'Choose product..',
         filterBy: null,
-        optionFields: machineCategoryTypesData.types,
+        optionFields: productListData.products,
+        // optionFields: productCategoryTypesData.types,
     }
 
-    const descriptionProps = {
-        name: 'description',
-        placeholder: 'Enter machine descriptions..',
+    const noOfProductsProps = {
+        name: 'no_of_products',
+        placeholder: 'Number of products..',
+        filterBy: null,
+        optionFields: noOfProductsData.data,
     }
 
-    const imageProps = {
-        name: 'image',
-        placeholder: 'Enter machine image..',
-        type: 'file'
+    const priceProps = {
+        name: 'price',
+        placeholder: 'Enter price..',
+        type: 'number'
     }
+
 
     return (
         <Formik
             initialValues={initialValues}
-            validationSchema={CreateFormValidationRules}
+            validationSchema={RefillFormValidationRules}
             onSubmit={onSubmit}
             enableReinitialize={true}
         >
             {({ errors, touched }) => (
                 <Form>
-                    <div className="input-style-1">
-                        <Input inputProps={nameProps} error={errors.name && touched.name ? true : false} />
-                    </div>
+
 
                     <div className="select-style-2">
                         <div className="select-position">
-                            <Select selectProps={categoryProps} error={errors.category && touched.category ? true : false} />
+                            <Select selectProps={productsProps} error={errors.product_id && touched.product_id ? true : false} />
                         </div>
                     </div>
 
                     <div className="input-style-1">
-                        <TextArea inputProps={descriptionProps} error={errors.description && touched.description ? true : false} />
+                        <Input inputProps={priceProps} error={errors.price && touched.price ? true : false} />
                     </div>
 
-                    <div className="input-style-1">
-                        <File fileProps={imageProps} error={errors.image && touched.image ? true : false} />
+                    <div className="select-style-2">
+                        <div className="select-position">
+                            <Select selectProps={noOfProductsProps} error={errors.no_of_products && touched.no_of_products ? true : false} />
+                        </div>
                     </div>
 
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -92,4 +92,4 @@ const Create = () => {
     )
 }
 
-export default Create
+export default RefillForm

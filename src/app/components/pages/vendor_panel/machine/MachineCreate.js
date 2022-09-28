@@ -1,6 +1,6 @@
 import React from "react"
 import PageTitle from "app/components/common/PageTitle"
-import Create from "./actions/Create"
+import Create from "./actions/RefillForm"
 
 const action = {
     hasAction: false
