@@ -35,7 +35,7 @@ const VendorRefillList = () => {
                     <div className="row flex-row flex-nowrap horizontal-scroll">
                         {
                             refillItems.map((refillItem, col) => (
-                                <Refill key={col} colNumber={col + 1} refill={refillItem} />
+                                <Refill key={col} rowNumber={i + 1} colNumber={col + 1} refill={refillItem} />
                             ))
                         }
                     </div>

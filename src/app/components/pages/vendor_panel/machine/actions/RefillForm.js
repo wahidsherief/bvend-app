@@ -1,14 +1,11 @@
 import { Formik, Form } from "formik";
 import Button from 'react-bootstrap/Button';
-import { Input, Select, File, TextArea } from "app/components/utils/form_elements"
-import { useSelector, useDispatch } from "react-redux"
-import { create } from "features/MachineSlice"
-import { getFileName } from "services";
+import { Input, Select } from "app/components/utils/form_elements"
 import { RefillFormValidationRules } from "../validation";
 import { productListData, noOfProductsData, productCategoryTypesData } from "assets/data";
 
 
-const RefillForm = () => {
+const RefillForm = (props) => {
 
     // const productListSlice = useSelector((state) => {
     //     return state['product']
@@ -26,11 +23,15 @@ const RefillForm = () => {
     //     dispatch(create(newValues)) && onSubmitProps.resetForm()
     // }
 
+    const { handleClose } = props
+
     const initialValues = { product_id: '', no_of_products: '', price: '' }
 
     const onSubmit = (values, onSubmitProps) => {
         //     createMachine(values, onSubmitProps)
     }
+
+
 
 
     // keys cannot be changed in select
@@ -39,7 +40,6 @@ const RefillForm = () => {
         placeholder: 'Choose product..',
         filterBy: null,
         optionFields: productListData.products,
-        // optionFields: productCategoryTypesData.types,
     }
 
     const noOfProductsProps = {
@@ -65,8 +65,6 @@ const RefillForm = () => {
         >
             {({ errors, touched }) => (
                 <Form>
-
-
                     <div className="select-style-2">
                         <div className="select-position">
                             <Select selectProps={productsProps} error={errors.product_id && touched.product_id ? true : false} />
@@ -85,6 +83,7 @@ const RefillForm = () => {
 
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">
                         <Button type="submit" className="main-btn primary-btn btn-hover btn-sm">Create</Button>
+                        <Button type="button" onClick={handleClose} className="btn-dark btn-hover btn-sm">Create</Button>
                     </div>
                 </Form>
             )}

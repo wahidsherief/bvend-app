@@ -4,18 +4,22 @@ import RefillModal from "./RefillModal";
 
 const Refill = (props) => {
 
-    let { colNumber, refill } = props
+    let { rowNumber, colNumber, refill } = props
 
-    const [modal, setModal] = useState(false);
+    const [modal, setModal] = useState(false)
+
+    const modalInfo = {
+        rowNumber,
+        colNumber
+    }
 
     const showRefillModal = () => setModal(modal => !modal)
-
     const hideRefillModal = () => setModal(false)
 
 
     return (
         <React.Fragment>
-            <RefillModal modal={modal} hideRefillModal={hideRefillModal} />
+            <RefillModal modalInfo={modalInfo} modal={modal} hideRefillModal={hideRefillModal} />
 
             <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3">
                 <div className="card-style-2 p-2">

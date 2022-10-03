@@ -5,7 +5,7 @@ import RefillForm from '../actions/RefillForm';
 
 const RefillModal = (props) => {
 
-    const { modal, hideRefillModal } = props
+    const { modalInfo, modal, hideRefillModal } = props
     const [show, setShow] = useState(false);
 
     const handleClose = () => {
@@ -24,19 +24,13 @@ const RefillModal = (props) => {
         <>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title>
+                        <h3>Row : {modalInfo.rowNumber} - Tray : {modalInfo.colNumber}</h3>
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <RefillForm />
+                    <RefillForm modalInfo={modalInfo} handleClose={handleClose} />
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={handleClose}>
-                        Save Changes
-                    </Button>
-                </Modal.Footer>
             </Modal>
         </>
     );
