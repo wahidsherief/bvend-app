@@ -1,9 +1,11 @@
-import React from "react"
+import React, { useEffect } from "react"
 import ListContainer from "app/components/common/ListContainer";
 import PageTitle from "app/components/common/PageTitle"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import Edit from "./actions/Edit";
 import Remove from "./actions/Remove";
+import { fetchCategories } from "features/ProductCategorySlice";
+import { STATUS } from "services";
 
 const action = {
     hasAction: true,
@@ -13,11 +15,13 @@ const action = {
 
 const ProductCategoryList = () => {
 
-    const productCategoryListState = useSelector((state) => {
-        return state['productCategory']
-    })
+    const dispatch = useDispatch()
 
-    const { categories } = productCategoryListState
+    const { data: categories, status } = useSelector((state) => state.productCategory)
+
+    useEffect(() => {
+        dispatch(fetchCategories())
+    }, [dispatch])
 
     const item = {
         itemName: 'categories',
@@ -26,6 +30,10 @@ const ProductCategoryList = () => {
         edit: Edit,
         hasRemove: true,
         remove: Remove
+    }
+
+    if (status === STATUS.LOADING) {
+        return <h2>Loading...</h2>
     }
 
     return (

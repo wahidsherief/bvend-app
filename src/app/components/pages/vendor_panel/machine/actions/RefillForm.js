@@ -2,7 +2,7 @@ import { Formik, Form } from "formik";
 import Button from 'react-bootstrap/Button';
 import { Input, Select } from "app/components/utils/form_elements"
 import { RefillFormValidationRules } from "../validation";
-import { productListData, noOfProductsData, productCategoryTypesData } from "assets/data";
+import { productListData, noOfProductsData } from "assets/data";
 
 
 const RefillForm = (props) => {
