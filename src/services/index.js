@@ -1,10 +1,6 @@
-export const getFileName = (fullPath) => {
-    return fullPath.replace(/^.*[\\/]/, '');
+import { getFileName, STATUS } from "./utils";
+
+
+export {
+    getFileName, STATUS
 }
-
-
-export const STATUS = Object.freeze({
-    IDLE: 'idle',
-    ERROR: 'error',
-    LOADING: 'loading'
-})

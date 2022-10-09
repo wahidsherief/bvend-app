@@ -1,31 +1,31 @@
+import { useEffect } from "react";
 import { Formik, Form } from "formik";
 import Button from 'react-bootstrap/Button';
 import { Input } from "app/components/utils/form_elements"
 import { useSelector, useDispatch } from "react-redux"
-import { create } from "features/ProductCategorySlice"
-import { getFileName } from "services";
 import { CreateFormValidationRules } from "../validation";
+import { getCategories, createCategory } from "features/ProductCategorySlice";
 
 
 const Create = () => {
 
-    const productCategorySlice = useSelector((state) => {
-        return state['productCategory']
-    })
-
     const dispatch = useDispatch()
 
-    const { categories } = productCategorySlice
+    const { data: categories } = useSelector((state) => state.productCategory)
+
+    useEffect(() => {
+        dispatch(getCategories())
+    }, [dispatch])
 
     const createProductCategory = (values, onSubmitProps) => {
-        let { category, brand, image } = values
-        image = getFileName(image)
+        let { category, brand } = values
         const id = categories.length + 1
-        const newValues = { id, category, brand, image }
-        dispatch(create(newValues)) && onSubmitProps.resetForm()
+        const newValues = { id, category, brand }
+        console.log(newValues)
+        dispatch(createCategory(newValues)) && onSubmitProps.resetForm()
     }
 
-    const initialValues = { category: '', brand: '', image: '' }
+    const initialValues = { category: '', brand: '' }
 
     const onSubmit = (values, onSubmitProps) => {
         createProductCategory(values, onSubmitProps)

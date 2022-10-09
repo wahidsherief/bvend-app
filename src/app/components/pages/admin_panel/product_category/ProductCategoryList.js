@@ -4,8 +4,9 @@ import PageTitle from "app/components/common/PageTitle"
 import { useDispatch, useSelector } from "react-redux"
 import Edit from "./actions/Edit";
 import Remove from "./actions/Remove";
-import { fetchCategories } from "features/ProductCategorySlice";
+import { getCategories } from "features/ProductCategorySlice";
 import { STATUS } from "services";
+
 
 const action = {
     hasAction: true,
@@ -20,7 +21,7 @@ const ProductCategoryList = () => {
     const { data: categories, status } = useSelector((state) => state.productCategory)
 
     useEffect(() => {
-        dispatch(fetchCategories())
+        dispatch(getCategories())
     }, [dispatch])
 
     const item = {
