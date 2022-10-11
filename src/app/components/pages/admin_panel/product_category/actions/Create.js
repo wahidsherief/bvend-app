@@ -21,7 +21,6 @@ const Create = () => {
         let { category, brand } = values
         const id = categories.length + 1
         const newValues = { id, category, brand }
-        console.log(newValues)
         dispatch(createCategory(newValues)) && onSubmitProps.resetForm()
     }
 
@@ -42,6 +41,8 @@ const Create = () => {
         type: 'text',
         placeholder: 'Enter product brand name..',
     }
+
+    //  Monaco, Operator Mono, Fira Code iScript,  'Courier New',  monospace
 
     return (
         <Formik

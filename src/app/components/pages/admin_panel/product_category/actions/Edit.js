@@ -1,8 +1,11 @@
+
+
+
 import { Formik, Form } from "formik";
 import Button from 'react-bootstrap/Button';
 import { useDispatch } from "react-redux"
 import { Input } from "app/components/utils/form_elements"
-import { update } from "features/ProductCategorySlice";
+import { updateCategory } from "features/ProductCategorySlice";
 import { UpdateFormValidationRules } from "../validation";
 
 const Edit = (props) => {
@@ -12,7 +15,7 @@ const Edit = (props) => {
     const updateProductCategory = (values, onSubmitProps) => {
         let { id, category, brand } = values
         const updatedValues = { id, category, brand }
-        dispatch(update(updatedValues)) && onSubmitProps.resetForm()
+        dispatch(updateCategory(updatedValues)) && onSubmitProps.resetForm()
     }
 
     const { id } = props.item

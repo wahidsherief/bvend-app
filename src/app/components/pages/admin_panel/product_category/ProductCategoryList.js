@@ -33,14 +33,15 @@ const ProductCategoryList = () => {
         remove: Remove
     }
 
-    if (status === STATUS.LOADING) {
-        return <h2>Loading...</h2>
-    }
+    const Loading = () => <h2>Loading...</h2>
 
     return (
         <React.Fragment>
             <PageTitle title='Product Category List' action={action} />
-            <ListContainer item={item} />
+            {status === STATUS.LOADING
+                ? <Loading />
+                : <ListContainer item={item} />
+            }
         </React.Fragment >
     )
 }

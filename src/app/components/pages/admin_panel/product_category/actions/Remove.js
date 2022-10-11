@@ -1,6 +1,6 @@
 import React from "react"
 import { useDispatch } from "react-redux"
-import { remove } from "features/ProductCategorySlice"
+import { deleteCategory } from "features/ProductCategorySlice"
 
 
 const Remove = (props) => {
@@ -8,7 +8,7 @@ const Remove = (props) => {
     const dispatch = useDispatch()
 
     const removeitem = (id) => {
-        if (dispatch(remove(id)))
+        if (dispatch(deleteCategory(id)))
             props.setRemovePanel(null)
     }
 
