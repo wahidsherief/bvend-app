@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { useDispatch } from "react-redux"
 import { productCategoryTypesData } from "assets/data";
 import { Input, Select, File } from "app/components/utils/form_elements"
-import { update } from "features/ProductSlice";
+import { updateProduct } from "features/ProductSlice";
 import { getFileName } from "services";
 import { UpdateFormValidationRules } from "../validation";
 
@@ -11,18 +11,18 @@ const Edit = (props) => {
 
     const dispatch = useDispatch()
 
-    const updateProduct = (values, onSubmitProps) => {
+    const update = (values, onSubmitProps) => {
         let { id, name, category, image, newImage } = values
         image = newImage !== undefined ? getFileName(newImage) : image
         const updatedValues = { id, name, category, image }
-        dispatch(update(updatedValues)) && onSubmitProps.resetForm()
+        dispatch(updateProduct(updatedValues)) && onSubmitProps.resetForm()
     }
 
     const { id, category } = props.item
     const initialValues = { ...props.item }
 
     const onSubmit = (values, onSubmitProps) => {
-        updateProduct(values, onSubmitProps)
+        update(values, onSubmitProps)
     }
 
     const nameProps = {

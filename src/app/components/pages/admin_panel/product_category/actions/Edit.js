@@ -12,7 +12,7 @@ const Edit = (props) => {
 
     const dispatch = useDispatch()
 
-    const updateProductCategory = (values, onSubmitProps) => {
+    const update = (values, onSubmitProps) => {
         let { id, category, brand } = values
         const updatedValues = { id, category, brand }
         dispatch(updateCategory(updatedValues)) && onSubmitProps.resetForm()
@@ -22,7 +22,7 @@ const Edit = (props) => {
     const initialValues = { ...props.item }
 
     const onSubmit = (values, onSubmitProps) => {
-        updateProductCategory(values, onSubmitProps)
+        update(values, onSubmitProps)
     }
 
     const categoryProps = {

@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { Input } from "app/components/utils/form_elements"
 import { useSelector, useDispatch } from "react-redux"
 import { CreateFormValidationRules } from "../validation";
-import { getCategories, createCategory } from "features/ProductCategorySlice";
+import { fetchCategory, saveCategory } from "features/ProductCategorySlice";
 
 
 const Create = () => {
@@ -14,14 +14,14 @@ const Create = () => {
     const { data: categories } = useSelector((state) => state.productCategory)
 
     useEffect(() => {
-        dispatch(getCategories())
+        dispatch(fetchCategory())
     }, [dispatch])
 
     const createProductCategory = (values, onSubmitProps) => {
         let { category, brand } = values
         const id = categories.length + 1
         const newValues = { id, category, brand }
-        dispatch(createCategory(newValues)) && onSubmitProps.resetForm()
+        dispatch(saveCategory(newValues)) && onSubmitProps.resetForm()
     }
 
     const initialValues = { category: '', brand: '' }

@@ -2,35 +2,37 @@ import { Formik, Form } from "formik";
 import Button from 'react-bootstrap/Button';
 import { Input, Select, File } from "app/components/utils/form_elements"
 import { useSelector, useDispatch } from "react-redux"
-import { create } from "features/ProductSlice"
+import { fetchProduct, saveProduct } from "features/ProductSlice"
 import { getFileName } from "services";
 import { CreateFormValidationRules } from "../validation";
 import { productCategoryTypesData } from "assets/data";
+import { useEffect } from "react";
 
 
 const Create = () => {
 
-    const productListSlice = useSelector((state) => {
-        return state['product']
-    })
-
     const dispatch = useDispatch()
 
-    const { products } = productListSlice
+    const { data: products } = useSelector((state) => state.product)
 
-    const createProduct = (values, onSubmitProps) => {
+    useEffect(() => {
+        dispatch(fetchProduct())
+    }, [dispatch])
+
+    const create = (values, onSubmitProps) => {
         let { name, category, image } = values
         image = getFileName(image)
         const id = products.length + 1
         const newValues = { id, name, category, image }
-        dispatch(create(newValues)) && onSubmitProps.resetForm()
+        dispatch(saveProduct(newValues)) && onSubmitProps.resetForm()
     }
 
     const initialValues = { name: '', category: '', image: '' }
 
     const onSubmit = (values, onSubmitProps) => {
-        createProduct(values, onSubmitProps)
+        create(values, onSubmitProps)
     }
+
 
     const nameProps = {
         name: 'name',

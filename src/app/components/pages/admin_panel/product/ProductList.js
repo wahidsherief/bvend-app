@@ -1,9 +1,11 @@
-import React from "react"
-import ListContainer from "app/components/common/ListContainer";
+import React, { useEffect } from "react"
+import ProductListContainer from "app/components/common/ProductListContainer";
 import PageTitle from "app/components/common/PageTitle"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import Edit from "./actions/Edit";
 import Remove from "./actions/Remove";
+import { fetchProduct } from "features/ProductSlice";
+import { STATUS, Loading } from "services"
 
 const action = {
     hasAction: true,
@@ -14,11 +16,14 @@ const action = {
 
 const ProductList = () => {
 
-    const productListState = useSelector((state) => {
-        return state['product']
-    })
+    const dispatch = useDispatch()
 
-    const { products } = productListState
+    const { data: products, status } = useSelector((state) => state.product)
+
+    useEffect(() => {
+        dispatch(fetchProduct())
+    }, [dispatch])
+
 
     const item = {
         itemName: 'products',
@@ -32,7 +37,10 @@ const ProductList = () => {
     return (
         <React.Fragment>
             <PageTitle title='Product List' action={action} />
-            <ListContainer item={item} />
+            {status === STATUS.LOADING
+                ? <Loading />
+                : <ProductListContainer item={item} />
+            }
         </React.Fragment >
     )
 }

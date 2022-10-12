@@ -4,8 +4,8 @@ import PageTitle from "app/components/common/PageTitle"
 import { useDispatch, useSelector } from "react-redux"
 import Edit from "./actions/Edit";
 import Remove from "./actions/Remove";
-import { getCategories } from "features/ProductCategorySlice";
-import { STATUS } from "services";
+import { fetchCategory } from "features/ProductCategorySlice";
+import { STATUS, Loading } from "services";
 
 
 const action = {
@@ -21,7 +21,7 @@ const ProductCategoryList = () => {
     const { data: categories, status } = useSelector((state) => state.productCategory)
 
     useEffect(() => {
-        dispatch(getCategories())
+        dispatch(fetchCategory())
     }, [dispatch])
 
     const item = {
@@ -32,8 +32,6 @@ const ProductCategoryList = () => {
         hasRemove: true,
         remove: Remove
     }
-
-    const Loading = () => <h2>Loading...</h2>
 
     return (
         <React.Fragment>

@@ -1,6 +1,6 @@
 import React from "react"
 import { useDispatch } from "react-redux"
-import { remove } from "features/ProductSlice"
+import { deleteProduct } from "features/ProductSlice"
 
 
 const Remove = (props) => {
@@ -8,7 +8,7 @@ const Remove = (props) => {
     const dispatch = useDispatch()
 
     const removeitem = (id) => {
-        if (dispatch(remove(id)))
+        if (dispatch(deleteProduct(id)))
             props.setRemovePanel(null)
     }
 
