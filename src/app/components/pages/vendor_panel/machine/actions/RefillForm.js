@@ -7,22 +7,6 @@ import { productListData, noOfProductsData } from "assets/data";
 
 const RefillForm = (props) => {
 
-    // const productListSlice = useSelector((state) => {
-    //     return state['product']
-    // })
-
-    // const dispatch = useDispatch()
-
-    // const { machines } = machineListSlice
-
-    // const createMachine = (values, onSubmitProps) => {
-    //     let { name, category, description, image } = values
-    //     image = getFileName(image)
-    //     const id = machines.length + 1
-    //     const newValues = { id, name, category, description, image }
-    //     dispatch(create(newValues)) && onSubmitProps.resetForm()
-    // }
-
     const { handleClose } = props
 
     const initialValues = { product_id: '', no_of_products: '', price: '' }
@@ -30,8 +14,6 @@ const RefillForm = (props) => {
     const onSubmit = (values, onSubmitProps) => {
         //     createMachine(values, onSubmitProps)
     }
-
-
 
 
     // keys cannot be changed in select

@@ -1,6 +1,6 @@
 import { Formik, Form } from "formik";
 import Button from 'react-bootstrap/Button';
-import { useDispatch } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { productCategoryTypesData } from "assets/data";
 import { Input, Select, File } from "app/components/utils/form_elements"
 import { updateProduct } from "features/ProductSlice";
@@ -11,15 +11,20 @@ const Edit = (props) => {
 
     const dispatch = useDispatch()
 
+    const { handleClose, modalInfo } = props
+
+    const { data: categories } = useSelector((state) => state.productCategory)
+
+    const { id, category } = modalInfo.product
+
+    const initialValues = { ...modalInfo.product }
+
     const update = (values, onSubmitProps) => {
         let { id, name, category, image, newImage } = values
         image = newImage !== undefined ? getFileName(newImage) : image
         const updatedValues = { id, name, category, image }
         dispatch(updateProduct(updatedValues)) && onSubmitProps.resetForm()
     }
-
-    const { id, category } = props.item
-    const initialValues = { ...props.item }
 
     const onSubmit = (values, onSubmitProps) => {
         update(values, onSubmitProps)
@@ -32,13 +37,12 @@ const Edit = (props) => {
         placeholder: 'Choose product name..',
     }
 
-
     const categoryProps = {
         id: `product_${id}`,
         name: 'category',
         placeholder: 'Choose product category..',
         filterBy: category,
-        optionFields: productCategoryTypesData.types,
+        optionFields: categories,
     }
 
     const imageProps = {
@@ -74,7 +78,7 @@ const Edit = (props) => {
 
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">
                         <Button type="submit" className="primary-btn btn-hover btn-sm">Update</Button>
-                        <Button type="button" onClick={() => props.hideEditPanel(null)} className="btn-dark btn-hover btn-sm">Cancel</Button>
+                        <Button type="button" onClick={handleClose} className="btn-dark btn-hover btn-sm">Cancel</Button>
                     </div>
                 </Form>
             )}

@@ -22,7 +22,7 @@ const AppModal = ({ modalInfo, modal, hideModal }) => {
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        <h3>{modalTitle}</h3>
+                        <h4>{modalTitle}</h4>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>

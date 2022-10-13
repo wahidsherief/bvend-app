@@ -11,4 +11,4 @@ export const STATUS = Object.freeze({
 
 
 
-export const Loading = () => <h2>Loading...</h2>
+export const Loading = ({ status }) => status === STATUS.LOADING && <h4 className="mb-4">Loading...</h4>
