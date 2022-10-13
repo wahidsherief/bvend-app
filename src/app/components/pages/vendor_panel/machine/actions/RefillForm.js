@@ -83,7 +83,7 @@ const RefillForm = (props) => {
 
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">
                         <Button type="submit" className="main-btn primary-btn btn-hover btn-sm">Create</Button>
-                        <Button type="button" onClick={handleClose} className="btn-dark btn-hover btn-sm">Create</Button>
+                        <Button type="button" onClick={handleClose} className="btn-dark btn-hover btn-sm">Cancel</Button>
                     </div>
                 </Form>
             )}

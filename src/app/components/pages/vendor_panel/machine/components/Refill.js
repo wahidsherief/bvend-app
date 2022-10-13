@@ -1,6 +1,8 @@
+import AppModal from "app/components/utils/AppModal";
 import React, { useState } from "react";
 import { ProgressBar } from "react-bootstrap"
-import RefillModal from "./RefillModal";
+import RefillForm from "../actions/RefillForm";
+
 
 const Refill = (props) => {
 
@@ -9,18 +11,16 @@ const Refill = (props) => {
     const [modal, setModal] = useState(false)
 
     const modalInfo = {
-        rowNumber,
-        colNumber
+        title: `Row: ${rowNumber} : Tray: ${colNumber}`,
+        body: RefillForm
     }
 
-    const showRefillModal = () => setModal(modal => !modal)
-    const hideRefillModal = () => setModal(false)
+    const showModal = () => setModal(modal => !modal)
+    const hideModal = () => setModal(false)
 
 
     return (
         <React.Fragment>
-            <RefillModal modalInfo={modalInfo} modal={modal} hideRefillModal={hideRefillModal} />
-
             <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3">
                 <div className="card-style-2 p-2">
                     <div className="bg-white d-grid border-radius-2">
@@ -51,7 +51,7 @@ const Refill = (props) => {
                     <ProgressBar now={60} label="6 / 10" className="border-radius-2" />
 
                     <div className="d-grid gap-2 mt-2">
-                        <button onClick={showRefillModal} className="btn btn-danger p-1 border-radius-2" type="button">Change</button>
+                        <button onClick={showModal} className="btn btn-danger p-1 border-radius-2" type="button">Change</button>
                     </div>
                 </div>
             </div>

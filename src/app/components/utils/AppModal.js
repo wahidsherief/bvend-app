@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import RefillForm from '../actions/RefillForm';
 
-const RefillModal = (props) => {
+const AppModal = ({ modalInfo, modal, hideModal }) => {
 
-    const { modalInfo, modal, hideRefillModal } = props
+    const { title: modalTitle, body: ModalBody } = modalInfo
     const [show, setShow] = useState(false);
 
     const handleClose = () => {
         setShow(false)
-        hideRefillModal()
+        hideModal()
     }
 
-    const showRefillModal = () => setShow(modal);
-
+    const showModal = () => setShow(modal);
 
     useEffect(() => {
-        showRefillModal();
+        showModal();
     });
 
     return (
@@ -24,11 +22,11 @@ const RefillModal = (props) => {
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        <h3>Row : {modalInfo.rowNumber} - Tray : {modalInfo.colNumber}</h3>
+                        <h3>{modalTitle}</h3>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <RefillForm modalInfo={modalInfo} handleClose={handleClose} />
+                    <ModalBody modalInfo={modalInfo} handleClose={handleClose} />
                 </Modal.Body>
             </Modal>
         </>
@@ -36,5 +34,5 @@ const RefillModal = (props) => {
 }
 
 
-export default RefillModal
+export default AppModal
 

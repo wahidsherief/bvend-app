@@ -26,7 +26,6 @@ const ProductList = () => {
 
 
     const item = {
-        itemName: 'products',
         items: products,
         hasEdit: true,
         edit: Edit,
@@ -39,7 +38,7 @@ const ProductList = () => {
             <PageTitle title='Product List' action={action} />
             {status === STATUS.LOADING
                 ? <Loading />
-                : <ProductListContainer item={item} />
+                : <ProductListContainer name='products' item={item} />
             }
         </React.Fragment >
     )
