@@ -3,7 +3,10 @@ import ErrorText from "app/components/common/ErrorText";
 
 const Select = (props) => {
     const { name, placeholder, filterBy, optionFields, ...rest } = props.selectProps
-    const options = filterBy === null ? optionFields : optionFields.filter((field) => field.name !== filterBy)
+
+    const options = filterBy === null ? optionFields : optionFields.filter((field) => field.id !== filterBy.id)
+
+    console.log('filter options : ', options)
 
     return (
         <>
@@ -16,11 +19,11 @@ const Select = (props) => {
                 {
                     filterBy === null
                         ? <option value='' disabled>{placeholder}</option>
-                        : <option value={filterBy}>{filterBy}</option>
+                        : <option value={filterBy.id}>{filterBy.name}</option>
                 }
                 {
                     options.map((option) => (
-                        <option key={option.id} value={option.name}>{option.name}</option>
+                        <option key={option.id} value={option.id}>{option.name}</option>
                     ))
                 }
             </Field>

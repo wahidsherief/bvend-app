@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import PageTitle from "app/components/common/PageTitle"
 import { useSelector, useDispatch } from "react-redux"
 import { fetchProduct } from "features/ProductSlice";
+import { fetchCategory } from "features/ProductCategorySlice";
 import { Loading } from "services"
 import Edit from "./actions/Edit";
 import Delete from "./actions/Delete";
@@ -19,9 +20,23 @@ const ProductList = () => {
 
     const { data: products, status } = useSelector((state) => state.product)
 
+    const { data: categories } = useSelector((state) => state.productCategory)
+
     useEffect(() => {
-        dispatch(fetchProduct())
-    }, [dispatch])
+        const fetchData = async () => {
+            try {
+                await Promise(dispatch(fetchProduct()))
+                dispatch(fetchCategory())
+            } catch (error) {
+                // handle or ignore errors?
+            }
+        };
+
+        fetchData();
+    }, [dispatch]);
+
+    console.log('from list p ', products)
+    // console.log('from list c ', categories)
 
     const [modal, setModal] = useState(false)
 
@@ -35,7 +50,7 @@ const ProductList = () => {
         setModalInfo({
             title: 'Edit Product',
             body: Edit,
-            product: productInfo
+            data: productInfo
         })
 
         showModal()
@@ -45,7 +60,7 @@ const ProductList = () => {
         setModalInfo({
             title: 'Delete Product',
             body: Delete,
-            product: productInfo
+            data: productInfo
         })
 
         showModal()
@@ -53,11 +68,15 @@ const ProductList = () => {
 
     const RenderItems = (props) => {
         const { product } = props
-        console.log(product)
+        console.log('from product list : ', product)
         const info = {
             id: product.id,
             name: product.name,
-            category: product.category.category
+            categories: categories,
+            category: {
+                id: product.category && product.category.id,
+                name: product.category && product.category.name
+            }
         }
         return (
             <>
@@ -77,7 +96,7 @@ const ProductList = () => {
                     </td>
                     <td>
                         <div>
-                            <p>{product.category.category}</p>
+                            <p>{product.category.name}</p>
                             <p className="text-black-50">{product.category.brand}</p>
                         </div>
                     </td>
@@ -86,10 +105,10 @@ const ProductList = () => {
                     </td>
                     <td>
                         <div className="action">
-                            <button onClick={() => triggerEditModal(info)} className="text-secondary">
+                            <button onClick={() => triggerEditModal(info)} className="text-dark">
                                 <i className="lni lni-pencil-alt"></i>
                             </button>
-                            <button onClick={() => triggerDeleteModal(info)} className="text-secondary">
+                            <button onClick={() => triggerDeleteModal(info)} className="ms-3 text-dark">
                                 <i className="lni lni-trash-can"></i>
                             </button>
                         </div>
@@ -120,9 +139,15 @@ const ProductList = () => {
                                     </thead>
                                     <tbody>
                                         {products.length > 0 &&
-                                            products.map((product) => (
-                                                <RenderItems key={product.id} product={product} />
-                                            ))
+                                            products.map((product) => {
+                                                console.log('fff ', product)
+                                                return (
+                                                    <RenderItems key={product.id} product={product} />
+                                                )
+                                            }
+
+
+                                            )
                                         }
                                     </tbody>
                                 </table>

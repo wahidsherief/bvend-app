@@ -10,13 +10,13 @@ const Delete = (props) => {
 
     const { handleClose, modalInfo } = props
 
-    const { id, category } = modalInfo.category
+    const { id, name } = modalInfo.data
 
     const deleteItem = () => dispatch(deleteCategory(id)) && handleClose()
 
     return (
         <div className="accordion-body">
-            <h4>Are you sure to delete {category} ?</h4>
+            <h4>Are you sure to delete {name} ?</h4>
             <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
                 <Button onClick={() => deleteItem(id)} className="main-btn danger-btn btn-hover btn-sm">Delete</Button>
                 <Button type="button" onClick={handleClose} className="btn-dark btn-hover btn-sm">Cancel</Button>

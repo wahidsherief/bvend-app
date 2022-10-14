@@ -35,6 +35,7 @@ export const saveProduct = createAsyncThunk(
 export const updateProduct = createAsyncThunk(
     'update',
     async (data) => {
+        console.log('slice :', data.id)
         const url = `${API_URL}product/update/${data.id}`;
         try {
             const response = await axios.put(url, data)

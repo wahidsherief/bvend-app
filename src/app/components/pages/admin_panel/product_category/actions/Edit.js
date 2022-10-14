@@ -12,28 +12,32 @@ const Edit = (props) => {
 
     const dispatch = useDispatch()
 
+    const { handleClose, modalInfo } = props
+
     const update = (values, onSubmitProps) => {
-        let { id, category, brand } = values
-        const updatedValues = { id, category, brand }
+        let { id, name, brand } = values
+        const updatedValues = { id, name, brand }
+        console.log(updatedValues)
         dispatch(updateCategory(updatedValues)) && onSubmitProps.resetForm()
     }
 
-    const { id } = props.item
-    const initialValues = { ...props.item }
+    const { id } = modalInfo.data
+
+    const initialValues = { ...modalInfo.data }
 
     const onSubmit = (values, onSubmitProps) => {
         update(values, onSubmitProps)
     }
 
     const categoryProps = {
-        id: `product_category_${id}`,
-        name: 'category',
+        id: id,
+        name: 'name',
         type: 'text',
         placeholder: 'Choose product category name..',
     }
 
     const brandProps = {
-        id: `product_category_${id}`,
+        id: id,
         name: 'brand',
         type: 'text',
         placeholder: 'Choose product brand name..',
@@ -50,7 +54,7 @@ const Edit = (props) => {
             {({ errors, touched }) => (
                 <Form>
                     <div className="input-style-1">
-                        <Input inputProps={categoryProps} error={errors.category && touched.category ? true : false} />
+                        <Input inputProps={categoryProps} error={errors.name && touched.name ? true : false} />
                     </div>
 
                     <div className="input-style-1">
@@ -59,7 +63,7 @@ const Edit = (props) => {
 
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">
                         <Button type="submit" className="primary-btn btn-hover btn-sm">Update</Button>
-                        <Button type="button" onClick={() => props.hideEditPanel(null)} className="btn-dark btn-hover btn-sm">Cancel</Button>
+                        <Button type="button" onClick={handleClose} className="btn-dark btn-hover btn-sm">Cancel</Button>
                     </div>
                 </Form>
             )}

@@ -10,7 +10,7 @@ const Delete = (props) => {
 
     const { handleClose, modalInfo } = props
 
-    const { id, name } = modalInfo.product
+    const { id, name } = modalInfo.data
 
     const deleteItem = () => dispatch(deleteProduct(id)) && handleClose()
 

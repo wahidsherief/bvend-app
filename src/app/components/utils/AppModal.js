@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 const AppModal = ({ modalInfo, modal, hideModal }) => {
 
     const { title: modalTitle, body: ModalBody } = modalInfo
+
     const [show, setShow] = useState(false);
 
     const handleClose = () => {

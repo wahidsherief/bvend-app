@@ -10,6 +10,8 @@ export const fetchCategory = createAsyncThunk(
         const url = `${API_URL}product/category`
         try {
             const response = await axios.get(url)
+
+            console.log('category from db ', response.data)
             return response.data
         } catch (err) {
             return err.message

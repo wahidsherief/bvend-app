@@ -1,11 +1,12 @@
 import { Formik, Form } from "formik";
 import Button from 'react-bootstrap/Button';
 import { useSelector, useDispatch } from "react-redux"
-import { productCategoryTypesData } from "assets/data";
 import { Input, Select, File } from "app/components/utils/form_elements"
 import { updateProduct } from "features/ProductSlice";
 import { getFileName } from "services";
 import { UpdateFormValidationRules } from "../validation";
+import { fetchCategory } from "features/ProductCategorySlice";
+import { useEffect } from "react";
 
 const Edit = (props) => {
 
@@ -13,16 +14,22 @@ const Edit = (props) => {
 
     const { handleClose, modalInfo } = props
 
-    const { data: categories } = useSelector((state) => state.productCategory)
+    // const { data: categories } = useSelector((state) => state.productCategory)
 
-    const { id, category } = modalInfo.product
+    const { id, category, categories } = modalInfo.data
 
-    const initialValues = { ...modalInfo.product }
+    const initialValues = { ...modalInfo.data }
+
+    // useEffect(() => {
+    //     dispatch(fetchCategory())
+    // }, [dispatch])
 
     const update = (values, onSubmitProps) => {
         let { id, name, category, image, newImage } = values
         image = newImage !== undefined ? getFileName(newImage) : image
         const updatedValues = { id, name, category, image }
+
+        console.log('uv :', updatedValues)
         dispatch(updateProduct(updatedValues)) && onSubmitProps.resetForm()
     }
 
@@ -31,14 +38,14 @@ const Edit = (props) => {
     }
 
     const nameProps = {
-        id: `product_${id}`,
+        id: id,
         name: 'name',
         type: 'text',
         placeholder: 'Choose product name..',
     }
 
     const categoryProps = {
-        id: `product_${id}`,
+        id: id,
         name: 'category',
         placeholder: 'Choose product category..',
         filterBy: category,
@@ -46,7 +53,7 @@ const Edit = (props) => {
     }
 
     const imageProps = {
-        id: `product_${id}`,
+        id: id,
         name: 'newImage',
         placeholder: 'Choose product image..',
         type: 'file'
@@ -55,7 +62,7 @@ const Edit = (props) => {
     return (
         <Formik
             initialValues={initialValues}
-            validationSchema={UpdateFormValidationRules}
+            // validationSchema={UpdateFormValidationRules}
             onSubmit={onSubmit}
             className="accordion-body bg-light"
             enableReinitialize={true}

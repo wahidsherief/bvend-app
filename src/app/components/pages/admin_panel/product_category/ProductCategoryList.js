@@ -24,6 +24,8 @@ const ProductCategoryList = () => {
         dispatch(fetchCategory())
     }, [dispatch])
 
+
+
     const [modal, setModal] = useState(false)
 
     const [modalInfo, setModalInfo] = useState({})
@@ -36,7 +38,7 @@ const ProductCategoryList = () => {
         setModalInfo({
             title: 'Edit Category',
             body: Edit,
-            category: categoryInfo
+            data: categoryInfo
         })
 
         showModal()
@@ -46,7 +48,7 @@ const ProductCategoryList = () => {
         setModalInfo({
             title: 'Delete Category',
             body: Delete,
-            category: categoryInfo
+            data: categoryInfo
         })
 
         showModal()
@@ -56,7 +58,7 @@ const ProductCategoryList = () => {
         const { category } = props
         const info = {
             id: category.id,
-            category: category.category,
+            name: category.name,
             brand: category.brand
         }
         return (
@@ -70,7 +72,7 @@ const ProductCategoryList = () => {
                         />
                     </td> */}
                     <td>
-                        <p className="text-bold">{category.category}</p>
+                        <p className="text-bold">{category.name}</p>
                     </td>
                     <td>
                         <div>
@@ -79,10 +81,10 @@ const ProductCategoryList = () => {
                     </td>
                     <td>
                         <div className="action">
-                            <button onClick={() => triggerEditModal(info)} className="text-secondary">
+                            <button onClick={() => triggerEditModal(info)} className="text-dark">
                                 <i className="lni lni-pencil-alt"></i>
                             </button>
-                            <button onClick={() => triggerDeleteModal(info)} className="text-secondary">
+                            <button onClick={() => triggerDeleteModal(info)} className="ms-3 text-dark">
                                 <i className="lni lni-trash-can"></i>
                             </button>
                         </div>
