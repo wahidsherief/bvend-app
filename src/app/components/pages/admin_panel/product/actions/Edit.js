@@ -14,15 +14,9 @@ const Edit = (props) => {
 
     const { handleClose, modalInfo } = props
 
-    // const { data: categories } = useSelector((state) => state.productCategory)
-
     const { id, category, categories } = modalInfo.data
 
     const initialValues = { ...modalInfo.data }
-
-    // useEffect(() => {
-    //     dispatch(fetchCategory())
-    // }, [dispatch])
 
     const update = (values, onSubmitProps) => {
         let { id, name, category, image, newImage } = values

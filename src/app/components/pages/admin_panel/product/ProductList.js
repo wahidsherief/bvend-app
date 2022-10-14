@@ -3,7 +3,7 @@ import PageTitle from "app/components/common/PageTitle"
 import { useSelector, useDispatch } from "react-redux"
 import { fetchProduct } from "features/ProductSlice";
 import { fetchCategory } from "features/ProductCategorySlice";
-import { Loading } from "services"
+import { Loading, Empty } from "services"
 import Edit from "./actions/Edit";
 import Delete from "./actions/Delete";
 import AppModal from "app/components/utils/AppModal";
@@ -32,11 +32,8 @@ const ProductList = () => {
             }
         };
 
-        fetchData();
-    }, [dispatch]);
-
-    console.log('from list p ', products)
-    // console.log('from list c ', categories)
+        fetchData()
+    }, [dispatch])
 
     const [modal, setModal] = useState(false)
 
@@ -66,9 +63,7 @@ const ProductList = () => {
         showModal()
     }
 
-    const RenderItems = (props) => {
-        const { product } = props
-        console.log('from product list : ', product)
+    const RenderItems = ({ product }) => {
         const info = {
             id: product.id,
             name: product.name,
@@ -118,7 +113,9 @@ const ProductList = () => {
         )
     }
 
-    const RenderProducts = () => (
+    const RenderEachProduct = ({ products }) => products.map((product) => (<RenderItems key={product.id} product={product} />))
+
+    const RenderProducts = (products) => (
         <React.Fragment>
             <div className="tables-wrapper">
                 <div className="row">
@@ -138,17 +135,7 @@ const ProductList = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {products.length > 0 &&
-                                            products.map((product) => {
-                                                console.log('fff ', product)
-                                                return (
-                                                    <RenderItems key={product.id} product={product} />
-                                                )
-                                            }
-
-
-                                            )
-                                        }
+                                        <RenderEachProduct products={products} />
                                     </tbody>
                                 </table>
                             </div>
@@ -159,12 +146,14 @@ const ProductList = () => {
         </React.Fragment >
     )
 
+    const RenderProductList = ({ products }) => products.length > 0 ? RenderProducts(products) : <Empty props='No product' />
+
     return (
         <React.Fragment>
             <AppModal modalInfo={modalInfo} modal={modal} hideModal={hideModal} />
             <PageTitle title='Product List' action={action} />
             <Loading status={status} />
-            <RenderProducts />
+            <RenderProductList products={products} />
         </React.Fragment >
     )
 }

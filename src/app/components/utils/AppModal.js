@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Children } from 'react';
 import Modal from 'react-bootstrap/Modal';
 
 const AppModal = ({ modalInfo, modal, hideModal }) => {
@@ -27,7 +27,8 @@ const AppModal = ({ modalInfo, modal, hideModal }) => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <ModalBody modalInfo={modalInfo} handleClose={handleClose} />
+                    {/* <ModalBody modalInfo={modalInfo} handleClose={handleClose} /> */}
+                    <Children />
                 </Modal.Body>
             </Modal>
         </>

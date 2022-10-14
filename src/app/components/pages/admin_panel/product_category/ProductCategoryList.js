@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import PageTitle from "app/components/common/PageTitle"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchCategory } from "features/ProductCategorySlice";
-import { Loading } from "services";
+import { Loading, Empty } from "services";
 import Edit from "./actions/Edit";
 import Delete from "./actions/Delete";
 import AppModal from "app/components/utils/AppModal";
@@ -22,6 +22,7 @@ const ProductCategoryList = () => {
 
     useEffect(() => {
         dispatch(fetchCategory())
+        return
     }, [dispatch])
 
 
@@ -37,7 +38,6 @@ const ProductCategoryList = () => {
     const triggerEditModal = (categoryInfo) => {
         setModalInfo({
             title: 'Edit Category',
-            body: Edit,
             data: categoryInfo
         })
 
@@ -47,7 +47,6 @@ const ProductCategoryList = () => {
     const triggerDeleteModal = (categoryInfo) => {
         setModalInfo({
             title: 'Delete Category',
-            body: Delete,
             data: categoryInfo
         })
 
@@ -127,12 +126,19 @@ const ProductCategoryList = () => {
         </React.Fragment >
     )
 
+    const RenderCategoryList = ({ categories }) =>
+        categories.length > 0
+            ? RenderCategories(categories)
+            : <Empty props='No category found' />
+
     return (
         <React.Fragment>
-            <AppModal modalInfo={modalInfo} modal={modal} hideModal={hideModal} />
+            <AppModal modalInfo={modalInfo} modal={modal} hideModal={hideModal}>
+                <Edit />
+            </AppModal>
             <PageTitle title='Product Category List' action={action} />
             <Loading status={status} />
-            <RenderCategories />
+            <RenderCategoryList categories={categories} />
         </React.Fragment >
     )
 
