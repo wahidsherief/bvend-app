@@ -27,8 +27,8 @@ const AppModal = ({ modalInfo, modal, hideModal }) => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {/* <ModalBody modalInfo={modalInfo} handleClose={handleClose} /> */}
-                    <Children />
+                    <ModalBody modalInfo={modalInfo} handleClose={handleClose} />
+                    {/* <Children /> */}
                 </Modal.Body>
             </Modal>
         </>

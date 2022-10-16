@@ -5,14 +5,14 @@ import { STATUS } from 'services';
 
 /* fetch all items */
 export const fetchCategory = createAsyncThunk(
-    'fetch',
+    'product/category/fetch',
     async () => {
         const url = `${API_URL}product/category`
         try {
             const response = await axios.get(url)
 
             console.log('category from db ', response.data)
-            return response.data
+            return response.data.data
         } catch (err) {
             return err.message
         }
@@ -21,7 +21,7 @@ export const fetchCategory = createAsyncThunk(
 
 /* save new item */
 export const saveCategory = createAsyncThunk(
-    'save',
+    'product/category/save',
     async (data) => {
         try {
             const url = `${API_URL}product/category`;
@@ -35,7 +35,7 @@ export const saveCategory = createAsyncThunk(
 
 /* update existing item */
 export const updateCategory = createAsyncThunk(
-    'update',
+    'product/category/update',
     async (data) => {
         const url = `${API_URL}product/category/update/${data.id}`;
         try {
@@ -49,7 +49,7 @@ export const updateCategory = createAsyncThunk(
 
 /* delete item */
 export const deleteCategory = createAsyncThunk(
-    'delete',
+    'product/category/delete',
     async (data) => {
         const url = `${API_URL}product/category/delete/${data}`;
         try {

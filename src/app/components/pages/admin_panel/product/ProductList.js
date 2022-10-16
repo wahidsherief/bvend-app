@@ -146,6 +146,8 @@ const ProductList = () => {
         </React.Fragment >
     )
 
+    // need to prevent from server error cases thus page break
+
     const RenderProductList = ({ products }) => products.length > 0 ? RenderProducts(products) : <Empty props='No product' />
 
     return (

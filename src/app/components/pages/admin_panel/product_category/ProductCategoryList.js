@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import PageTitle from "app/components/common/PageTitle"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchCategory } from "features/ProductCategorySlice";
-import { Loading, Empty } from "services";
+import { Loading, Empty, Wrong } from "services";
 import Edit from "./actions/Edit";
 import Delete from "./actions/Delete";
 import AppModal from "app/components/utils/AppModal";
@@ -22,7 +22,6 @@ const ProductCategoryList = () => {
 
     useEffect(() => {
         dispatch(fetchCategory())
-        return
     }, [dispatch])
 
 
@@ -126,10 +125,7 @@ const ProductCategoryList = () => {
         </React.Fragment >
     )
 
-    const RenderCategoryList = ({ categories }) =>
-        categories.length > 0
-            ? RenderCategories(categories)
-            : <Empty props='No category found' />
+    const RenderCategoryList = ({ categories }) => categories.length > 0 ? RenderCategories(categories) : <Empty props='No category found' />
 
     return (
         <React.Fragment>
