@@ -2,10 +2,10 @@ import { Formik, Form } from "formik";
 import Button from 'react-bootstrap/Button';
 import { Input, Select, File } from "app/components/utils/form_elements"
 import { useSelector, useDispatch } from "react-redux"
-import { fetchProduct, saveProduct } from "features/ProductSlice"
+import { saveProduct } from "features/ProductSlice"
+import { fetchCategory } from "features/ProductCategorySlice"
 import { getFileName } from "services";
 import { CreateFormValidationRules } from "../validation";
-import { productCategoryTypesData } from "assets/data";
 import { useEffect } from "react";
 
 
@@ -13,24 +13,29 @@ const Create = () => {
 
     const dispatch = useDispatch()
 
-    const { data: products } = useSelector((state) => state.product)
+    const { data: categories } = useSelector((state) => state.productCategory)
 
     useEffect(() => {
-        dispatch(fetchProduct())
+        dispatch(fetchCategory())
     }, [dispatch])
 
-    const create = (values, onSubmitProps) => {
-        let { name, category, image } = values
-        image = getFileName(image)
-        const id = products.length + 1
-        const newValues = { id, name, category, image }
-        dispatch(saveProduct(newValues)) && onSubmitProps.resetForm()
-    }
+    // const create = (values, onSubmitProps) => {
+    //     console.log(values);
 
-    const initialValues = { name: '', category: '', image: '' }
+    //     // let { image } = values
+    //     // const newImage = getFileName(image)
+    //     // const newValues = { ...values, image: newImage }
+
+    //     // console.log(newValues);
+    //     dispatch(saveProduct(values)) && onSubmitProps.resetForm()
+    // }
+
+    const initialValues = { name: '', product_categories_id: '', image: '' }
 
     const onSubmit = (values, onSubmitProps) => {
-        create(values, onSubmitProps)
+        console.log(values)
+        // dispatch(saveProduct(values)) && onSubmitProps.resetForm()
+        dispatch(saveProduct(values))
     }
 
 
@@ -41,10 +46,10 @@ const Create = () => {
     }
 
     const categoryProps = {
-        name: 'category',
+        name: 'product_categories_id',
         placeholder: 'Choose product category..',
         filterBy: null,
-        optionFields: productCategoryTypesData.types,
+        optionFields: categories,
     }
 
 
@@ -61,20 +66,20 @@ const Create = () => {
             onSubmit={onSubmit}
             enableReinitialize={true}
         >
-            {({ errors, touched }) => (
-                <Form>
+            {({ errors, touched, setFieldValue }) => (
+                <Form encType="multipart/form-data">
                     <div className="input-style-1">
                         <Input inputProps={nameProps} error={errors.name && touched.name ? true : false} />
                     </div>
 
                     <div className="select-style-2">
                         <div className="select-position">
-                            <Select selectProps={categoryProps} error={errors.category && touched.category ? true : false} />
+                            <Select selectProps={categoryProps} error={errors.product_categories_id && touched.product_categories_id ? true : false} />
                         </div>
                     </div>
 
                     <div className="input-style-1">
-                        <File fileProps={imageProps} error={errors.image && touched.image ? true : false} />
+                        <File fileProps={imageProps} setFieldValue={setFieldValue} error={errors.image && touched.image ? true : false} />
                     </div>
 
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">

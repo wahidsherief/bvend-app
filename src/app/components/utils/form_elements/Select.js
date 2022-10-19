@@ -6,8 +6,6 @@ const Select = (props) => {
 
     const options = filterBy === null ? optionFields : optionFields.filter((field) => field.id !== filterBy.id)
 
-    console.log('filter options : ', options)
-
     return (
         <>
             <Field

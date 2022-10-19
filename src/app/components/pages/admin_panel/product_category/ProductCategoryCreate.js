@@ -8,7 +8,6 @@ const action = {
 }
 
 const ProductCategoryCreate = () => {
-
     return (
         <React.Fragment>
             <PageTitle title='Create Product Category' action={action} />

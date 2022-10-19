@@ -6,7 +6,16 @@ const File = (props) => {
 
     return (
         <>
-            <Field name={name} type='file' {...rest} className={props.error === true ? 'form-control shadow-none is-invalid' : null} />
+            <input
+                // name={name}
+                type='file'
+                className={props.error === true ? 'form-control shadow-none is-invalid' : null}
+                onChange={(event) => {
+                    props.setFieldValue('image', event.currentTarget.files[0]);
+                }}
+
+                {...rest}
+            />
             <ErrorMessage name={name} component={ErrorText} />
         </>
     )

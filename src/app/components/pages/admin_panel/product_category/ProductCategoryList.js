@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import PageTitle from "app/components/common/PageTitle"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchCategory } from "features/ProductCategorySlice";
-import { Loading, Empty, Wrong } from "services";
+import { Loading, Empty } from "services";
 import Edit from "./actions/Edit";
 import Delete from "./actions/Delete";
 import AppModal from "app/components/utils/AppModal";
@@ -37,6 +37,7 @@ const ProductCategoryList = () => {
     const triggerEditModal = (categoryInfo) => {
         setModalInfo({
             title: 'Edit Category',
+            body: Edit,
             data: categoryInfo
         })
 
@@ -46,6 +47,7 @@ const ProductCategoryList = () => {
     const triggerDeleteModal = (categoryInfo) => {
         setModalInfo({
             title: 'Delete Category',
+            body: Delete,
             data: categoryInfo
         })
 

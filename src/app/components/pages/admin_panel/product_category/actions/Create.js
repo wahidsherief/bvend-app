@@ -1,37 +1,23 @@
-import { useEffect } from "react";
 import { Formik, Form } from "formik";
 import Button from 'react-bootstrap/Button';
 import { Input } from "app/components/utils/form_elements"
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux"
 import { CreateFormValidationRules } from "../validation";
-import { fetchCategory, saveCategory } from "features/ProductCategorySlice";
+import { saveCategory } from "features/ProductCategorySlice";
 
 
 const Create = () => {
 
     const dispatch = useDispatch()
 
-    const { data: categories } = useSelector((state) => state.productCategory)
-
-    useEffect(() => {
-        dispatch(fetchCategory())
-    }, [dispatch])
-
-    const createProductCategory = (values, onSubmitProps) => {
-        let { category, brand } = values
-        const id = categories.length + 1
-        const newValues = { id, category, brand }
-        dispatch(saveCategory(newValues)) && onSubmitProps.resetForm()
-    }
-
-    const initialValues = { category: '', brand: '' }
+    const initialValues = { name: '', brand: '' }
 
     const onSubmit = (values, onSubmitProps) => {
-        createProductCategory(values, onSubmitProps)
+        dispatch(saveCategory(values)) && onSubmitProps.resetForm()
     }
 
     const categoryProps = {
-        name: 'category',
+        name: 'name',
         type: 'text',
         placeholder: 'Enter product category name..',
     }
@@ -41,8 +27,6 @@ const Create = () => {
         type: 'text',
         placeholder: 'Enter product brand name..',
     }
-
-    //  Monaco, Operator Mono, Fira Code iScript,  'Courier New',  monospace
 
     return (
         <Formik

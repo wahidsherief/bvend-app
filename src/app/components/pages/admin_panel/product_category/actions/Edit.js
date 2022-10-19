@@ -17,7 +17,6 @@ const Edit = (props) => {
     const update = (values, onSubmitProps) => {
         let { id, name, brand } = values
         const updatedValues = { id, name, brand }
-        console.log(updatedValues)
         dispatch(updateCategory(updatedValues)) && onSubmitProps.resetForm()
     }
 
@@ -27,6 +26,7 @@ const Edit = (props) => {
 
     const onSubmit = (values, onSubmitProps) => {
         update(values, onSubmitProps)
+        handleClose()
     }
 
     const categoryProps = {

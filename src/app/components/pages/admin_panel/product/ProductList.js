@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react"
 import PageTitle from "app/components/common/PageTitle"
 import { useSelector, useDispatch } from "react-redux"
 import { fetchProduct } from "features/ProductSlice";
-import { fetchCategory } from "features/ProductCategorySlice";
 import { Loading, Empty } from "services"
 import Edit from "./actions/Edit";
 import Delete from "./actions/Delete";
@@ -20,19 +19,8 @@ const ProductList = () => {
 
     const { data: products, status } = useSelector((state) => state.product)
 
-    const { data: categories } = useSelector((state) => state.productCategory)
-
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                await Promise(dispatch(fetchProduct()))
-                dispatch(fetchCategory())
-            } catch (error) {
-                // handle or ignore errors?
-            }
-        };
-
-        fetchData()
+        dispatch(fetchProduct())
     }, [dispatch])
 
     const [modal, setModal] = useState(false)
@@ -47,8 +35,6 @@ const ProductList = () => {
         setModalInfo({
             title: 'Edit Product',
             body: Edit,
-
-
             data: productInfo
         })
 
@@ -69,7 +55,7 @@ const ProductList = () => {
         const info = {
             id: product.id,
             name: product.name,
-            categories: categories,
+            image: product.image,
             category: {
                 id: product.category && product.category.id,
                 name: product.category && product.category.name

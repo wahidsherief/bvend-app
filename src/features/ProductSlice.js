@@ -10,7 +10,6 @@ export const fetchProduct = createAsyncThunk(
         const url = `${API_URL}product`
         try {
             const response = await axios.get(url)
-            console.log(response.data.data)
             return response.data.data
         } catch (err) {
             return err.message
@@ -24,8 +23,13 @@ export const saveProduct = createAsyncThunk(
     async (data) => {
         try {
             const url = `${API_URL}product`;
-            const response = await axios.post(url, data)
-            return response.data
+            const headers = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                }
+            }
+            const response = await axios.post(url, data, headers)
+            return response.data.data
         } catch (err) {
             return err.message
         }
@@ -37,10 +41,10 @@ export const updateProduct = createAsyncThunk(
     'product/update',
     async (data) => {
         console.log('slice :', data.id)
-        const url = `${API_URL}product/update/${data.id}`;
+        const url = `${API_URL}product/${data.id}`;
         try {
             const response = await axios.put(url, data)
-            return response.data
+            return response.data.data
         } catch (err) {
             return err.message
         }
@@ -51,10 +55,10 @@ export const updateProduct = createAsyncThunk(
 export const deleteProduct = createAsyncThunk(
     'product/delete',
     async (data) => {
-        const url = `${API_URL}product/delete/${data}`;
+        const url = `${API_URL}product/${data}`;
         try {
             const response = await axios.delete(url)
-            return response.data
+            return response.data.data
         } catch (err) {
             return err.message
         }

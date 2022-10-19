@@ -10,8 +10,6 @@ export const fetchCategory = createAsyncThunk(
         const url = `${API_URL}product/category`
         try {
             const response = await axios.get(url)
-
-            console.log('category from db ', response.data)
             return response.data.data
         } catch (err) {
             return err.message
@@ -26,7 +24,7 @@ export const saveCategory = createAsyncThunk(
         try {
             const url = `${API_URL}product/category`;
             const response = await axios.post(url, data)
-            return response.data
+            return response.data.data
         } catch (err) {
             return err.message
         }
@@ -37,10 +35,10 @@ export const saveCategory = createAsyncThunk(
 export const updateCategory = createAsyncThunk(
     'product/category/update',
     async (data) => {
-        const url = `${API_URL}product/category/update/${data.id}`;
+        const url = `${API_URL}product/category/${data.id}`;
         try {
             const response = await axios.put(url, data)
-            return response.data
+            return response.data.data
         } catch (err) {
             return err.message
         }
@@ -51,10 +49,10 @@ export const updateCategory = createAsyncThunk(
 export const deleteCategory = createAsyncThunk(
     'product/category/delete',
     async (data) => {
-        const url = `${API_URL}product/category/delete/${data}`;
+        const url = `${API_URL}product/category/${data}`;
         try {
             const response = await axios.delete(url)
-            return response.data
+            return response.data.data
         } catch (err) {
             return err.message
         }

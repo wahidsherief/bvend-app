@@ -12,19 +12,23 @@ const Edit = (props) => {
 
     const dispatch = useDispatch()
 
+    const { data: categories } = useSelector((state) => state.productCategory)
+
+    useEffect(() => {
+        dispatch(fetchCategory())
+    }, [dispatch])
+
     const { handleClose, modalInfo } = props
 
-    const { id, category, categories } = modalInfo.data
+    const { id, name, category, image } = modalInfo.data
 
-    const initialValues = { ...modalInfo.data }
+    const initialValues = { name, product_categories_id: category.id, image }
 
     const update = (values, onSubmitProps) => {
-        let { id, name, category, image, newImage } = values
-        image = newImage !== undefined ? getFileName(newImage) : image
-        const updatedValues = { id, name, category, image }
-
-        console.log('uv :', updatedValues)
+        const updatedImage = values.new_image !== undefined ? getFileName(values.new_image) : image
+        const updatedValues = { ...values, id, image: updatedImage }
         dispatch(updateProduct(updatedValues)) && onSubmitProps.resetForm()
+        handleClose()
     }
 
     const onSubmit = (values, onSubmitProps) => {
@@ -40,7 +44,7 @@ const Edit = (props) => {
 
     const categoryProps = {
         id: id,
-        name: 'category',
+        name: 'product_categories_id',
         placeholder: 'Choose product category..',
         filterBy: category,
         optionFields: categories,
@@ -48,7 +52,7 @@ const Edit = (props) => {
 
     const imageProps = {
         id: id,
-        name: 'newImage',
+        name: 'new_image',
         placeholder: 'Choose product image..',
         type: 'file'
     }
@@ -56,7 +60,7 @@ const Edit = (props) => {
     return (
         <Formik
             initialValues={initialValues}
-            // validationSchema={UpdateFormValidationRules}
+            validationSchema={UpdateFormValidationRules}
             onSubmit={onSubmit}
             className="accordion-body bg-light"
             enableReinitialize={true}
@@ -69,12 +73,12 @@ const Edit = (props) => {
 
                     <div className="select-style-2">
                         <div className="select-position">
-                            <Select selectProps={categoryProps} error={errors.category && touched.category ? true : false} />
+                            <Select selectProps={categoryProps} error={errors.product_categories_id && touched.product_categories_id ? true : false} />
                         </div>
                     </div>
 
                     <div className="input-style-1">
-                        <File fileProps={imageProps} error={errors.image && touched.image ? true : false} />
+                        <File fileProps={imageProps} error={errors.new_image && touched.image ? true : false} />
                     </div>
 
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">
