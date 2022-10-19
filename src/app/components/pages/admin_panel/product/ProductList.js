@@ -47,6 +47,8 @@ const ProductList = () => {
         setModalInfo({
             title: 'Edit Product',
             body: Edit,
+
+
             data: productInfo
         })
 
@@ -148,7 +150,7 @@ const ProductList = () => {
 
     // need to prevent from server error cases thus page break
 
-    const RenderProductList = ({ products }) => products.length > 0 ? RenderProducts(products) : <Empty props='No product' />
+    const RenderProductList = ({ products }) => Array.isArray(products) && products.length > 0 ? RenderProducts(products) : <Empty props='No product' />
 
     return (
         <React.Fragment>
