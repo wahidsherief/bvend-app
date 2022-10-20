@@ -17,46 +17,89 @@ const Create = () => {
 
     const { vendors } = vendorListSlice
 
-    const createVendor = (values, onSubmitProps) => {
-        let { name, category, image } = values
-        image = getFileName(image)
-        const id = vendors.length + 1
-        const newValues = { id, name, category, image }
-        dispatch(create(newValues)) && onSubmitProps.resetForm()
-    }
+    // const createVendor = (values, onSubmitProps) => {
+    //     let { name, category, image } = values
+    //     image = getFileName(image)
+    //     const id = vendors.length + 1
+    //     const newValues = { id, name, category, image }
+    //     // dispatch(create(newValues)) && onSubmitProps.resetForm()
+    // }
 
-    const initialValues = { name: '', category: '', image: '' }
+    const initialValues = { name: '', email: '', contact: '', additional_contact: '', business_name: '', trade_licence: '', nid: '', is_active: '', image: '' }
+
 
     const onSubmit = (values, onSubmitProps) => {
-        createVendor(values, onSubmitProps)
+        console.log(values)
+        // createVendor(values, onSubmitProps)
     }
 
     const nameProps = {
         name: 'name',
         type: 'text',
-        placeholder: 'Email vendor name..',
+        placeholder: 'Enter name..',
     }
 
     const emailProps = {
         name: 'email',
         type: 'email',
-        placeholder: 'Email vendor email..',
+        placeholder: 'Enter email..',
+    }
+
+    const passwordProps = {
+        name: 'password',
+        type: 'password',
+        placeholder: 'Enter password..',
+    }
+
+    const contactProps = {
+        name: 'contact',
+        type: 'number',
+        placeholder: 'Enter contact..',
+    }
+
+    const additionalContactProps = {
+        name: 'additional_contact',
+        type: 'number',
+        placeholder: 'Enter additional contact..',
+    }
+
+    const businessNameProps = {
+        name: 'business_name',
+        type: 'input',
+        placeholder: 'Enter business name..',
+    }
+
+    const tradeLicenceProps = {
+        name: 'trade_licence',
+        type: 'input',
+        placeholder: 'Enter trade licence number..',
+    }
+
+    const nidProps = {
+        name: 'nid',
+        type: 'input',
+        placeholder: 'Enter national identification (nid) number..',
+    }
+
+    const isActiveProps = {
+        name: 'is_active',
+        type: 'checkbox'
     }
 
     const imageProps = {
         name: 'image',
-        placeholder: 'Email vendor image..',
+        placeholder: 'Enter image..',
         type: 'file'
     }
 
     return (
         <Formik
             initialValues={initialValues}
-            validationSchema={CreateFormValidationRules}
+            // validationSchema={CreateFormValidationRules}
             onSubmit={onSubmit}
             enableReinitialize={true}
         >
-            {({ errors, touched }) => (
+            {({ errors, touched, setFieldValue }) => (
                 <Form>
                     <div className="input-style-1">
                         <Input inputProps={nameProps} error={errors.name && touched.name ? true : false} />
@@ -66,8 +109,38 @@ const Create = () => {
                         <Input inputProps={emailProps} error={errors.email && touched.email ? true : false} />
                     </div>
 
+                    {/* password */}
                     <div className="input-style-1">
-                        <File fileProps={imageProps} error={errors.image && touched.image ? true : false} />
+                        <Input inputProps={passwordProps} error={errors.password && touched.password ? true : false} />
+                    </div>
+
+                    {/* contact */}
+                    <div className="input-style-1">
+                        <Input inputProps={contactProps} error={errors.contact && touched.contact ? true : false} />
+                    </div>
+
+                    {/* additional contact */}
+                    <div className="input-style-1">
+                        <Input inputProps={additionalContactProps} error={errors.additional_contact && touched.additional_contact ? true : false} />
+                    </div>
+
+                    {/* business name */}
+                    <div className="input-style-1">
+                        <Input inputProps={businessNameProps} error={errors.business_name && touched.business_name ? true : false} />
+                    </div>
+
+                    {/* trade licence */}
+                    <div className="input-style-1">
+                        <Input inputProps={tradeLicenceProps} error={errors.trade_licence && touched.trade_licence ? true : false} />
+                    </div>
+
+                    {/* nid */}
+                    <div className="input-style-1">
+                        <Input inputProps={nidProps} error={errors.nid && touched.nid ? true : false} />
+                    </div>
+
+                    <div className="input-style-1">
+                        <File fileProps={imageProps} setFieldValue={setFieldValue} error={errors.image && touched.image ? true : false} />
                     </div>
 
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">
