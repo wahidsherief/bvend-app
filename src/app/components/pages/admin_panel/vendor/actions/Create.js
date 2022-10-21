@@ -1,36 +1,18 @@
 import { Formik, Form } from "formik";
 import Button from 'react-bootstrap/Button';
 import { Input, File } from "app/components/utils/form_elements"
-import { useSelector, useDispatch } from "react-redux"
-import { create } from "features/VendorSlice"
-import { getFileName } from "services";
-import { CreateFormValidationRules } from "../validation";
+import { useDispatch } from "react-redux"
+import { saveVendor } from "features/VendorSlice"
 
 
 const Create = () => {
 
-    const vendorListSlice = useSelector((state) => {
-        return state['vendor']
-    })
-
     const dispatch = useDispatch()
 
-    const { vendors } = vendorListSlice
-
-    // const createVendor = (values, onSubmitProps) => {
-    //     let { name, category, image } = values
-    //     image = getFileName(image)
-    //     const id = vendors.length + 1
-    //     const newValues = { id, name, category, image }
-    //     // dispatch(create(newValues)) && onSubmitProps.resetForm()
-    // }
-
-    const initialValues = { name: '', email: '', contact: '', additional_contact: '', business_name: '', trade_licence: '', nid: '', is_active: '', image: '' }
-
+    const initialValues = { name: '', email: '', contact: '', additional_contact: '', business_name: '', trade_licence: '', nid: '', is_active: 1, image: '' }
 
     const onSubmit = (values, onSubmitProps) => {
-        console.log(values)
-        // createVendor(values, onSubmitProps)
+        dispatch(saveVendor(values)) && onSubmitProps.resetForm()
     }
 
     const nameProps = {
@@ -81,10 +63,10 @@ const Create = () => {
         placeholder: 'Enter national identification (nid) number..',
     }
 
-    const isActiveProps = {
-        name: 'is_active',
-        type: 'checkbox'
-    }
+    // const isActiveProps = {
+    //     name: 'is_active',
+    //     type: 'checkbox'
+    // }
 
     const imageProps = {
         name: 'image',
@@ -102,45 +84,45 @@ const Create = () => {
             {({ errors, touched, setFieldValue }) => (
                 <Form>
                     <div className="input-style-1">
-                        <Input inputProps={nameProps} error={errors.name && touched.name ? true : false} />
+                        <Input props={nameProps} error={errors.name && touched.name ? true : false} />
                     </div>
 
                     <div className="input-style-1">
-                        <Input inputProps={emailProps} error={errors.email && touched.email ? true : false} />
+                        <Input props={emailProps} error={errors.email && touched.email ? true : false} />
                     </div>
 
                     {/* password */}
                     <div className="input-style-1">
-                        <Input inputProps={passwordProps} error={errors.password && touched.password ? true : false} />
+                        <Input props={passwordProps} error={errors.password && touched.password ? true : false} />
                     </div>
 
                     {/* contact */}
                     <div className="input-style-1">
-                        <Input inputProps={contactProps} error={errors.contact && touched.contact ? true : false} />
+                        <Input props={contactProps} error={errors.contact && touched.contact ? true : false} />
                     </div>
 
                     {/* additional contact */}
                     <div className="input-style-1">
-                        <Input inputProps={additionalContactProps} error={errors.additional_contact && touched.additional_contact ? true : false} />
+                        <Input props={additionalContactProps} error={errors.additional_contact && touched.additional_contact ? true : false} />
                     </div>
 
                     {/* business name */}
                     <div className="input-style-1">
-                        <Input inputProps={businessNameProps} error={errors.business_name && touched.business_name ? true : false} />
+                        <Input props={businessNameProps} error={errors.business_name && touched.business_name ? true : false} />
                     </div>
 
                     {/* trade licence */}
                     <div className="input-style-1">
-                        <Input inputProps={tradeLicenceProps} error={errors.trade_licence && touched.trade_licence ? true : false} />
+                        <Input props={tradeLicenceProps} error={errors.trade_licence && touched.trade_licence ? true : false} />
                     </div>
 
                     {/* nid */}
                     <div className="input-style-1">
-                        <Input inputProps={nidProps} error={errors.nid && touched.nid ? true : false} />
+                        <Input props={nidProps} error={errors.nid && touched.nid ? true : false} />
                     </div>
 
                     <div className="input-style-1">
-                        <File fileProps={imageProps} setFieldValue={setFieldValue} error={errors.image && touched.image ? true : false} />
+                        <File props={imageProps} setFieldValue={setFieldValue} error={errors.image && touched.image ? true : false} />
                     </div>
 
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">

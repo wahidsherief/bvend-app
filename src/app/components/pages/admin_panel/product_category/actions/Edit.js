@@ -54,11 +54,11 @@ const Edit = (props) => {
             {({ errors, touched }) => (
                 <Form>
                     <div className="input-style-1">
-                        <Input inputProps={categoryProps} error={errors.name && touched.name ? true : false} />
+                        <Input props={categoryProps} error={errors.name && touched.name ? true : false} />
                     </div>
 
                     <div className="input-style-1">
-                        <Input inputProps={brandProps} error={errors.brand && touched.brand ? true : false} />
+                        <Input props={brandProps} error={errors.brand && touched.brand ? true : false} />
                     </div>
 
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">

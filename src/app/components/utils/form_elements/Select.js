@@ -1,8 +1,8 @@
 import { Field, ErrorMessage } from "formik";
 import ErrorText from "app/components/common/ErrorText";
 
-const Select = (props) => {
-    const { name, placeholder, filterBy, optionFields, ...rest } = props.selectProps
+const Select = ({ props }) => {
+    const { name, placeholder, filterBy, optionFields, ...rest } = props
 
     const options = filterBy === null ? optionFields : optionFields.filter((field) => field.id !== filterBy.id)
 

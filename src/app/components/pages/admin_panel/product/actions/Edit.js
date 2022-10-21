@@ -68,17 +68,17 @@ const Edit = (props) => {
             {({ errors, touched }) => (
                 <Form>
                     <div className="input-style-1">
-                        <Input inputProps={nameProps} error={errors.name && touched.name ? true : false} />
+                        <Input props={nameProps} error={errors.name && touched.name ? true : false} />
                     </div>
 
                     <div className="select-style-2">
                         <div className="select-position">
-                            <Select selectProps={categoryProps} error={errors.product_categories_id && touched.product_categories_id ? true : false} />
+                            <Select props={categoryProps} error={errors.product_categories_id && touched.product_categories_id ? true : false} />
                         </div>
                     </div>
 
                     <div className="input-style-1">
-                        <File fileProps={imageProps} error={errors.new_image && touched.image ? true : false} />
+                        <File props={imageProps} error={errors.new_image && touched.image ? true : false} />
                     </div>
 
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">

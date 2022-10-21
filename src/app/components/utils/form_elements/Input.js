@@ -2,9 +2,9 @@ import { Field, ErrorMessage } from "formik";
 import ErrorText from "app/components/common/ErrorText";
 
 
-const Input = (props) => {
+const Input = ({ props }) => {
 
-    const { name, ...rest } = props.inputProps
+    const { name, ...rest } = props
 
     return (
         <>

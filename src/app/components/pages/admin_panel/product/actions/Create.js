@@ -3,10 +3,9 @@ import Button from 'react-bootstrap/Button';
 import { Input, Select, File } from "app/components/utils/form_elements"
 import { useSelector, useDispatch } from "react-redux"
 import { saveProduct } from "features/ProductSlice"
-import { fetchCategory } from "features/ProductCategorySlice"
-import { getFileName } from "services";
 import { CreateFormValidationRules } from "../validation";
 import { useEffect } from "react";
+import { fetchCategory } from "features/ProductCategorySlice";
 
 
 const Create = () => {
@@ -19,23 +18,10 @@ const Create = () => {
         dispatch(fetchCategory())
     }, [dispatch])
 
-    // const create = (values, onSubmitProps) => {
-    //     console.log(values);
-
-    //     // let { image } = values
-    //     // const newImage = getFileName(image)
-    //     // const newValues = { ...values, image: newImage }
-
-    //     // console.log(newValues);
-    //     dispatch(saveProduct(values)) && onSubmitProps.resetForm()
-    // }
-
     const initialValues = { name: '', product_categories_id: '', image: '' }
 
     const onSubmit = (values, onSubmitProps) => {
-        console.log(values)
-        // dispatch(saveProduct(values)) && onSubmitProps.resetForm()
-        dispatch(saveProduct(values))
+        dispatch(saveProduct(values)) && onSubmitProps.resetForm()
     }
 
 
@@ -69,17 +55,17 @@ const Create = () => {
             {({ errors, touched, setFieldValue }) => (
                 <Form encType="multipart/form-data">
                     <div className="input-style-1">
-                        <Input inputProps={nameProps} error={errors.name && touched.name ? true : false} />
+                        <Input props={nameProps} error={errors.name && touched.name ? true : false} />
                     </div>
 
                     <div className="select-style-2">
                         <div className="select-position">
-                            <Select selectProps={categoryProps} error={errors.product_categories_id && touched.product_categories_id ? true : false} />
+                            <Select props={categoryProps} error={errors.product_categories_id && touched.product_categories_id ? true : false} />
                         </div>
                     </div>
 
                     <div className="input-style-1">
-                        <File fileProps={imageProps} setFieldValue={setFieldValue} error={errors.image && touched.image ? true : false} />
+                        <File props={imageProps} setFieldValue={setFieldValue} error={errors.image && touched.image ? true : false} />
                     </div>
 
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">

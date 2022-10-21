@@ -38,11 +38,11 @@ const Create = () => {
             {({ errors, touched }) => (
                 <Form>
                     <div className="input-style-1">
-                        <Input inputProps={categoryProps} error={errors.category && touched.category ? true : false} />
+                        <Input props={categoryProps} error={errors.category && touched.category ? true : false} />
                     </div>
 
                     <div className="input-style-1">
-                        <Input inputProps={brandProps} error={errors.brand && touched.brand ? true : false} />
+                        <Input props={brandProps} error={errors.brand && touched.brand ? true : false} />
                     </div>
 
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">
