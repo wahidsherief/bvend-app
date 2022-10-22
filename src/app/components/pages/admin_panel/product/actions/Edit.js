@@ -36,14 +36,12 @@ const Edit = (props) => {
     }
 
     const nameProps = {
-        id: id,
         name: 'name',
         type: 'text',
         placeholder: 'Choose product name..',
     }
 
     const categoryProps = {
-        id: id,
         name: 'product_categories_id',
         placeholder: 'Choose product category..',
         filterBy: category,
@@ -51,7 +49,6 @@ const Edit = (props) => {
     }
 
     const imageProps = {
-        id: id,
         name: 'new_image',
         placeholder: 'Choose product image..',
         type: 'file'
@@ -78,7 +75,7 @@ const Edit = (props) => {
                     </div>
 
                     <div className="input-style-1">
-                        <File props={imageProps} error={errors.new_image && touched.image ? true : false} />
+                        <File props={imageProps} error={errors.new_image && touched.new_image ? true : false} />
                     </div>
 
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">

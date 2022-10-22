@@ -9,7 +9,7 @@ const PageTitle = (props) => {
             <div className="title-wrapper pt-30">
                 <div className="row align-items-center">
                     <div className="col-lg-6 title mb-30">
-                        <h2>{props.title}</h2>
+                        <h4>{props.title}</h4>
                     </div>
                     {props.action.hasAction &&
                         <div className="col-lg-6 title mb-30 d-grid gap-2 d-md-flex justify-content-md-end">

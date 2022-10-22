@@ -21,13 +21,13 @@ export const fetchVendor = createAsyncThunk(
 export const saveVendor = createAsyncThunk(
     'vendor/save',
     async (data) => {
-        try {
-            const url = `${API_URL}vendor`;
-            const headers = {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                }
+        const url = `${API_URL}vendor`;
+        const headers = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
             }
+        }
+        try {
             const response = await axios.post(url, data, headers)
             return response.data.data
         } catch (err) {
@@ -40,10 +40,15 @@ export const saveVendor = createAsyncThunk(
 export const updateVendor = createAsyncThunk(
     'vendor/update',
     async (data) => {
-        console.log('slice :', data.id)
+        console.log('xett', data)
         const url = `${API_URL}vendor/${data.id}`;
+        const headers = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            }
+        }
         try {
-            const response = await axios.put(url, data)
+            const response = await axios.put(url, data, headers)
             return response.data.data
         } catch (err) {
             return err.message

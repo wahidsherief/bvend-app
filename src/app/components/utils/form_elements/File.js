@@ -9,7 +9,7 @@ const File = ({ props, setFieldValue }) => {
             <input
                 className={props.error === true ? 'form-control shadow-none is-invalid' : null}
                 onChange={(event) => {
-                    setFieldValue('image', event.currentTarget.files[0]);
+                    setFieldValue(name, event.currentTarget.files[0]);
                 }}
 
                 {...rest}

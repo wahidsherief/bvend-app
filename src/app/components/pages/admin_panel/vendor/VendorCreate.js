@@ -11,7 +11,7 @@ const ProductCreate = () => {
 
     return (
         <React.Fragment>
-            <PageTitle title='Product Create' action={action} />
+            <PageTitle title='Create Vendor' action={action} />
             <div className="tables-wrapper">
                 <div className="row">
                     <div className="col-lg-12">

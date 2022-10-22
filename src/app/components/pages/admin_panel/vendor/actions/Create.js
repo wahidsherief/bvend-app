@@ -1,6 +1,6 @@
 import { Formik, Form } from "formik";
 import Button from 'react-bootstrap/Button';
-import { Input, File } from "app/components/utils/form_elements"
+import { Input, File, Checkbox } from "app/components/utils/form_elements"
 import { useDispatch } from "react-redux"
 import { saveVendor } from "features/VendorSlice"
 
@@ -9,7 +9,7 @@ const Create = () => {
 
     const dispatch = useDispatch()
 
-    const initialValues = { name: '', email: '', contact: '', additional_contact: '', business_name: '', trade_licence: '', nid: '', is_active: 1, image: '' }
+    const initialValues = { name: '', email: '', contact: '', additional_contact: '', business_name: '', trade_licence_no: '', nid: '', is_active: false, image: '' }
 
     const onSubmit = (values, onSubmitProps) => {
         dispatch(saveVendor(values)) && onSubmitProps.resetForm()
@@ -52,7 +52,7 @@ const Create = () => {
     }
 
     const tradeLicenceProps = {
-        name: 'trade_licence',
+        name: 'trade_licence_no',
         type: 'input',
         placeholder: 'Enter trade licence number..',
     }
@@ -63,10 +63,10 @@ const Create = () => {
         placeholder: 'Enter national identification (nid) number..',
     }
 
-    // const isActiveProps = {
-    //     name: 'is_active',
-    //     type: 'checkbox'
-    // }
+    const isActiveProps = {
+        name: 'is_active',
+        type: 'checkbox'
+    }
 
     const imageProps = {
         name: 'image',
@@ -81,7 +81,7 @@ const Create = () => {
             onSubmit={onSubmit}
             enableReinitialize={true}
         >
-            {({ errors, touched, setFieldValue }) => (
+            {({ values, errors, touched, setFieldValue }) => (
                 <Form>
                     <div className="input-style-1">
                         <Input props={nameProps} error={errors.name && touched.name ? true : false} />
@@ -113,7 +113,7 @@ const Create = () => {
 
                     {/* trade licence */}
                     <div className="input-style-1">
-                        <Input props={tradeLicenceProps} error={errors.trade_licence && touched.trade_licence ? true : false} />
+                        <Input props={tradeLicenceProps} error={errors.trade_licence_no && touched.trade_licence_no ? true : false} />
                     </div>
 
                     {/* nid */}
@@ -123,6 +123,13 @@ const Create = () => {
 
                     <div className="input-style-1">
                         <File props={imageProps} setFieldValue={setFieldValue} error={errors.image && touched.image ? true : false} />
+                    </div>
+
+                    <div className="form-check form-switch toggle-switch mb-30">
+                        <Checkbox
+                            props={isActiveProps}
+                            label={values.is_active === false ? 'Activate Vendor' : 'Deactivate Vendor'}
+                            error={errors.is_active && touched.is_active ? true : false} />
                     </div>
 
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">
