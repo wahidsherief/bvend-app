@@ -40,15 +40,21 @@ export const saveVendor = createAsyncThunk(
 export const updateVendor = createAsyncThunk(
     'vendor/update',
     async (data) => {
-        console.log('xett', data)
+        console.log('xett', data.image)
         const url = `${API_URL}vendor/${data.id}`;
+        console.log('form data')
+        const formData = new FormData()
+        formData.append('name', data.name)
+        formData.append('image', data.image)
+        formData.append('_method', 'PUT')
+        console.log(formData.get('image'))
         const headers = {
             headers: {
                 'Content-Type': 'multipart/form-data',
             }
         }
         try {
-            const response = await axios.put(url, data, headers)
+            const response = await axios.post(url, formData, headers)
             return response.data.data
         } catch (err) {
             return err.message

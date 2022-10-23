@@ -82,7 +82,7 @@ const Create = () => {
             enableReinitialize={true}
         >
             {({ values, errors, touched, setFieldValue }) => (
-                <Form>
+                <Form enctype="multipart/form-data">
                     <div className="input-style-1">
                         <Input props={nameProps} error={errors.name && touched.name ? true : false} />
                     </div>
