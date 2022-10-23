@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import PageTitle from "app/components/common/PageTitle"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchVendor } from "features/VendorSlice";
-import { Loading, Empty } from "services";
+import { Loading, Empty, STATUS, getImageURL } from "services";
 import Edit from "./actions/Edit";
 import Delete from "./actions/Delete";
 import AppModal from "app/components/utils/AppModal";
@@ -54,6 +54,7 @@ const VendorList = () => {
 
     const RenderItems = (props) => {
         const { vendor } = props
+        const image = getImageURL('vendor').vendor + vendor.image
         const info = {
             id: vendor.id,
             name: vendor.name,
@@ -77,7 +78,7 @@ const VendorList = () => {
                         />
                     </td> */}
                     <td>
-                        <p className="text-bold"></p>
+                        <img src={image} className="image-in-list me-3" alt={vendor.name} />
                     </td>
                     <td>
                         <p className="text-bold">{vendor.name}</p>
@@ -121,34 +122,45 @@ const VendorList = () => {
 
     const RenderVendors = () => (
         <React.Fragment>
+            <h6 className="mb-10">Total Vendors : {vendors.length}</h6>
+            <div className="table-wrapper table-responsive mt-4">
+                <table className="table">
+                    <thead>
+                        <tr>
+                            {/* <th><h6></h6></th> */}
+                            <th></th>
+                            <th><h6>Name</h6></th>
+                            <th><h6>Company</h6></th>
+                            <th><h6>Email</h6></th>
+                            <th><h6>Contact</h6></th>
+                            <th><h6>Status</h6></th>
+                            <th><h6>Action</h6></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {vendors.length > 0 &&
+                            vendors.map((vendor) => (
+                                <RenderItems key={vendor.id} vendor={vendor} />
+                            ))
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </React.Fragment>
+    )
+
+    const RenderVendorList = ({ vendors }) => (
+        <React.Fragment>
             <div className="tables-wrapper">
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="card-style mb-30">
-                            <h6 className="mb-10">Total vendors : {vendors.length}</h6>
-                            <div className="table-wrapper table-responsive mt-4">
-                                <table className="table">
-                                    <thead>
-                                        <tr>
-                                            {/* <th><h6></h6></th> */}
-                                            <th><h6>Vendor</h6></th>
-                                            <th><h6>Name</h6></th>
-                                            <th><h6>Company</h6></th>
-                                            <th><h6>Email</h6></th>
-                                            <th><h6>Contact</h6></th>
-                                            <th><h6>Status</h6></th>
-                                            <th><h6>Action</h6></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {vendors.length > 0 &&
-                                            vendors.map((vendor) => (
-                                                <RenderItems key={vendor.id} vendor={vendor} />
-                                            ))
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
+                            {
+                                status === STATUS.LOADING && <Loading />
+                            }
+                            {
+                                vendors.length > 0 ? RenderVendors(vendors) : status !== STATUS.LOADING && <Empty props='No vendor found' />
+                            }
                         </div>
                     </div>
                 </div >
@@ -156,13 +168,10 @@ const VendorList = () => {
         </React.Fragment >
     )
 
-    const RenderVendorList = ({ vendors }) => vendors.length > 0 ? RenderVendors(vendors) : <Empty props='No vendor found' />
-
     return (
         <React.Fragment>
             <AppModal modalInfo={modalInfo} modal={modal} hideModal={hideModal} />
             <PageTitle title='Vendor List' action={action} />
-            <Loading status={status} />
             <RenderVendorList vendors={vendors} />
         </React.Fragment >
     )

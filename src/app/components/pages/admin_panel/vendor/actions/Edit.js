@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux"
 import { Input, File, Checkbox } from "app/components/utils/form_elements"
 import { UpdateFormValidationRules } from "../validation";
 import { updateVendor } from "features/VendorSlice";
-import { getFileName } from "services";
 
 const Edit = (props) => {
 
@@ -12,17 +11,15 @@ const Edit = (props) => {
 
     const { handleClose, modalInfo } = props
 
-    const { id, prevImage } = modalInfo.data
+    const { id, image } = modalInfo.data
 
     const initialValues = { ...modalInfo.data }
 
     const update = (values, onSubmitProps) => {
-        const updatedImage = values.image.size !== undefined ? values.image : prevImage
+        const updatedImage = values.image.size !== undefined ? values.image : image
         const updatedValues = { ...values, id, image: updatedImage }
-
-        console.log('up ', updatedValues)
         dispatch(updateVendor(updatedValues)) && onSubmitProps.resetForm()
-        // handleClose()
+        handleClose()
     }
 
     const onSubmit = (values, onSubmitProps) => update(values, onSubmitProps)

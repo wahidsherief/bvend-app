@@ -40,21 +40,14 @@ export const saveVendor = createAsyncThunk(
 export const updateVendor = createAsyncThunk(
     'vendor/update',
     async (data) => {
-        console.log('xett', data.image)
         const url = `${API_URL}vendor/${data.id}`;
-        console.log('form data')
-        const formData = new FormData()
-        formData.append('name', data.name)
-        formData.append('image', data.image)
-        formData.append('_method', 'PUT')
-        console.log(formData.get('image'))
         const headers = {
             headers: {
                 'Content-Type': 'multipart/form-data',
             }
         }
         try {
-            const response = await axios.post(url, formData, headers)
+            const response = await axios.post(url, getFormData(data), headers)
             return response.data.data
         } catch (err) {
             return err.message
@@ -75,6 +68,24 @@ export const deleteVendor = createAsyncThunk(
         }
     }
 )
+
+const getFormData = data => {
+    const formData = new FormData();
+
+    formData.append('_method', 'PUT')
+    formData.append('name', data.name)
+    formData.append('password', data.password)
+    formData.append('email', data.email)
+    formData.append('business_name', data.business_name)
+    formData.append('contact', data.contact)
+    formData.append('additional_contact', data.additional_contact)
+    formData.append('nid', data.nid)
+    formData.append('trade_licence_no', data.trade_licence_no)
+    formData.append('image', data.image)
+    formData.append('is_active', data.is_active)
+
+    return formData;
+}
 
 
 export const vendor = createSlice({
