@@ -25,4 +25,5 @@ const imageURLS = {
 }
 
 export const getImageURL = key => imageURLS[key]
-    // Object.fromEntries(Object.entries(imageURLS).filter(([key]) => key.includes(value)))
+
+export const avatar = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRHTAOoUgmMmgvc3smmw-rCLkGn7xiKMa58dOK67GRrw&s'

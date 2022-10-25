@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import PageTitle from "app/components/common/PageTitle"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchCategory } from "features/ProductCategorySlice";
-import { Loading, Empty } from "services";
+import { Loading, Empty, STATUS } from "services";
 import Edit from "./actions/Edit";
 import Delete from "./actions/Delete";
 import AppModal from "app/components/utils/AppModal";
@@ -54,8 +54,7 @@ const ProductCategoryList = () => {
         showModal()
     }
 
-    const RenderItems = (props) => {
-        const { category } = props
+    const RenderItems = ({ category }) => {
         const info = {
             id: category.id,
             name: category.name,
@@ -76,7 +75,7 @@ const ProductCategoryList = () => {
                     </td>
                     <td>
                         <div>
-                            <p className="text-black-50">{category.brand}</p>
+                            <p className="text-black-50">{category.brand ? category.brand : 'N/A'}</p>
                         </div>
                     </td>
                     <td>
@@ -96,30 +95,41 @@ const ProductCategoryList = () => {
 
     const RenderCategories = () => (
         <React.Fragment>
+            <h6 className="mb-10">Total Categories : {categories.length}</h6>
+            <div className="table-wrapper table-responsive mt-4">
+                <table className="table">
+                    <thead>
+                        <tr>
+                            {/* <th><h6></h6></th> */}
+                            <th><h6>Category</h6></th>
+                            <th><h6>Brand</h6></th>
+                            <th><h6>Action</h6></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {categories.length > 0 &&
+                            categories.map((category) => (
+                                <RenderItems key={category.id} category={category} />
+                            ))
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </React.Fragment>
+    )
+
+    const RenderCategoryList = ({ categories }) => (
+        <React.Fragment>
             <div className="tables-wrapper">
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="card-style mb-30">
-                            <h6 className="mb-10">Total Categories : {categories.length}</h6>
-                            <div className="table-wrapper table-responsive mt-4">
-                                <table className="table">
-                                    <thead>
-                                        <tr>
-                                            {/* <th><h6></h6></th> */}
-                                            <th><h6>Category</h6></th>
-                                            <th><h6>Brand</h6></th>
-                                            <th><h6>Action</h6></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {categories.length > 0 &&
-                                            categories.map((category) => (
-                                                <RenderItems key={category.id} category={category} />
-                                            ))
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
+                            {
+                                status === STATUS.LOADING && <Loading />
+                            }
+                            {
+                                categories.length > 0 ? RenderCategories(categories) : status !== STATUS.LOADING && <Empty props='No product found' />
+                            }
                         </div>
                     </div>
                 </div >
@@ -127,15 +137,10 @@ const ProductCategoryList = () => {
         </React.Fragment >
     )
 
-    const RenderCategoryList = ({ categories }) => categories.length > 0 ? RenderCategories(categories) : <Empty props='No category found' />
-
     return (
         <React.Fragment>
-            <AppModal modalInfo={modalInfo} modal={modal} hideModal={hideModal}>
-                <Edit />
-            </AppModal>
+            <AppModal modalInfo={modalInfo} modal={modal} hideModal={hideModal} />
             <PageTitle title='Product Category List' action={action} />
-            <Loading status={status} />
             <RenderCategoryList categories={categories} />
         </React.Fragment >
     )

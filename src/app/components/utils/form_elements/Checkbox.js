@@ -8,7 +8,7 @@ const Checkbox = ({ props, label }) => {
     return (
         <>
             <Field name={name} {...rest} className='form-check-input' />
-            <label class="form-check-label mt-2" for="checkbox-remember">{label}</label>
+            <label className="form-check-label mt-2" htmlFor="checkbox-remember">{label}</label>
         </>
     )
 }

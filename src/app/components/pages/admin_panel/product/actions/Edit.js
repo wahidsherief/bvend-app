@@ -23,13 +23,9 @@ const Edit = (props) => {
 
     const initialValues = { name, product_categories_id: category.id, image }
 
-    console.log('ds')
-
     const onSubmit = (values, onSubmitProps) => {
-        console.log('veere')
-        const updatedImage = values.image.size !== undefined && values.image
-        const updatedValues = updatedImage ? { ...values, id, image: updatedImage } : { ...values, id, image: null }
-        console.log('v', updatedValues)
+        const updatedImage = values.image.size !== undefined ? values.image : image
+        const updatedValues = { ...values, id, image: updatedImage }
         dispatch(updateProduct(updatedValues)) && onSubmitProps.resetForm()
         handleClose()
     }
@@ -62,7 +58,7 @@ const Edit = (props) => {
             enableReinitialize={true}
         >
             {({ values, errors, touched, setFieldValue }) => (
-                <Form enctype="multipart/form-data">
+                <Form encType="multipart/form-data">
                     <div className="input-style-1">
                         <Input props={nameProps} error={errors.name && touched.name ? true : false} />
                     </div>

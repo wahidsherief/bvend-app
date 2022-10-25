@@ -19,13 +19,13 @@ const Create = () => {
     const categoryProps = {
         name: 'name',
         type: 'text',
-        placeholder: 'Enter product category name..',
+        placeholder: 'Enter category name..',
     }
 
     const brandProps = {
         name: 'brand',
         type: 'text',
-        placeholder: 'Enter product brand name..',
+        placeholder: 'Enter brand name..',
     }
 
     return (
@@ -38,7 +38,7 @@ const Create = () => {
             {({ errors, touched }) => (
                 <Form>
                     <div className="input-style-1">
-                        <Input props={categoryProps} error={errors.category && touched.category ? true : false} />
+                        <Input props={categoryProps} error={errors.name && touched.name ? true : false} />
                     </div>
 
                     <div className="input-style-1">

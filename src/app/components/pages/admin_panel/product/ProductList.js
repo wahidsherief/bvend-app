@@ -113,7 +113,7 @@ const ProductList = () => {
                     <thead>
                         <tr>
                             {/* <th><h6></h6></th> */}
-                            <th><h6>Product</h6></th>
+                            <th></th>
                             <th><h6>Name</h6></th>
                             <th><h6>Category</h6></th>
                             {/* <th><h6>Status</h6></th> */}

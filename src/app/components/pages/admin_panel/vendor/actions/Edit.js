@@ -15,14 +15,13 @@ const Edit = (props) => {
 
     const initialValues = { ...modalInfo.data }
 
-    const update = (values, onSubmitProps) => {
+    const onSubmit = (values, onSubmitProps) => {
         const updatedImage = values.image.size !== undefined ? values.image : image
         const updatedValues = { ...values, id, image: updatedImage }
         dispatch(updateVendor(updatedValues)) && onSubmitProps.resetForm()
         handleClose()
     }
 
-    const onSubmit = (values, onSubmitProps) => update(values, onSubmitProps)
 
     const nameProps = {
         name: 'name',
@@ -93,7 +92,7 @@ const Edit = (props) => {
         >
 
             {({ values, errors, touched, setFieldValue }) => (
-                <Form enctype="multipart/form-data">
+                <Form encType="multipart/form-data">
                     <div className="input-style-1">
                         <Input props={nameProps} error={errors.name && touched.name ? true : false} />
                     </div>
