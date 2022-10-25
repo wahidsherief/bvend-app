@@ -3,7 +3,6 @@ import Button from 'react-bootstrap/Button';
 import { useSelector, useDispatch } from "react-redux"
 import { Input, Select, File } from "app/components/utils/form_elements"
 import { updateProduct } from "features/ProductSlice";
-import { getFileName } from "services";
 import { UpdateFormValidationRules } from "../validation";
 import { fetchCategory } from "features/ProductCategorySlice";
 import { useEffect } from "react";
@@ -24,15 +23,15 @@ const Edit = (props) => {
 
     const initialValues = { name, product_categories_id: category.id, image }
 
-    const update = (values, onSubmitProps) => {
-        const updatedImage = values.new_image !== undefined ? getFileName(values.new_image) : image
-        const updatedValues = { ...values, id, image: updatedImage }
-        dispatch(updateProduct(updatedValues)) && onSubmitProps.resetForm()
-        handleClose()
-    }
+    console.log('ds')
 
     const onSubmit = (values, onSubmitProps) => {
-        update(values, onSubmitProps)
+        console.log('veere')
+        const updatedImage = values.image.size !== undefined && values.image
+        const updatedValues = updatedImage ? { ...values, id, image: updatedImage } : { ...values, id, image: null }
+        console.log('v', updatedValues)
+        dispatch(updateProduct(updatedValues)) && onSubmitProps.resetForm()
+        handleClose()
     }
 
     const nameProps = {
@@ -49,7 +48,7 @@ const Edit = (props) => {
     }
 
     const imageProps = {
-        name: 'new_image',
+        name: 'image',
         placeholder: 'Choose product image..',
         type: 'file'
     }
@@ -62,8 +61,8 @@ const Edit = (props) => {
             className="accordion-body bg-light"
             enableReinitialize={true}
         >
-            {({ errors, touched }) => (
-                <Form>
+            {({ values, errors, touched, setFieldValue }) => (
+                <Form enctype="multipart/form-data">
                     <div className="input-style-1">
                         <Input props={nameProps} error={errors.name && touched.name ? true : false} />
                     </div>
@@ -75,7 +74,7 @@ const Edit = (props) => {
                     </div>
 
                     <div className="input-style-1">
-                        <File props={imageProps} error={errors.new_image && touched.new_image ? true : false} />
+                        <File props={imageProps} setFieldValue={setFieldValue} error={errors.image && touched.image ? true : false} />
                     </div>
 
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">

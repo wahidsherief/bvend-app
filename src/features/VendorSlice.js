@@ -81,8 +81,8 @@ const getFormData = data => {
     formData.append('additional_contact', data.additional_contact)
     formData.append('nid', data.nid)
     formData.append('trade_licence_no', data.trade_licence_no)
-    formData.append('image', data.image)
     formData.append('is_active', data.is_active)
+    data.image !== null && formData.append('image', data.image)
 
     return formData;
 }

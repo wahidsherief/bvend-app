@@ -21,6 +21,7 @@ const Create = () => {
     const initialValues = { name: '', product_categories_id: '', image: '' }
 
     const onSubmit = (values, onSubmitProps) => {
+        console.log(values)
         dispatch(saveProduct(values)) && onSubmitProps.resetForm()
     }
 

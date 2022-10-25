@@ -24,5 +24,5 @@ const imageURLS = {
     'vendor': `${IMAGE_PATH}/vendor/`
 }
 
-export const getImageURL = (value) =>
-    Object.fromEntries(Object.entries(imageURLS).filter(([key]) => key.includes(value)))
+export const getImageURL = key => imageURLS[key]
+    // Object.fromEntries(Object.entries(imageURLS).filter(([key]) => key.includes(value)))

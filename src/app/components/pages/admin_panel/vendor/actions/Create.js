@@ -3,13 +3,14 @@ import Button from 'react-bootstrap/Button';
 import { Input, File, Checkbox } from "app/components/utils/form_elements"
 import { useDispatch } from "react-redux"
 import { saveVendor } from "features/VendorSlice"
+import { CreateFormValidationRules } from "../validation"
 
 
 const Create = () => {
 
     const dispatch = useDispatch()
 
-    const initialValues = { name: '', email: '', contact: '', additional_contact: '', business_name: '', trade_licence_no: '', nid: '', is_active: false, image: '' }
+    const initialValues = { name: '', email: '', password: '', contact: '', additional_contact: '', business_name: '', trade_licence_no: '', nid: '', is_active: false, image: '' }
 
     const onSubmit = (values, onSubmitProps) => {
         dispatch(saveVendor(values)) && onSubmitProps.resetForm()
@@ -36,12 +37,16 @@ const Create = () => {
     const contactProps = {
         name: 'contact',
         type: 'number',
+        max: 11,
+        min: 11,
         placeholder: 'Enter contact..',
     }
 
     const additionalContactProps = {
         name: 'additional_contact',
         type: 'number',
+        max: 11,
+        min: 11,
         placeholder: 'Enter additional contact..',
     }
 
@@ -77,7 +82,7 @@ const Create = () => {
     return (
         <Formik
             initialValues={initialValues}
-            // validationSchema={CreateFormValidationRules}
+            validationSchema={CreateFormValidationRules}
             onSubmit={onSubmit}
             enableReinitialize={true}
         >

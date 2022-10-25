@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import PageTitle from "app/components/common/PageTitle"
 import { useSelector, useDispatch } from "react-redux"
 import { fetchProduct } from "features/ProductSlice";
-import { Loading, Empty } from "services"
+import { Loading, Empty, STATUS, getImageURL } from "services";
 import Edit from "./actions/Edit";
 import Delete from "./actions/Delete";
 import AppModal from "app/components/utils/AppModal";
@@ -52,6 +52,7 @@ const ProductList = () => {
     }
 
     const RenderItems = ({ product }) => {
+        const image = getImageURL('product') + product.image
         const info = {
             id: product.id,
             name: product.name,
@@ -72,7 +73,7 @@ const ProductList = () => {
                         />
                     </td> */}
                     <td>
-                        <img src="assets/images/lead/lead-1.png" alt="" />
+                        <img src={image} className="image-in-list me-3" alt={product.name} />
                     </td>
                     <td>
                         <p className="text-bold">{product.name}</p>
@@ -83,9 +84,11 @@ const ProductList = () => {
                             <p className="text-black-50">{product.category.brand}</p>
                         </div>
                     </td>
-                    <td>
-                        <span className="status-btn active-btn">Active</span>
-                    </td>
+                    {/* <td>
+                        {
+                            product.is_active ? <span className="status-btn active-btn">Active</span> : <span class="status-btn close-btn">Not Active</span>
+                        }
+                    </td> */}
                     <td>
                         <div className="action">
                             <button onClick={() => triggerEditModal(info)} className="text-dark">
@@ -101,32 +104,46 @@ const ProductList = () => {
         )
     }
 
-    const RenderEachProduct = ({ products }) => products.map((product) => (<RenderItems key={product.id} product={product} />))
 
-    const RenderProducts = (products) => (
+    const RenderProducts = () => (
+        <React.Fragment>
+            <h6 className="mb-10">Total Products : {products.length}</h6>
+            <div className="table-wrapper table-responsive mt-4">
+                <table className="table">
+                    <thead>
+                        <tr>
+                            {/* <th><h6></h6></th> */}
+                            <th><h6>Product</h6></th>
+                            <th><h6>Name</h6></th>
+                            <th><h6>Category</h6></th>
+                            {/* <th><h6>Status</h6></th> */}
+                            <th><h6>Action</h6></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {products.length > 0 &&
+                            products.map((product) => (
+                                <RenderItems key={product.id} product={product} />
+                            ))
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </React.Fragment>
+    )
+
+    const RenderProductList = ({ products }) => (
         <React.Fragment>
             <div className="tables-wrapper">
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="card-style mb-30">
-                            <h6 className="mb-10">Total Products : {products.length}</h6>
-                            <div className="table-wrapper table-responsive mt-4">
-                                <table className="table">
-                                    <thead>
-                                        <tr>
-                                            {/* <th><h6></h6></th> */}
-                                            <th><h6>Product</h6></th>
-                                            <th><h6>Name</h6></th>
-                                            <th><h6>Category</h6></th>
-                                            <th><h6>Status</h6></th>
-                                            <th><h6>Action</h6></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <RenderEachProduct products={products} />
-                                    </tbody>
-                                </table>
-                            </div>
+                            {
+                                status === STATUS.LOADING && <Loading />
+                            }
+                            {
+                                products.length > 0 ? RenderProducts(products) : status !== STATUS.LOADING && <Empty props='No product found' />
+                            }
                         </div>
                     </div>
                 </div >
@@ -134,15 +151,10 @@ const ProductList = () => {
         </React.Fragment >
     )
 
-    // need to prevent from server error cases thus page break
-
-    const RenderProductList = ({ products }) => Array.isArray(products) && products.length > 0 ? RenderProducts(products) : <Empty props='No product' />
-
     return (
         <React.Fragment>
             <AppModal modalInfo={modalInfo} modal={modal} hideModal={hideModal} />
             <PageTitle title='Product List' action={action} />
-            <Loading status={status} />
             <RenderProductList products={products} />
         </React.Fragment >
     )

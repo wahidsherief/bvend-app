@@ -54,12 +54,13 @@ const VendorList = () => {
 
     const RenderItems = (props) => {
         const { vendor } = props
-        const image = getImageURL('vendor').vendor + vendor.image
+        const image = getImageURL('vendor') + vendor.image
         const info = {
             id: vendor.id,
             name: vendor.name,
             image: vendor.image,
             email: vendor.email,
+            password: vendor.password,
             business_name: vendor.business_name,
             contact: vendor.contact,
             additional_contact: vendor.additional_contact,

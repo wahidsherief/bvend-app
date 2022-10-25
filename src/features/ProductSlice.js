@@ -40,10 +40,14 @@ export const saveProduct = createAsyncThunk(
 export const updateProduct = createAsyncThunk(
     'product/update',
     async (data) => {
-        console.log('slice :', data.id)
         const url = `${API_URL}product/${data.id}`;
+        const headers = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            }
+        }
         try {
-            const response = await axios.put(url, data)
+            const response = await axios.post(url, getFormData(data), headers)
             return response.data.data
         } catch (err) {
             return err.message
@@ -64,6 +68,18 @@ export const deleteProduct = createAsyncThunk(
         }
     }
 )
+
+const getFormData = data => {
+    const formData = new FormData();
+
+    formData.append('_method', 'PUT')
+    formData.append('name', data.name)
+    formData.append('product_categories_id', data.product_categories_id)
+    data.image !== null && formData.append('image', data.image)
+    // formData.append('is_active', data.is_active)
+
+    return formData;
+}
 
 
 export const product = createSlice({

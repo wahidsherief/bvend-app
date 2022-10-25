@@ -49,3 +49,8 @@ code {
 .horizontal-scroll {
   overflow-x: auto;
 }
+
+.was-validated .form-control:invalid,
+.form-control.is-invalid {
+  border-color: #dc3545 !important;
+}

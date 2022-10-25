@@ -1,7 +1,7 @@
 import { Field, ErrorMessage } from "formik";
 import ErrorText from "app/components/common/ErrorText";
 
-const Select = ({ props }) => {
+const Select = ({ props, error }) => {
     const { name, placeholder, filterBy, optionFields, ...rest } = props
 
     const options = filterBy === null ? optionFields : optionFields.filter((field) => field.id !== filterBy.id)
@@ -12,7 +12,7 @@ const Select = ({ props }) => {
                 name={name}
                 as="select"
                 {...rest}
-                className={props.error === true ? 'form-control shadow-none is-invalid' : null}
+                className={error === true ? 'form-control shadow-none is-invalid' : null}
             >
                 {
                     filterBy === null
