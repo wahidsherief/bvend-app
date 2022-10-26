@@ -1,30 +1,119 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { machineListData } from "assets/data";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { API_URL } from "config";
+import { STATUS } from 'services';
+
+/* fetch all items */
+export const fetchMachine = createAsyncThunk(
+    'machine/fetch',
+    async () => {
+        const url = `${API_URL}machine`
+        try {
+            const response = await axios.get(url)
+            return response.data.data
+        } catch (err) {
+            return err.message
+        }
+    }
+)
+
+/* save new item */
+export const saveMachine = createAsyncThunk(
+    'machine/save',
+    async (data) => {
+        const url = `${API_URL}machine`;
+        try {
+            const response = await axios.post(url, data)
+            return response.data.data
+        } catch (err) {
+            return err.message
+        }
+    }
+)
+
+/* update existing item */
+export const updateMachine = createAsyncThunk(
+    'machine/update',
+    async (data) => {
+        const url = `${API_URL}machine/${data.id}`;
+        try {
+            const response = await axios.put(url, data)
+            return response.data.data
+        } catch (err) {
+            return err.message
+        }
+    }
+)
+
+/* delete item */
+export const deleteMachine = createAsyncThunk(
+    'machine/delete',
+    async (data) => {
+        const url = `${API_URL}machine/${data}`;
+        try {
+            const response = await axios.delete(url)
+            return response.data.data
+        } catch (err) {
+            return err.message
+        }
+    }
+)
 
 
 export const machine = createSlice({
     name: 'machine',
-    initialState: machineListData,
-    reducers: {
-        create: (state, action) => {
-            state.machines.push(action.payload)
-        },
-        update: (state, action) => {
-            // console.log(action.payload)
-            state.machines.forEach((machine) => {
-                if (machine.id === action.payload.id) {
-                    machine.name = action.payload.name
-                    machine.category = action.payload.category
-                    machine.description = action.payload.description
-                    machine.image = action.payload.image
-                }
+    initialState: {
+        data: [],
+        status: STATUS.IDLE,
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchMachine.pending, (state) => {
+                state.status = STATUS.LOADING
             })
-        },
-        remove: (state, action) => {
-            state.machines = state.machines.filter((machine => machine.id !== action.payload))
-        }
+            .addCase(fetchMachine.fulfilled, (state, action) => {
+                state.data = action.payload
+                state.status = STATUS.IDLE
+            })
+            .addCase(fetchMachine.rejected, (state) => {
+                state.status = STATUS.ERROR
+            })
+
+            .addCase(saveMachine.pending, (state) => {
+                state.status = STATUS.LOADING
+            })
+            .addCase(saveMachine.fulfilled, (state, action) => {
+                state.data = action.payload
+                state.status = STATUS.IDLE
+            })
+            .addCase(saveMachine.rejected, (state) => {
+                state.status = STATUS.ERROR
+            })
+
+            .addCase(updateMachine.pending, (state) => {
+                state.status = STATUS.LOADING
+            })
+            .addCase(updateMachine.fulfilled, (state, action) => {
+                state.data = action.payload
+                state.status = STATUS.IDLE
+            })
+            .addCase(updateMachine.rejected, (state) => {
+                state.status = STATUS.ERROR
+            })
+
+            .addCase(deleteMachine.pending, (state) => {
+                state.status = STATUS.LOADING
+            })
+            .addCase(deleteMachine.fulfilled, (state, action) => {
+                state.data = action.payload
+                state.status = STATUS.IDLE
+            })
+            .addCase(deleteMachine.rejected, (state) => {
+                state.status = STATUS.ERROR
+            })
     }
 })
 
-export const { create, update, remove } = machine.actions
 export default machine.reducer;
+
+

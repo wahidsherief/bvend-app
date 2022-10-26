@@ -1,55 +1,84 @@
 import { Formik, Form } from "formik";
 import Button from 'react-bootstrap/Button';
 import { useDispatch } from "react-redux"
-import { machineCategoryTypesData } from "assets/data";
-import { Input, Select, File, TextArea } from "app/components/utils/form_elements"
-import { update } from "features/MachineSlice";
-import { getFileName } from "services";
+import { Input, File, Checkbox } from "app/components/utils/form_elements"
 import { UpdateFormValidationRules } from "../validation";
+import { updateVendor } from "features/VendorSlice";
 
 const Edit = (props) => {
 
     const dispatch = useDispatch()
 
-    const updatemachine = (values, onSubmitProps) => {
-        let { id, name, category, description, image, newImage } = values
-        image = newImage !== undefined ? getFileName(newImage) : image
-        const updatedValues = { id, name, category, description, image }
-        dispatch(update(updatedValues)) && onSubmitProps.resetForm()
-    }
+    const { handleClose, modalInfo } = props
 
-    const { id, category } = props.item
-    const initialValues = { ...props.item }
+    const { id, image } = modalInfo.data
+
+    const initialValues = { ...modalInfo.data }
 
     const onSubmit = (values, onSubmitProps) => {
-        updatemachine(values, onSubmitProps)
+        const updatedImage = values.image.size !== undefined ? values.image : image
+        const updatedValues = { ...values, id, image: updatedImage }
+        dispatch(updateVendor(updatedValues)) && onSubmitProps.resetForm()
+        handleClose()
     }
+
 
     const nameProps = {
-        id: `machine_${id}`,
         name: 'name',
         type: 'text',
-        placeholder: 'Enter machine name..',
+        placeholder: 'Enter name..',
     }
 
-
-    const categoryProps = {
-        id: `machine_${id}`,
-        name: 'category',
-        placeholder: 'Enter machine category..',
-        filterBy: category,
-        optionFields: machineCategoryTypesData.types,
+    const emailProps = {
+        name: 'email',
+        type: 'email',
+        placeholder: 'Enter email..',
     }
 
-    const descriptionProps = {
-        name: 'description',
-        placeholder: 'Enter machine descriptions..',
+    const passwordProps = {
+        name: 'password',
+        type: 'password',
+        placeholder: 'Enter password..',
+    }
+
+    const contactProps = {
+        name: 'contact',
+        type: 'number',
+        placeholder: 'Enter contact..',
+    }
+
+    const additionalContactProps = {
+        name: 'additional_contact',
+        type: 'number',
+        placeholder: 'Enter additional contact..',
+    }
+
+    const businessNameProps = {
+        name: 'business_name',
+        type: 'input',
+        placeholder: 'Enter business name..',
+    }
+
+    const tradeLicenceProps = {
+        name: 'trade_licence_no',
+        type: 'input',
+        placeholder: 'Enter trade licence number..',
+    }
+
+    const nidProps = {
+        name: 'nid',
+        type: 'input',
+        placeholder: 'Enter national identification (nid) number..',
+    }
+
+    const isActiveProps = {
+        name: 'is_active',
+        type: 'checkbox'
     }
 
     const imageProps = {
-        id: `machine_${id}`,
-        name: 'newImage',
-        placeholder: 'Enter machine image..',
+        name: 'image',
+        placeholder: 'Enter image..',
         type: 'file'
     }
 
@@ -61,29 +90,61 @@ const Edit = (props) => {
             className="accordion-body bg-light"
             enableReinitialize={true}
         >
-            {({ errors, touched }) => (
-                <Form>
-                    <div className="input-style-1">
-                        <Input inputProps={nameProps} error={errors.name && touched.name ? true : false} />
-                    </div>
 
-                    <div className="select-style-2">
-                        <div className="select-position">
-                            <Select selectProps={categoryProps} error={errors.category && touched.category ? true : false} />
-                        </div>
+            {({ values, errors, touched, setFieldValue }) => (
+                <Form encType="multipart/form-data">
+                    <div className="input-style-1">
+                        <Input props={nameProps} error={errors.name && touched.name ? true : false} />
                     </div>
 
                     <div className="input-style-1">
-                        <TextArea inputProps={descriptionProps} error={errors.description && touched.description ? true : false} />
+                        <Input props={emailProps} error={errors.email && touched.email ? true : false} />
+                    </div>
+
+                    {/* password */}
+                    <div className="input-style-1">
+                        <Input props={passwordProps} error={errors.password && touched.password ? true : false} />
+                    </div>
+
+                    {/* contact */}
+                    <div className="input-style-1">
+                        <Input props={contactProps} error={errors.contact && touched.contact ? true : false} />
+                    </div>
+
+                    {/* additional contact */}
+                    <div className="input-style-1">
+                        <Input props={additionalContactProps} error={errors.additional_contact && touched.additional_contact ? true : false} />
+                    </div>
+
+                    {/* business name */}
+                    <div className="input-style-1">
+                        <Input props={businessNameProps} error={errors.business_name && touched.business_name ? true : false} />
+                    </div>
+
+                    {/* trade licence */}
+                    <div className="input-style-1">
+                        <Input props={tradeLicenceProps} error={errors.trade_licence_no && touched.trade_licence_no ? true : false} />
+                    </div>
+
+                    {/* nid */}
+                    <div className="input-style-1">
+                        <Input props={nidProps} error={errors.nid && touched.nid ? true : false} />
                     </div>
 
                     <div className="input-style-1">
-                        <File fileProps={imageProps} error={errors.image && touched.image ? true : false} />
+                        <File props={imageProps} setFieldValue={setFieldValue} error={errors.image && touched.image ? true : false} />
+                    </div>
+
+                    <div className="form-check form-switch toggle-switch mb-30">
+                        <Checkbox
+                            props={isActiveProps}
+                            label={values.is_active === false ? 'Activate Vendor' : 'Deactivate Vendor'}
+                            error={errors.is_active && touched.is_active ? true : false} />
                     </div>
 
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <Button type="submit" className="primary-btn btn-hover btn-sm">Update</Button>
-                        <Button type="button" onClick={() => props.hideEditPanel(null)} className="btn-dark btn-hover btn-sm">Cancel</Button>
+                        <Button type="submit" className="main-btn primary-btn btn-hover btn-sm">Update</Button>
+                        <Button type="button" onClick={handleClose} className="btn-dark btn-hover btn-sm">Cancel</Button>
                     </div>
                 </Form>
             )}

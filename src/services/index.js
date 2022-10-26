@@ -21,9 +21,20 @@ export const Wrong = () => <h4>Something went wrong...</h4>
 
 const imageURLS = {
     'product': `${IMAGE_PATH}/product/`,
-    'vendor': `${IMAGE_PATH}/vendor/`
+    'vendor': `${IMAGE_PATH}/vendor/`,
+    'machine': `${IMAGE_PATH}/machine/`
 }
 
 export const getImageURL = key => imageURLS[key]
 
-export const avatar = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRHTAOoUgmMmgvc3smmw-rCLkGn7xiKMa58dOK67GRrw&s'
+export const machineTypes = [
+    {
+        id: 'store',
+        name: 'Store'
+    },
+    {
+        id: 'box',
+        name: 'Box'
+    }
+]
+

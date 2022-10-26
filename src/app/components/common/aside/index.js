@@ -34,26 +34,8 @@ const Aside = () => {
                                 </li>
                             </ul>
                         </li>
-                        <li className="nav-item nav-item-has-children">
-                            <a
-                                href="#2"
-                                className="collapsed"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#ddmenu_2"
-                                aria-controls="ddmenu_2"
-                                aria-expanded="false"
-                                aria-label="Toggle navigation"
-                            >
-                                <span className="text">Vendor</span>
-                            </a>
-                            <ul id="ddmenu_2" className="collapse dropdown-nav">
-                                <li>
-                                    <Link to={'/vendors'}>Vendor List</Link>
-                                </li>
-                                <li>
-                                    <Link to={'/vendor/requests'}>Vendor Requests</Link>
-                                </li>
-                            </ul>
+                        <li className="nav-item">
+                            <Link to={'/vendors'}>Vendor</Link>
                         </li>
                         <li className="nav-item">
                             <Link to={'/machines'}>Machine</Link>
