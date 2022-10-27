@@ -64,9 +64,7 @@ const MachineList = () => {
     }
 
     const RenderItems = ({ machine }) => {
-        const info = {
-            id: machine.id,
-        }
+        const info = { machine }
         return (
             <>
                 <tr>

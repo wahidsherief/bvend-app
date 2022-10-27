@@ -18,4 +18,11 @@ const UpdateFormValidationRules = yup.object({
 })
 
 
-export { CreateFormValidationRules, UpdateFormValidationRules }
+const AssignFormValidationRules = yup.object({
+    vendors_id: yup.number().required('*Vendor is required'),
+    assign_date: yup.string().required('*Assign date is required'),
+    location: yup.string().required('*Location is required'),
+})
+
+
+export { CreateFormValidationRules, UpdateFormValidationRules, AssignFormValidationRules }

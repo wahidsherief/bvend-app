@@ -1,30 +1,39 @@
 import { Formik, Form } from "formik";
 import Button from 'react-bootstrap/Button';
-import { useDispatch } from "react-redux"
-import { Input, TextArea } from "app/components/utils/form_elements"
-import { UpdateFormValidationRules } from "../validation";
-import { updateVendor } from "features/VendorSlice";
+import { useDispatch, useSelector } from "react-redux"
+import { Input, Select, TextArea } from "app/components/utils/form_elements"
+import { AssignFormValidationRules } from "../validation";
+import { fetchVendor } from "features/VendorSlice";
+import { useEffect } from "react";
 
 const Assign = (props) => {
 
     const dispatch = useDispatch()
 
+    const { data: vendors } = useSelector((state) => state.vendor)
+
+    useEffect(() => {
+        dispatch(fetchVendor())
+    }, [dispatch])
+
     const { handleClose, modalInfo } = props
 
-    const { id } = modalInfo.data
+    const { machine } = modalInfo.data
 
-    const initialValues = { ...modalInfo.data }
+    const initialValues = { vendors_id: '', assign_date: '', location: '' }
 
     const onSubmit = (values, onSubmitProps) => {
+        const assignValues = { ...values, machines_id: machine.id }
+        console.log(assignValues)
         // dispatch(updateVendor(updatedValues)) && onSubmitProps.resetForm()
         // handleClose()
     }
 
     const vendorProps = {
-        name: 'vendor',
+        name: 'vendors_id',
         placeholder: 'Choose vendor..',
         filterBy: null,
-        optionFields: '',
+        optionFields: vendors,
     }
 
     const assignDateProps = {
@@ -37,11 +46,24 @@ const Assign = (props) => {
         name: 'location'
     }
 
+    const MachineInfoCard = ({ machineInfo }) => (
+        <div className="card text-dark bg-light mb-3">
+            <div className="card-body">
+                <h5 className="card-title">Machine Code: {machineInfo.machine_code}</h5>
+                <div>
+                    <p>Rows: {machineInfo.no_of_rows}</p>
+                    <p>Trays: {machineInfo.no_of_trays}</p>
+                    <p>Locks: {machineInfo.locks_per_tray}</p>
+                </div>
+            </div>
+        </div>
+    )
+
 
     return (
         <Formik
             initialValues={initialValues}
-            validationSchema={UpdateFormValidationRules}
+            validationSchema={AssignFormValidationRules}
             onSubmit={onSubmit}
             className="accordion-body bg-light"
             enableReinitialize={true}
@@ -49,8 +71,12 @@ const Assign = (props) => {
 
             {({ values, errors, touched }) => (
                 <Form>
-                    <div className="input-style-1">
-                        <Input props={vendorProps} error={errors.vendor && touched.vendor ? true : false} />
+                    <MachineInfoCard machineInfo={machine} />
+
+                    <div className="select-style-2">
+                        <div className="select-position">
+                            <Select props={vendorProps} error={errors.vendors_id && touched.vendors_id ? true : false} />
+                        </div>
                     </div>
 
                     <div className="input-style-1">
