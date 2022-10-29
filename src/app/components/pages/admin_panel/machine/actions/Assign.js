@@ -16,6 +16,7 @@ const Assign = (props) => {
         dispatch(fetchVendor())
     }, [dispatch])
 
+
     const { handleClose, modalInfo } = props
 
     const { machine } = modalInfo.data
@@ -24,6 +25,7 @@ const Assign = (props) => {
 
     const onSubmit = (values, onSubmitProps) => {
         const assignValues = { ...values, machines_id: machine.id }
+
         console.log(assignValues)
         // dispatch(updateVendor(updatedValues)) && onSubmitProps.resetForm()
         // handleClose()

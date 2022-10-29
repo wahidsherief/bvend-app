@@ -92,8 +92,7 @@ const MachineList = () => {
                     </td>
                     <td>
                         <div>
-                            {/* <p className="text-black-50">{machine.vendor.name}</p> */}
-                            <p className="text-black-50">N/A</p>
+                            <p className="text-black-50">{machine.vendor_name}</p>
                         </div>
                     </td>
                     <td>
