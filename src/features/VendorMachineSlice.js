@@ -3,15 +3,14 @@ import axios from "axios";
 import { API_URL } from "config";
 import { STATUS } from 'services';
 
+export const fetchVendorMachines = createAsyncThunk(
+    'vendor_machine/fetch',
+    async () => {
 
-
-/* save new item */
-export const assignMachine = createAsyncThunk(
-    'machine/assign',
-    async (data) => {
-        const url = `${API_URL}machine/assign`;
+        const url = `${API_URL}vendor/machines/1`
+        console.log(url)
         try {
-            const response = await axios.post(url, data)
+            const response = await axios.get(url)
             return response.data.data
         } catch (err) {
             return err.message
@@ -19,28 +18,52 @@ export const assignMachine = createAsyncThunk(
     }
 )
 
+export const fetchRefills = createAsyncThunk(
+    'vendor_machine/refills/fetch',
+    async () => {
 
-export const assignVendorMachine = createSlice({
-    name: 'assign_vendor_machine',
+        const url = `${API_URL}vendor/machine/refills/1`
+        console.log(url)
+        try {
+            const response = await axios.get(url)
+            return response.data.data
+        } catch (err) {
+            return err.message
+        }
+    }
+)
+
+export const vendorMachine = createSlice({
+    name: 'vendorMachine',
     initialState: {
         data: [],
         status: STATUS.IDLE,
     },
     extraReducers: (builder) => {
         builder
-            .addCase(assignVendorMachine.pending, (state) => {
+            .addCase(fetchVendorMachines.pending, (state) => {
                 state.status = STATUS.LOADING
             })
-            .addCase(assignVendorMachine.fulfilled, (state, action) => {
+            .addCase(fetchVendorMachines.fulfilled, (state, action) => {
                 state.data = action.payload
                 state.status = STATUS.IDLE
             })
-            .addCase(assignVendorMachine.rejected, (state) => {
+            .addCase(fetchVendorMachines.rejected, (state) => {
+                state.status = STATUS.ERROR
+            })
+            .addCase(fetchRefills.pending, (state) => {
+                state.status = STATUS.LOADING
+            })
+            .addCase(fetchRefills.fulfilled, (state, action) => {
+                state.data = action.payload
+                state.status = STATUS.IDLE
+            })
+            .addCase(fetchRefills.rejected, (state) => {
                 state.status = STATUS.ERROR
             })
     }
 })
 
-export default assignVendorMachine.reducer;
+export default vendorMachine.reducer;
 
 

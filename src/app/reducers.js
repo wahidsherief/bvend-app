@@ -3,8 +3,7 @@ import productCategory from "features/ProductCategorySlice";
 import vendor from "features/VendorSlice";
 import transaction from "features/TransactionSlice";
 import machine from "features/MachineSlice";
-import refill from "features/RefillSlice";
-// import assignVendorMachine from "features/VendorMachineSlice";
+import vendorMachine from "features/VendorMachineSlice";
 
 const rootReducer = {
     product,
@@ -12,8 +11,7 @@ const rootReducer = {
     vendor,
     transaction,
     machine,
-    // assignVendorMachine,
-    refill
+    vendorMachine
 }
 
 export default rootReducer;

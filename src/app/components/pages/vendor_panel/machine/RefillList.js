@@ -1,8 +1,9 @@
-import React from "react"
+import React, { useEffect } from "react"
 import PageTitle from "app/components/common/PageTitle"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import Refill from "./components/Refill"
 import { useParams } from "react-router-dom"
+import { fetchRefills } from "features/VendorMachineSlice"
 
 const action = {
     hasAction: false,
@@ -10,21 +11,31 @@ const action = {
 }
 
 
-const VendorRefillList = () => {
+const RefillList = () => {
+
+    const dispatch = useDispatch()
+
+    const { data: refills } = useSelector((state) => state.vendorMachine)
+
+    useEffect(() => {
+        dispatch(fetchRefills())
+    }, [dispatch])
+
+    console.log(refills)
 
     const { machineID } = useParams()
 
-    const refillListState = useSelector((state) => {
-        return state['refill']
-    })
+    // const refillListState = useSelector((state) => {
+    //     return state['refill']
+    // })
 
-    const refills = refillListState.refills.filter((refill => refill.machine_id == machineID))
+    // const refills = data.refills.filter((refill => refill.machine_id == machineID))
 
     const trays = () => {
-        const chunkSize = 6
+        const no_of_trays = 6
         const trayRows = []
-        for (let i = 0; i < refills.length; i += chunkSize) {
-            const trays = refills.slice(i, i + chunkSize);
+        for (let i = 0; i < refills.length; i += no_of_trays) {
+            const trays = refills.slice(i, i + no_of_trays);
             trayRows.push(trays)
         }
 
@@ -58,4 +69,4 @@ const VendorRefillList = () => {
     )
 }
 
-export default VendorRefillList
+export default RefillList

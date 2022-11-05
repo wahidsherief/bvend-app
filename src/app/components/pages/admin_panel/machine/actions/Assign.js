@@ -1,10 +1,11 @@
+import { useEffect } from "react";
 import { Formik, Form } from "formik";
 import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from "react-redux"
-import { Input, Select, TextArea } from "app/components/utils/form_elements"
+import { Input, Select, TextArea, Checkbox } from "app/components/utils/form_elements"
 import { AssignFormValidationRules } from "../validation";
 import { fetchVendor } from "features/VendorSlice";
-import { useEffect } from "react";
+import { updateMachine } from "features/MachineSlice";
 
 const Assign = (props) => {
 
@@ -21,14 +22,15 @@ const Assign = (props) => {
 
     const { machine } = modalInfo.data
 
-    const initialValues = { vendors_id: '', assign_date: '', location: '' }
+    const initialValues = { ...modalInfo.data }
+
+    console.log(initialValues)
 
     const onSubmit = (values, onSubmitProps) => {
-        const assignValues = { ...values, machines_id: machine.id }
-
+        const assignValues = { ...values, id: machine.id }
         console.log(assignValues)
-        // dispatch(updateVendor(updatedValues)) && onSubmitProps.resetForm()
-        // handleClose()
+        dispatch(updateMachine(assignValues)) && onSubmitProps.resetForm()
+        handleClose()
     }
 
     const vendorProps = {
@@ -41,12 +43,18 @@ const Assign = (props) => {
     const assignDateProps = {
         name: 'assign_date',
         type: 'date',
-        placeholder: 'Enter assign date..',
+        placeholder: 'Enter assign date..'
     }
 
     const locationProps = {
         name: 'location'
     }
+
+    const isActiveProps = {
+        name: 'is_active',
+        type: 'checkbox'
+    }
+
 
     const MachineInfoCard = ({ machineInfo }) => (
         <div className="card text-dark bg-light mb-3">
@@ -85,9 +93,15 @@ const Assign = (props) => {
                         <Input props={assignDateProps} error={errors.assign_date && touched.assign_date ? true : false} />
                     </div>
 
-
                     <div className="input-style-1">
                         <TextArea props={locationProps} error={errors.location && touched.location ? true : false} />
+                    </div>
+
+                    <div className="form-check form-switch toggle-switch mb-30">
+                        <Checkbox
+                            props={isActiveProps}
+                            label={values.is_active === false ? 'Activate Vendor' : 'Deactivate Vendor'}
+                            error={errors.is_active && touched.is_active ? true : false} />
                     </div>
 
                     <div className="d-grid gap-2 d-md-flex justify-content-md-end">

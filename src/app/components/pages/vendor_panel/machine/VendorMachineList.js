@@ -1,7 +1,8 @@
-import React from "react"
+import React, { useEffect } from "react"
 import PageTitle from "app/components/common/PageTitle"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import Machine from "./components/Machine"
+import { fetchVendorMachines } from "features/VendorMachineSlice";
 
 const action = {
     hasAction: false,
@@ -11,11 +12,15 @@ const action = {
 
 const VendorMachineList = () => {
 
-    const machineListState = useSelector((state) => {
-        return state['machine']
-    })
+    const dispatch = useDispatch()
 
-    const { machines } = machineListState
+    const { data: machines } = useSelector((state) => state.vendorMachine)
+
+    useEffect(() => {
+        dispatch(fetchVendorMachines())
+    }, [dispatch])
+
+    console.log(machines)
 
     return (
         <React.Fragment>

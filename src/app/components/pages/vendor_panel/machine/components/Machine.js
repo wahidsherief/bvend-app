@@ -13,7 +13,7 @@ const Machine = ({ machines }) => {
                                 <div className="col-lg-8 col-sm-8">
                                     <div className="card-title">
                                         <div className="mb-2">
-                                            <h4>{machine.title}</h4>
+                                            <h4>{machine.machine_code}</h4>
                                         </div>
                                         <div>
                                             <p className="fw-light custom-small-text-12">
@@ -30,15 +30,15 @@ const Machine = ({ machines }) => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-lg-4 col-sm-4">
+                                {/* <div className="col-lg-4 col-sm-4">
                                     <div className="card-image">
                                         <img
                                             className="fit-image"
-                                            src={require(`assets/bvend/machines/${machine.image}`)}
-                                            alt={machine.title}
+                                            src={require(`assets/bvend/machines/${machine.qr_code}`)}
+                                            alt={machine.machine_code}
                                         />
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="row">
                                 <div className="card-content">
@@ -56,7 +56,7 @@ const Machine = ({ machines }) => {
                                     <p className="fw-light custom-small-text-12">
                                         Total Amount:
                                         <span className='fw-700'>
-                                            {machine.totalAmount}
+                                            {/* {machine.totalAmount} */} hard coded - 500
                                         </span>
                                     </p>
 

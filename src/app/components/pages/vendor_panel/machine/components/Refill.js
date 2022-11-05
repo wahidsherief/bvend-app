@@ -31,11 +31,11 @@ const Refill = (props) => {
                     <div className="row mt-2 mb-2">
                         <div className="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                             <div className="card-image">
-                                <img
+                                {/* <img
                                     className="fit-image"
                                     src={require(`assets/bvend/products/${refill.image}`)}
                                     alt=""
-                                />
+                                /> */}
                             </div>
                         </div>
 
