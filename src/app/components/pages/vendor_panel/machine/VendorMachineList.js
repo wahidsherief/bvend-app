@@ -20,15 +20,13 @@ const VendorMachineList = () => {
         dispatch(fetchVendorMachines())
     }, [dispatch])
 
-    console.log(machines)
-
     return (
         <React.Fragment>
             <PageTitle title='Machine List' action={action} />
             <section className="card-components">
                 <div className="container-fluid p-0">
                     <div className="row">
-                        <Machine machines={machines} />
+                        {machines.map(machine => <Machine machine={machine} />)}
                     </div>
                 </div>
             </section>

@@ -6,9 +6,7 @@ import { STATUS } from 'services';
 export const fetchVendorMachines = createAsyncThunk(
     'vendor_machine/fetch',
     async () => {
-
         const url = `${API_URL}vendor/machines/1`
-        console.log(url)
         try {
             const response = await axios.get(url)
             return response.data.data
@@ -21,11 +19,22 @@ export const fetchVendorMachines = createAsyncThunk(
 export const fetchRefills = createAsyncThunk(
     'vendor_machine/refills/fetch',
     async () => {
-
-        const url = `${API_URL}vendor/machine/refills/1`
-        console.log(url)
+        const url = `${API_URL}vendor/machine/refill/1`
         try {
             const response = await axios.get(url)
+            return response.data.data
+        } catch (err) {
+            return err.message
+        }
+    }
+)
+
+export const storeRefill = createAsyncThunk(
+    'vendor_machine/refill/store',
+    async (data) => {
+        const url = `${API_URL}vendor/machine/refill`
+        try {
+            const response = await axios.post(url, data)
             return response.data.data
         } catch (err) {
             return err.message
@@ -59,6 +68,16 @@ export const vendorMachine = createSlice({
                 state.status = STATUS.IDLE
             })
             .addCase(fetchRefills.rejected, (state) => {
+                state.status = STATUS.ERROR
+            })
+            .addCase(storeRefill.pending, (state) => {
+                state.status = STATUS.LOADING
+            })
+            .addCase(storeRefill.fulfilled, (state, action) => {
+                state.data = action.payload
+                state.status = STATUS.IDLE
+            })
+            .addCase(storeRefill.rejected, (state) => {
                 state.status = STATUS.ERROR
             })
     }

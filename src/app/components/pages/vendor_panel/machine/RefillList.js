@@ -10,7 +10,6 @@ const action = {
     hasBack: true
 }
 
-
 const RefillList = () => {
 
     const dispatch = useDispatch()
@@ -21,21 +20,13 @@ const RefillList = () => {
         dispatch(fetchRefills())
     }, [dispatch])
 
-    console.log(refills)
-
     const { machineID } = useParams()
 
-    // const refillListState = useSelector((state) => {
-    //     return state['refill']
-    // })
-
-    // const refills = data.refills.filter((refill => refill.machine_id == machineID))
-
-    const trays = () => {
-        const no_of_trays = 6
+    const Trays = () => {
+        const no_of_trays_per_row = 6
         const trayRows = []
-        for (let i = 0; i < refills.length; i += no_of_trays) {
-            const trays = refills.slice(i, i + no_of_trays);
+        for (let i = 0; i < refills.length; i += no_of_trays_per_row) {
+            const trays = refills.slice(i, i + no_of_trays_per_row);
             trayRows.push(trays)
         }
 
@@ -46,7 +37,7 @@ const RefillList = () => {
                     <div className="row flex-row flex-nowrap horizontal-scroll">
                         {
                             refillItems.map((refillItem, col) => (
-                                <Refill key={col} rowNumber={i + 1} colNumber={col + 1} refill={refillItem} />
+                                <Refill key={col} machineID={machineID} rowNumber={i + 1} colNumber={col + 1} refill={refillItem} />
                             ))
                         }
                     </div>
@@ -60,9 +51,7 @@ const RefillList = () => {
             <PageTitle title='Refill' action={action} />
             <section className="card-components">
                 <div className="container-fluid p-0">
-                    {
-                        trays()
-                    }
+                    <Trays />
                 </div>
             </section>
         </React.Fragment>

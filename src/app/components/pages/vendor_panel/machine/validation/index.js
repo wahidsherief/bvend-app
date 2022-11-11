@@ -4,9 +4,9 @@ import * as yup from "yup";
 
 const RefillFormValidationRules = yup.object({
 
-    product_id: yup.string().required('*Product is required'),
-    price: yup.string().required('*Price is required'),
-    no_of_products: yup.string(),
+    products_id: yup.string().required('*Product is required'),
+    quantity: yup.number().required('*Quantity is required'),
+    price: yup.number().required('*Price is required')
 })
 
 

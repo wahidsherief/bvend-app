@@ -22,7 +22,8 @@ export const Wrong = () => <h4>Something went wrong...</h4>
 const imageURLS = {
     'product': `${IMAGE_PATH}/product/`,
     'vendor': `${IMAGE_PATH}/vendor/`,
-    'machine': `${IMAGE_PATH}/machine/`
+    'machine': `${IMAGE_PATH}/machine/`,
+    'machine_qr_code': `${IMAGE_PATH}/machine_qr_code/`,
 }
 
 export const getImageURL = key => imageURLS[key]
