@@ -5,6 +5,7 @@ import transaction from "features/TransactionSlice";
 import machine from "features/MachineSlice";
 import vendorMachine from "features/VendorMachineSlice";
 import store from "features/StoreSlice";
+import cart from "features/CartSlice";
 
 const rootReducer = {
     product,
@@ -13,7 +14,8 @@ const rootReducer = {
     transaction,
     machine,
     vendorMachine,
-    store
+    store,
+    cart
 }
 
 export default rootReducer;

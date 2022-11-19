@@ -24,6 +24,7 @@ const imageURLS = {
     'vendor': `${IMAGE_PATH}/vendor/`,
     'machine': `${IMAGE_PATH}/machine/`,
     'machine_qr_code': `${IMAGE_PATH}/machine_qr_code/`,
+    'avatar': `${IMAGE_PATH}/avatar/`,
 }
 
 export const getImageURL = key => imageURLS[key]

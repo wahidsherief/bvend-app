@@ -11,49 +11,8 @@ export const fetchStore = createAsyncThunk(
         // const url = `${API_URL}machine/1`
         try {
             const response = await axios.get(url)
+            console.log(response.data)
             return response.data
-        } catch (err) {
-            return err.message
-        }
-    }
-)
-
-
-export const saveMachine = createAsyncThunk(
-    'machine/save',
-    async (data) => {
-        const url = `${API_URL}machine`;
-        try {
-            const response = await axios.post(url, data)
-            return response.data.data
-        } catch (err) {
-            return err.message
-        }
-    }
-)
-
-
-export const updateMachine = createAsyncThunk(
-    'machine/update',
-    async (data) => {
-        const url = `${API_URL}machine/${data.id}`;
-        try {
-            const response = await axios.put(url, data)
-            return response.data.data
-        } catch (err) {
-            return err.message
-        }
-    }
-)
-
-
-export const deleteMachine = createAsyncThunk(
-    'machine/delete',
-    async (data) => {
-        const url = `${API_URL}machine/${data}`;
-        try {
-            const response = await axios.delete(url)
-            return response.data.data
         } catch (err) {
             return err.message
         }

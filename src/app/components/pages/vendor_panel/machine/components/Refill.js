@@ -1,4 +1,5 @@
 import AppModal from "app/components/utils/AppModal";
+import { machine } from "features/MachineSlice";
 import React, { useState } from "react";
 import { ProgressBar } from "react-bootstrap"
 import { getImageURL } from "services";
@@ -11,6 +12,8 @@ const Refill = (props) => {
 
     const [modal, setModal] = useState(false)
 
+    const isRefilled = refill.product ? true : false
+
     const modalInfo = {
         title: `Row: ${rowNumber} : Tray: ${colNumber}`,
         body: RefillForm,
@@ -19,7 +22,8 @@ const Refill = (props) => {
         }
     }
 
-    const image = refill.product && getImageURL('product') + refill.product.image
+    const image = isRefilled ? getImageURL('product') + refill.product.image : getImageURL('avatar') + 'no_product.jpg'
+    const price = isRefilled ? `Price: ${refill.price} BDT` : `Not refilled yet..`
 
     const showModal = () => setModal(modal => !modal)
     const hideModal = () => setModal(false)
@@ -49,7 +53,7 @@ const Refill = (props) => {
                             <div className="card-title">
                                 <h6>{refill.product && refill.product.name}</h6>
                                 <p className="fw-light custom-small-text-12">
-                                    Price: {refill.price} BDT
+                                    {price}
                                 </p>
                             </div>
                         </div>

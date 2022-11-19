@@ -1,30 +1,36 @@
 import { Add, Remove } from "@mui/icons-material";
 import { Box, Button, Card, Typography } from "@mui/material";
+import { add, remove } from "features/CartSlice";
 import React, { Fragment } from "react";
-import { useDispatch } from "react-redux";
-import { state, dispatch } from "../context/CartContext";
+import { useDispatch, useSelector } from "react-redux";
 import { FlexBetween, FlexCenter } from "../styles";
 
 const ProductCard = ({ product }) => {
 
   const dispatch = useDispatch()
 
+  console.log('xx', product)
+
+  const { data, status } = useSelector((state) => state.cart)
+
+  console.log('yy', data)
+
   // find product from cart
-  const cartItem = state.cart.find((item) => item.id === product.id);
+  const cartItem = data.find((item) => item.id === product.id);
 
-  // increment product quantity
+  // // increment product quantity
   const handleAddQuantity = () => {
-    dispatch({ type: "ADD_TO_CART", payload: { ...product, qty: 1 } });
-  };
+    dispatch(add({ ...product, qty: 1 }))
+  }
 
-  // decrement product quantity
-  const handleRemoveQuantity = () => {
-    if (cartItem.qty > 1) {
-      dispatch({ type: "REMOVE_QTY", payload: product });
-    } else {
-      dispatch({ type: "REMOVE_TO_CART", payload: product });
-    }
-  };
+  // // decrement product quantity
+  // const handleRemoveQuantity = () => {
+  //   if (cartItem.qty > 1) {
+  //     dispatch({ type: "REMOVE_QTY", payload: product });
+  //   } else {
+  //     dispatch({ type: "REMOVE_TO_CART", payload: product });
+  //   }
+  // };
 
   return (
     <Card>
@@ -57,7 +63,8 @@ const ProductCard = ({ product }) => {
                 {cartItem.qty}
               </Typography>
 
-              <Button fullWidth variant="contained" onClick={handleRemoveQuantity}>
+              {/* <Button fullWidth variant="contained" onClick={handleRemoveQuantity}> */}
+              <Button fullWidth variant="contained">
                 <Remove sx={{ fontSize: 14, color: "#fff" }} />
               </Button>
             </Fragment>

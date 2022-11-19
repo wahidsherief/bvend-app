@@ -1,46 +1,46 @@
-import React from "react";
-import { createContext, useReducer } from "react";
+// import React from "react";
+// import { createContext, useReducer } from "react";
 
-export const CartContext = createContext();
+// export const CartContext = createContext();
 
-const initialState = { cart: [] };
+// const initialState = { cart: [] };
 
-function reducer(state, action) {
-  const cartList = state.cart;
-  const cartItem = action.payload;
+// export const  reducer = (state, action) => {
+//   const cartList = state.cart;
+//   const cartItem = action.payload;
 
-  switch (action.type) {
-    case "ADD_TO_CART":
-      const exist = cartList.find((item) => item.id === cartItem.id);
+//   switch (action.type) {
+//     case "ADD_TO_CART":
+//       const exist = cartList.find((item) => item.id === cartItem.id);
 
-      if (exist) {
-        const newCartList = cartList.map((item) =>
-          item.id === cartItem.id ? { ...item, qty: item.qty + 1 } : item
-        );
+//       if (exist) {
+//         const newCartList = cartList.map((item) =>
+//           item.id === cartItem.id ? { ...item, qty: item.qty + 1 } : item
+//         );
 
-        return { cart: newCartList };
-      }
+//         return { cart: newCartList };
+//       }
 
-      return { cart: [...cartList, cartItem] };
+//       return { cart: [...cartList, cartItem] };
 
-    case "REMOVE_TO_CART":
-      return {
-        cart: cartList.filter((item) => item.id !== cartItem.id),
-      };
+//     case "REMOVE_TO_CART":
+//       return {
+//         cart: cartList.filter((item) => item.id !== cartItem.id),
+//       };
 
-    case "REMOVE_QTY":
-      const newCartList = cartList.map((item) =>
-        item.id === cartItem.id ? { ...item, qty: item.qty - 1 } : item
-      );
-      return { cart: newCartList };
+//     case "REMOVE_QTY":
+//       const newCartList = cartList.map((item) =>
+//         item.id === cartItem.id ? { ...item, qty: item.qty - 1 } : item
+//       );
+//       return { cart: newCartList };
 
-    case "CLEAR_CART":
-      return { cart: [] };
+//     case "CLEAR_CART":
+//       return { cart: [] };
 
-    default:
-      return state;
-  }
-}
+//     default:
+//       return state;
+//   }
+// }
 
 // const CartProvider = ({ children }) => {
 //   const [state, dispatch] = useReducer(reducer, initialState);
@@ -48,6 +48,6 @@ function reducer(state, action) {
 //   return <CartContext.Provider value={{ state, dispatch }}>{children}</CartContext.Provider>;
 // };
 
-export const [state, dispatch] = useReducer(reducer, initialState);
+// export const [state, dispatch] = useReducer(reducer, initialState);
 
 

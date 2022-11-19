@@ -11,15 +11,17 @@ import { state } from "./context/CartContext";
 const Store = () => {
     const dispatch = useDispatch()
 
-    const { data, status } = useSelector(state => state.store)
+    const { data: products, status } = useSelector(state => state.store)
 
-    const [products, setProducts] = useState(data);
+    // const [products, setProducts] = useState(data);
 
     useEffect(() => {
         dispatch(fetchStore())
     }, [dispatch])
 
-    const showBottomSheet = state.cart.length > 0;
+    console.log('da', products)
+
+    // const showBottomSheet = state.cart.length > 0;
 
     return (
 
@@ -36,8 +38,8 @@ const Store = () => {
                 </Grid>
             </Container>
 
-            {showBottomSheet && <Box height={110} />}
-            <BottomSheet show={showBottomSheet} cart={state.cart} />
+            {/* {showBottomSheet && <Box height={110} />}
+            <BottomSheet show={showBottomSheet} cart={state.cart} /> */}
         </Fragment>
 
     );
