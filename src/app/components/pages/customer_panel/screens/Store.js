@@ -1,27 +1,21 @@
 import { Box, Container, Grid } from "@mui/material";
 import { fetchStore } from "features/StoreSlice";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import BottomSheet from "./components/BottomSheet";
-import ProductCard from "./components/ProductCard";
-import { state } from "./context/CartContext";
-// import Topbar from "../components/home/Topbar";
-
+import BottomSheet from "./BottomSheet";
+import ProductCard from "./ProductCard";
 
 const Store = () => {
     const dispatch = useDispatch()
 
-    const { data: products, status } = useSelector(state => state.store)
-
-    // const [products, setProducts] = useState(data);
+    const { data: products } = useSelector(state => state.store)
 
     useEffect(() => {
         dispatch(fetchStore())
     }, [dispatch])
 
-    console.log('da', products)
+    const cart = useSelector(state => state.cart)
 
-    // const showBottomSheet = state.cart.length > 0;
 
     return (
 
@@ -38,8 +32,8 @@ const Store = () => {
                 </Grid>
             </Container>
 
-            {/* {showBottomSheet && <Box height={110} />}
-            <BottomSheet show={showBottomSheet} cart={state.cart} /> */}
+            {cart.length > 0 && <Box height={110} />}
+            <BottomSheet show={cart.length} cart={cart} />
         </Fragment>
 
     );

@@ -55,7 +55,7 @@ export const Theme = ({ children }) => {
         styleOverrides: { root: { boxShadow: shadows[4], borderRadius: 8 } },
       },
       MuiButton: {
-        styleOverrides: { root: { minWidth: "auto", padding: "5px 10px" } },
+        styleOverrides: { root: { minWidth: "auto", padding: "5px 10px", textTransform: "none" } },
       },
     },
   });

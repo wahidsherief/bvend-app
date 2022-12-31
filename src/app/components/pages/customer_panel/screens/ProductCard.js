@@ -1,36 +1,24 @@
 import { Add, Remove } from "@mui/icons-material";
 import { Box, Button, Card, Typography } from "@mui/material";
-import { add, remove } from "features/CartSlice";
+import { addToCart, removeFromCart } from "features/CartSlice";
 import React, { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FlexBetween, FlexCenter } from "../styles";
 
 const ProductCard = ({ product }) => {
 
+
   const dispatch = useDispatch()
 
-  console.log('xx', product)
+  const cart = useSelector((state) => state.cart)
 
-  const { data, status } = useSelector((state) => state.cart)
+  const cartItem = cart.find(item => item.id === product.id)
 
-  console.log('yy', data)
-
-  // find product from cart
-  const cartItem = data.find((item) => item.id === product.id);
-
-  // // increment product quantity
-  const handleAddQuantity = () => {
-    dispatch(add({ ...product, qty: 1 }))
+  const handleAddToCart = productId => {
+    const findIndex = cart.findIndex((item) => item.id === productId)
+    if (findIndex === -1 && cart.length > 4) alert("Can't choose more than 5 products !!")
+    else dispatch(addToCart(product))
   }
-
-  // // decrement product quantity
-  // const handleRemoveQuantity = () => {
-  //   if (cartItem.qty > 1) {
-  //     dispatch({ type: "REMOVE_QTY", payload: product });
-  //   } else {
-  //     dispatch({ type: "REMOVE_TO_CART", payload: product });
-  //   }
-  // };
 
   return (
     <Card>
@@ -47,12 +35,12 @@ const ProductCard = ({ product }) => {
           {product.price} Tk
         </Typography>
 
-        <FlexBetween mt={1} gap={1}>
-          <Button fullWidth variant="contained" onClick={handleAddQuantity}>
+        <FlexBetween mt={1}>
+          <Button fullWidth variant="contained" onClick={() => handleAddToCart(product.id)} >
             <Add sx={{ fontSize: 14, color: "#fff" }} />
           </Button>
 
-          {!!cartItem && cartItem.qty > 0 && (
+          {cartItem && cartItem.quantity > 0 && (
             <Fragment>
               <Typography
                 variant="p"
@@ -60,18 +48,19 @@ const ProductCard = ({ product }) => {
                 color="primary"
                 sx={{ minWidth: 20, textAlign: "center" }}
               >
-                {cartItem.qty}
+                {cartItem.quantity}
               </Typography>
 
-              {/* <Button fullWidth variant="contained" onClick={handleRemoveQuantity}> */}
-              <Button fullWidth variant="contained">
+
+              <Button fullWidth variant="contained" onClick={() => dispatch(removeFromCart(product.id))}>
                 <Remove sx={{ fontSize: 14, color: "#fff" }} />
               </Button>
             </Fragment>
           )}
+
         </FlexBetween>
       </Box>
-    </Card>
+    </Card >
   );
 };
 

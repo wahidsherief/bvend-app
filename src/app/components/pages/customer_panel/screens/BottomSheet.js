@@ -1,10 +1,13 @@
-import { Avatar, Badge, Box, Stack, Typography, Link } from "@mui/material";
+import { Avatar, Badge, Box, Stack, Typography, Button } from "@mui/material";
 import React from "react";
-// import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FlexBetween } from "../styles";
 
-const BottomSheet = ({ show, cart = [] }) => {
-  const totalAmount = cart.reduce((prev, curr) => prev + curr.qty * curr.price, 0);
+const BottomSheet = ({ show, cart }) => {
+
+  const navigate = useNavigate()
+
+  const totalAmount = cart.reduce((prev, curr) => prev + curr.quantity * curr.price, 0);
 
   return (
     <Box
@@ -32,9 +35,8 @@ const BottomSheet = ({ show, cart = [] }) => {
           Total: {totalAmount.toFixed(2)} TK
         </Typography>
 
-        <Link href={`/payment/${totalAmount.toFixed(2)}`} style={{ color: "white", fontWeight: 500, fontSize: 13 }}>
-          Proceed &gt;&gt;
-        </Link>
+        <Button onClick={() => navigate('/checkout')} style={{ color: "white", fontWeight: 500, fontSize: 13, textTransform: "none" }}>Proceed</Button>
+
       </FlexBetween>
     </Box>
   );
