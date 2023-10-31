@@ -54,3 +54,66 @@ code {
 .form-control.is-invalid {
   border-color: #dc3545 !important;
 }
+
+/* Center the container both vertically and horizontally */
+.center-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  /* Use min-height to ensure content is centered even when there's little content */
+}
+
+/* Styling for the logo */
+.logo {
+  width: 100px;
+  /* Adjust the width as needed */
+  height: 100px;
+  /* Adjust the height as needed */
+}
+
+/* Styling for the input field */
+.input-field {
+  width: 100%;
+  /* Take up the full width of the container */
+  padding: 10px;
+  /* Add some padding for spacing */
+  border: 1px solid #ccc;
+  /* Add a border for visual separation */
+  border-radius: 4px;
+  /* Rounded corners */
+  outline: none;
+  /* Remove the default focus outline */
+  transition: border 0.3s;
+  /* Add a transition for smooth effects */
+
+  /* Style when focused */
+  &:focus {
+    border: 2px solid #007bff;
+    /* Change border color on focus */
+  }
+}
+
+/* Styling for the payment button */
+.payment-button {
+  background-color: #007bff;
+  /* Background color for the button */
+  color: #fff;
+  /* Text color */
+  padding: 10px 20px;
+  /* Padding around the text */
+  border: none;
+  /* Remove the default button border */
+  border-radius: 4px;
+  /* Rounded corners */
+  cursor: pointer;
+  /* Show a pointer cursor on hover */
+  transition: background-color 0.3s;
+  /* Add a transition for hover effect */
+
+  /* Style on hover */
+  &:hover {
+    background-color: #0056b3;
+    /* Change background color on hover */
+  }
+}

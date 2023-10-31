@@ -5,7 +5,8 @@ import Aside from "./app/components/common/aside";
 
 import RootRoute from "./app/route";
 
-const isCustomer = true
+// const isCustomer = true
+const isCustomer = false
 
 const user = () => (
   <React.Fragment>

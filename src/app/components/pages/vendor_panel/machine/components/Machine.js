@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { getImageURL } from "services";
 
 const Machine = ({ machine }) => {
-    console.log(machine.num_of_rows)
     const qr_code = machine.qr_code && getImageURL('machine_qr_code') + machine.qr_code
     const capacity = machine.no_of_rows * machine.no_of_trays * machine.locks_per_tray
     return (

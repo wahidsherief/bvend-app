@@ -1,6 +1,6 @@
 import { Button, Avatar, Box, Card, Typography } from "@mui/material";
 import { Add, Remove } from "@mui/icons-material";
-import { addToCart, clearCart, removeFromCart } from "features/CartSlice";
+import { addToCart, removeFromCart } from "features/CartSlice";
 import React, { Fragment, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FlexBetween } from "../styles";
@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 const CheckoutScreen = () => {
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart)
+    console.log('crt 1', cart)
+
 
     const navigate = useNavigate();
 
@@ -21,8 +23,9 @@ const CheckoutScreen = () => {
     const total = subTotal - discount;
 
     const handlePayment = () => {
-        dispatch(clearCart())
-        navigate('/complete')
+        // dispatch(clearCart())
+        // navigate('/complete')
+        navigate('/payment')
     };
 
     const selectedProductList = () => (

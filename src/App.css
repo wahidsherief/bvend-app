@@ -1,5 +1,112 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
+
+.machine-card-top-height-160 {
+    min-height: 160px;
+}
+
+.refill-card-top-height-100 {
+    min-height: 100px;
+}
+
+.fit-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.custom-small-text-12 {
+    font-size: 12px;
+}
+
+.fsize-10 {
+    font-size: 10px;
+}
+
+.padding-10 {
+    padding: 10px;
+}
+
+.border-radius-2 {
+    border-radius: 2px !important;
+}
+
+.card-image {
+    margin-bottom: 0px !important;
+}
+
+.horizontal-scroll {
+    overflow-x: auto;
+}
+
+.was-validated .form-control:invalid,
+.form-control.is-invalid {
+    border-color: #dc3545 !important;
+}
+
 .image-in-list {
     width: 50px;
     height: 50px;
     border-radius: 50%;
+}
+
+
+/* Center the container both vertically and horizontally */
+.payment-screen-container {
+    background-color: #ccc;
+    min-height: 100vh;
+    /* Use min-height to ensure content is centered even when there's little content */
+}
+
+/* Styling for the logo */
+.logo {
+    width: 100%;
+    max-width: 100%;
+    /* To prevent the image from exceeding its original size */
+    height: auto;
+    /* Maintain aspect ratio */
+}
+
+
+.qr-code {
+    width: 100%;
+    max-width: 100%;
+    /* To prevent the image from exceeding its original size */
+    height: auto;
+    /* Maintain aspect ratio */
+}
+
+/* Styling for the payment button */
+.payment-button {
+    background-color: #007bff;
+    /* Background color for the button */
+    color: #fff;
+    /* Text color */
+    padding: 10px 20px;
+    /* Padding around the text */
+    border: none;
+    /* Remove the default button border */
+    border-radius: 4px;
+    /* Rounded corners */
+    cursor: pointer;
+    /* Show a pointer cursor on hover */
+    transition: background-color 0.3s;
+    /* Add a transition for hover effect */
+
+    /* Style on hover */
+    &:hover {
+        background-color: #0056b3;
+        /* Change background color on hover */
+    }
 }

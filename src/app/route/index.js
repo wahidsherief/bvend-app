@@ -15,6 +15,7 @@ import VendorMachineList from "app/components/pages/vendor_panel/machine/VendorM
 import RefillList from "app/components/pages/vendor_panel/machine/RefillList";
 import Store from "app/components/pages/customer_panel/screens/Store";
 import CheckoutScreen from "app/components/pages/customer_panel/screens/CheckoutScreen";
+import PaymentScreen from "app/components/pages/customer_panel/screens/PaymentScreen";
 import CompleteScreen from "app/components/pages/customer_panel/screens/CompleteScreen";
 
 
@@ -37,6 +38,7 @@ const RootRoute = () => {
                 <Route path={'/vendor/refills/:machineID'} element={<RefillList />} />
                 <Route path={'/store'} element={<Store />} />
                 <Route path={'/checkout'} element={<CheckoutScreen />} />
+                <Route path={'/payment'} element={<PaymentScreen />} />
                 <Route path={'/complete'} element={<CompleteScreen />} />
             </Routes>
         </React.Fragment>
