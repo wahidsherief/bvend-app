@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import PageTitle from "app/components/common/PageTitle"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchMachine } from "features/MachineSlice";
-import { Loading, Empty, STATUS } from "services";
+import { Loading, Empty, STATUS } from "services/CommonService";
 import Edit from "./actions/Edit";
 import Delete from "./actions/Delete";
 import Assign from "./actions/Assign";

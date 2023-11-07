@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux"
 import { machineCategoryTypesData } from "assets/data";
 import { Input, Select, File, TextArea } from "app/components/utils/form_elements"
 import { update } from "features/MachineSlice";
-import { getFileName } from "services";
+import { getFileName } from "services/CommonService";
 import { UpdateFormValidationRules } from "../validation";
 
 const Edit = (props) => {

@@ -2,7 +2,7 @@ import AppModal from "app/components/utils/AppModal";
 import { machine } from "features/MachineSlice";
 import React, { useState } from "react";
 import { ProgressBar } from "react-bootstrap"
-import { getImageURL } from "services";
+import { getImageURL } from "services/CommonService";
 import RefillForm from "../actions/RefillForm";
 
 

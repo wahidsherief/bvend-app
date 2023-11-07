@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { API_URL } from "config";
-import { STATUS } from 'services';
+import { STATUS } from 'services/CommonService';
 
 /* fetch all items */
 export const fetchMachine = createAsyncThunk(
@@ -10,7 +10,7 @@ export const fetchMachine = createAsyncThunk(
         const url = `${API_URL}machine`
         try {
             const response = await axios.get(url)
-            return response.data.data
+            return response.data
         } catch (err) {
             return err.message
         }

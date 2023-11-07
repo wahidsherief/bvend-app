@@ -17,6 +17,8 @@ import Store from "app/components/pages/customer_panel/screens/Store";
 import CheckoutScreen from "app/components/pages/customer_panel/screens/CheckoutScreen";
 import PaymentScreen from "app/components/pages/customer_panel/screens/PaymentScreen";
 import CompleteScreen from "app/components/pages/customer_panel/screens/CompleteScreen";
+import Login from "app/components/pages/auth/Login";
+import Registration from "app/components/pages/auth/Registration";
 
 
 const RootRoute = () => {
@@ -40,6 +42,8 @@ const RootRoute = () => {
                 <Route path={'/checkout'} element={<CheckoutScreen />} />
                 <Route path={'/payment'} element={<PaymentScreen />} />
                 <Route path={'/complete'} element={<CompleteScreen />} />
+                <Route path={'/login'} element={<Login />} />
+                <Route path={'/register'} element={<Registration />} />
             </Routes>
         </React.Fragment>
     )

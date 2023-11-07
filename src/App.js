@@ -5,8 +5,8 @@ import Aside from "./app/components/common/aside";
 
 import RootRoute from "./app/route";
 
-// const isCustomer = true
-const isCustomer = false
+const isGuest = true
+// const isGuest = false
 
 const user = () => (
   <React.Fragment>
@@ -20,14 +20,14 @@ const user = () => (
   </React.Fragment>
 )
 
-const customer = () => <RootRoute />
+const guest = () => <RootRoute />
 
 
 function App() {
   return (
     <React.Fragment>
       <div className="overlay"></div>
-      {isCustomer ? customer() : user()}
+      {isGuest ? guest() : user()}
     </React.Fragment>
   );
 }

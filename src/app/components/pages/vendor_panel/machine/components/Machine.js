@@ -1,7 +1,7 @@
 import React from "react";
 import { ProgressBar } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { getImageURL } from "services";
+import { getImageURL } from "services/CommonService";
 
 const Machine = ({ machine }) => {
     const qr_code = machine.qr_code && getImageURL('machine_qr_code') + machine.qr_code

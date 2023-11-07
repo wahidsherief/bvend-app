@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import PageTitle from "app/components/common/PageTitle"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchCategory } from "features/ProductCategorySlice";
-import { Loading, Empty, STATUS } from "services";
+import { Loading, Empty, STATUS } from "services/CommonService";
 import Edit from "./actions/Edit";
 import Delete from "./actions/Delete";
 import AppModal from "app/components/utils/AppModal";

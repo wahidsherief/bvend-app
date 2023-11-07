@@ -4,7 +4,7 @@ import { Input, Select, Checkbox } from "app/components/utils/form_elements"
 import { useDispatch } from "react-redux"
 import { saveMachine } from "features/MachineSlice"
 import { CreateFormValidationRules } from "../validation"
-import { machineTypes } from "services";
+import { machineTypes } from "services/CommonService";
 
 
 const Create = () => {
