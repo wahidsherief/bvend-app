@@ -2174,8 +2174,8 @@ h6,
 
 /* ========== header css ========== */
 .header {
-  padding: 30px 0;
-  background: #fff;
+  padding: 20px 0;
+  background: transparent;
 }
 
 .header .header-left .menu-toggle-btn .main-btn {

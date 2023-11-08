@@ -1,11 +1,19 @@
-// import { Navigate } from "react-router-dom";
-
 export const storeAuthUser = data => {
-    localStorage.setItem(data.user.name, JSON.stringify(data.access_token));
+    localStorage.setItem('token', JSON.stringify(data.access_token));
+    localStorage.setItem('user', JSON.stringify(data.user));
 }
 
-export const getAuthUser = key => {
-    return JSON.parse(localStorage.getItem(key));
+export const removeAuthUser = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+}
+
+export const getAuthToken = () => {
+    return JSON.parse(localStorage.getItem('token'));
+}
+
+export const getAuthUser = () => {
+    return JSON.parse(localStorage.getItem('user'));
 }
 
 

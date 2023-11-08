@@ -4,7 +4,7 @@ import SalesHistorySection from "./SalesHistorySection";
 
 
 
-const AdminDashboard = () => {
+const Dashboard = () => {
     return (
         <React.Fragment>
             <TopSection />
@@ -13,4 +13,4 @@ const AdminDashboard = () => {
     )
 }
 
-export default AdminDashboard
+export default Dashboard

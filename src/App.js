@@ -1,12 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import './App.css';
 import Header from "./app/components/common/header";
 import Aside from "./app/components/common/aside";
 
 import RootRoute from "./app/route";
+import { useSelector } from "react-redux";
 
-const isGuest = true
-// const isGuest = false
 
 const user = () => (
   <React.Fragment>
@@ -24,6 +23,11 @@ const guest = () => <RootRoute />
 
 
 function App() {
+  const { access_token: token } = useSelector((state) => state.auth.data);
+  const [isGuest, setIsGuest] = useState(true)
+
+  useEffect(() => setIsGuest(!token), [token]);
+
   return (
     <React.Fragment>
       <div className="overlay"></div>

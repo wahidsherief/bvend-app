@@ -4,16 +4,25 @@ import { Input } from "app/components/utils/form_elements"
 import { useDispatch } from "react-redux"
 import { LoginFormValidationRules } from "../validation";
 import { login } from "features/AuthSlice"
+import { useNavigate } from "react-router-dom";
 
 
-const LoginForm = () => {
+const LoginForm = ({ type }) => {
 
     const dispatch = useDispatch()
 
-    const initialValues = { type: 'admin', email: '', password: '' }
+    const navigate = useNavigate()
 
-    const onSubmit = (values, onSubmitProps) => {
-        dispatch(login(values)) && onSubmitProps.resetForm()
+    const initialValues = { email: '', password: '' }
+
+    const onSubmit = async (values, onSubmitProps) => {
+        try {
+            await dispatch(login({ type, data: values }));
+            onSubmitProps.resetForm();
+            navigate('/admin')
+        } catch (error) {
+            // Handle login failure
+        }
     }
 
     const emailProps = {
