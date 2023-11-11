@@ -11,7 +11,7 @@ import TransactionList from "app/components/pages/admin_panel/transaction/Transa
 import MachineList from "app/components/pages/admin_panel/machine/MachineList";
 import MachineCreate from "app/components/pages/admin_panel/machine/MachineCreate";
 
-export const adminRoutes = (
+const adminRoutes = () => (
     <Route>
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path={'/products'} element={<ProductList />} />
@@ -25,4 +25,6 @@ export const adminRoutes = (
         <Route path={'/vendor/create'} element={<VendorCreate />} />
         <Route path={'/vendor/requests'} element={<VendorRequest />} />
     </Route>
-);
+)
+
+export default adminRoutes

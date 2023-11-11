@@ -5,7 +5,7 @@ import CheckoutScreen from "app/components/pages/customer_panel/screens/Checkout
 import PaymentScreen from "app/components/pages/customer_panel/screens/PaymentScreen";
 import CompleteScreen from "app/components/pages/customer_panel/screens/CompleteScreen";
 
-export const customerRoutes = (
+const customerRoutes = () => (
     <Route>
         <Route path="/customer" element={<CustomerDashboard />} />
         <Route path={'/store'} element={<Store />} />
@@ -13,4 +13,6 @@ export const customerRoutes = (
         <Route path={'/payment'} element={<PaymentScreen />} />
         <Route path={'/complete'} element={<CompleteScreen />} />
     </Route>
-);
+)
+
+export default customerRoutes

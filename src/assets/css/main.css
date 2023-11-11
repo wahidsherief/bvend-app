@@ -55,7 +55,7 @@ a {
 a,
 a:focus,
 a:hover {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 i,
@@ -3027,7 +3027,7 @@ h6,
 /* =========== Sidebar css =========== */
 .sidebar-nav-wrapper {
   background: #fff;
-  width: 250px;
+  min-width: 150px;
   padding: 20px 0px;
   height: 100vh;
   position: fixed;

@@ -7,7 +7,7 @@ const Login = () => {
                 <div className="card">
                     <div className="card-body">
                         <h5 className="card-title">Login</h5>
-                        <LoginForm type='admin' />
+                        <LoginForm role='admin' />
                     </div>
                 </div>
             </div>

@@ -2,21 +2,21 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { API_URL } from "config";
 import { STATUS } from 'services/CommonService';
-import { storeAuthUser, getAuthToken, getAuthUser, removeAuthUser } from 'services/AuthService';
+import { storeAuthUser, getAuthRole, removeAuthUser } from 'services/AuthService';
 
 
 export const login = createAsyncThunk(
     'auth/login',
-    async ({ type, data }) => {
+    async (data) => {
         try {
-            const url = `${API_URL}${type}/login`;
+            const url = `${API_URL}${data.role}/login`;
             const headers = {
                 headers: {
                     'Content-Type': 'application/json',
                 }
             }
             const response = await axios.post(url, data, headers)
-            return { ...response.data, type }
+            return response.data
         } catch (err) {
             return err.message
         }
@@ -26,22 +26,17 @@ export const login = createAsyncThunk(
 const initialState = {
     data: [],
     status: STATUS.IDLE,
+    role: null,
 }
 
 export const auth = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        loadUser(state) {
-            const token = getAuthToken()
-            if (token) {
-                state.data = getAuthUser()
-            }
-        },
-        logout(state) {
+        logout: () => {
             removeAuthUser()
-            state.data = []
-        },
+            return initialState
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -50,12 +45,10 @@ export const auth = createSlice({
             })
             .addCase(login.fulfilled, (state, action) => {
                 if (action.payload) {
-                    state.data = {
-                        ...action.payload,
-                        type: action.payload.type,
-                    }
-                    state.status = STATUS.IDLE
                     storeAuthUser(action.payload)
+                    state.data = action.payload
+                    state.status = STATUS.IDLE
+                    state.role = getAuthRole()
                 } else {
                     return state
                 }
@@ -66,7 +59,7 @@ export const auth = createSlice({
     }
 })
 
-export const { loadUser, logout } = auth.actions
+export const { logout } = auth.actions
 
 export default auth.reducer;
 

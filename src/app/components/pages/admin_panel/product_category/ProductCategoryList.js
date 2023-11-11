@@ -25,7 +25,6 @@ const ProductCategoryList = () => {
     }, [dispatch])
 
 
-
     const [modal, setModal] = useState(false)
 
     const [modalInfo, setModalInfo] = useState({})
@@ -107,7 +106,7 @@ const ProductCategoryList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {categories.length > 0 &&
+                        {categories?.length > 0 &&
                             categories.map((category) => (
                                 <RenderItems key={category.id} category={category} />
                             ))
@@ -124,12 +123,12 @@ const ProductCategoryList = () => {
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="card-style mb-30">
+                            {status === STATUS.LOADING && (<Loading />)}
+
                             {
-                                status === STATUS.LOADING && <Loading />
+                                categories?.length > 0 ? RenderCategories(categories) : status !== STATUS.LOADING && <Empty props='No product found' />
                             }
-                            {
-                                categories.length > 0 ? RenderCategories(categories) : status !== STATUS.LOADING && <Empty props='No product found' />
-                            }
+
                         </div>
                     </div>
                 </div >
@@ -140,7 +139,7 @@ const ProductCategoryList = () => {
     return (
         <React.Fragment>
             <AppModal modalInfo={modalInfo} modal={modal} hideModal={hideModal} />
-            <PageTitle title='Product Category List' action={action} />
+            <PageTitle title='Product Categories' action={action} />
             <RenderCategoryList categories={categories} />
         </React.Fragment >
     )

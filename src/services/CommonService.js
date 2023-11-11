@@ -1,4 +1,6 @@
 import { IMAGE_PATH } from "config";
+import React from "react";
+import { ThreeDots } from "react-loader-spinner";
 
 export const getFileName = (fullPath) => {
     return fullPath.replace(/^.*[\\/]/, '');
@@ -10,7 +12,23 @@ export const STATUS = Object.freeze({
     LOADING: 'loading'
 })
 
-export const Loading = () => <h6 className="mb-4">Loading...</h6>
+
+export const Loading = () => (
+    <React.Fragment>
+        <div className="loading-overlay">
+            <ThreeDots
+                height="40"
+                width="40"
+                radius="9"
+                color="#cacaca"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClassName=""
+                visible={true}
+            />
+        </div>
+    </React.Fragment>
+)
 
 export const Empty = ({ props }) => <h4>{props}</h4>
 
@@ -34,6 +52,25 @@ export const machineTypes = [
     {
         id: 'box',
         name: 'Box'
+    }
+]
+
+export const userRoles = [
+    {
+        id: 'admin',
+        name: 'Admin'
+    },
+    {
+        id: 'vendor',
+        name: 'Vendor'
+    },
+    {
+        id: 'staff',
+        name: 'Staff'
+    },
+    {
+        id: 'customer',
+        name: 'Customer'
     }
 ]
 

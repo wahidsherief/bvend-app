@@ -1,8 +1,10 @@
 import { Route } from "react-router-dom"
 import StaffDashboard from "app/components/pages/staff_panel/dashboard"
 
-export const staffRoutes = (
+const staffRoutes = () => (
     <Route>
         <Route path="/staff" element={<StaffDashboard />} />
     </Route>
-);
+)
+
+export default staffRoutes

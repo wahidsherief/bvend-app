@@ -7,8 +7,9 @@ import vendorMachine from "features/VendorMachineSlice";
 import store from "features/StoreSlice";
 import cart from "features/CartSlice";
 import auth from "features/AuthSlice";
+import { combineReducers } from '@reduxjs/toolkit';
 
-const rootReducer = {
+const rootReducer = combineReducers({
     auth,
     product,
     productCategory,
@@ -18,6 +19,6 @@ const rootReducer = {
     vendorMachine,
     store,
     cart
-}
+})
 
 export default rootReducer;
