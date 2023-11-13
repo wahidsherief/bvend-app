@@ -1,16 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import RootRoute from "./app/route"
 import './App.css'
 
 
-function App() {
-  return (
-    <React.Fragment>
-      <main className="main-wrapper">
-        <RootRoute />
-      </main>
-    </React.Fragment>
-  );
-}
+const App = () => <RootRoute />
 
 export default App;

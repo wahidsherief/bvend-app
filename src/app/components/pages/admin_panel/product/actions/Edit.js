@@ -19,9 +19,9 @@ const Edit = (props) => {
 
     const { handleClose, modalInfo } = props
 
-    const { id, name, category, image } = modalInfo.data
+    const { id, name, category, image, brand } = modalInfo.data
 
-    const initialValues = { name, product_categories_id: category.id, image }
+    const initialValues = { name, product_categories_id: category.id, image, brand }
 
     const onSubmit = (values, onSubmitProps) => {
         const updatedImage = values.image.size !== undefined ? values.image : image
@@ -34,6 +34,12 @@ const Edit = (props) => {
         name: 'name',
         type: 'text',
         placeholder: 'Choose product name..',
+    }
+
+    const brandProps = {
+        name: 'brand',
+        type: 'text',
+        placeholder: 'Choose brand name..',
     }
 
     const categoryProps = {
@@ -67,6 +73,10 @@ const Edit = (props) => {
                         <div className="select-position">
                             <Select props={categoryProps} error={errors.product_categories_id && touched.product_categories_id ? true : false} />
                         </div>
+                    </div>
+
+                    <div className="input-style-1">
+                        <Input props={brandProps} error={errors.brand && touched.brand ? true : false} />
                     </div>
 
                     <div className="input-style-1">

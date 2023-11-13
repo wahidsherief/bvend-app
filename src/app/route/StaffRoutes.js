@@ -1,10 +1,10 @@
-import { Route } from "react-router-dom"
+import { Routes, Route } from "react-router-dom"
 import StaffDashboard from "app/components/pages/staff_panel/dashboard"
 
-const staffRoutes = () => (
-    <Route>
+const StaffRoutes = (
+    <Routes>
         <Route path="/staff" element={<StaffDashboard />} />
-    </Route>
+    </Routes>
 )
 
-export default staffRoutes
+export default StaffRoutes

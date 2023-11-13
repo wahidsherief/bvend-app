@@ -8,8 +8,9 @@ import store from "features/StoreSlice";
 import cart from "features/CartSlice";
 import auth from "features/AuthSlice";
 import { combineReducers } from '@reduxjs/toolkit';
+import storage from "redux-persist/lib/storage"
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
     auth,
     product,
     productCategory,
@@ -20,5 +21,13 @@ const rootReducer = combineReducers({
     store,
     cart
 })
+const rootReducer = (state, action) => {
+    if (action.type === "reset/logout") {
+        storage.removeItem('persist:root')
+        return appReducer(undefined, action);
+    }
+
+    return appReducer(state, action);
+};
 
 export default rootReducer;

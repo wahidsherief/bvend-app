@@ -72,11 +72,7 @@ const ProductCategoryList = () => {
                     <td>
                         <p className="text-bold">{category.name}</p>
                     </td>
-                    <td>
-                        <div>
-                            <p className="text-black-50">{category.brand ? category.brand : 'N/A'}</p>
-                        </div>
-                    </td>
+
                     <td>
                         <div className="action">
                             <button onClick={() => triggerEditModal(info)} className="text-dark">
@@ -99,9 +95,7 @@ const ProductCategoryList = () => {
                 <table className="table">
                     <thead>
                         <tr>
-                            {/* <th><h6></h6></th> */}
                             <th><h6>Category</h6></th>
-                            <th><h6>Brand</h6></th>
                             <th><h6>Action</h6></th>
                         </tr>
                     </thead>

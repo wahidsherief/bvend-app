@@ -18,7 +18,7 @@ const Create = () => {
         dispatch(fetchCategory())
     }, [dispatch])
 
-    const initialValues = { name: '', product_categories_id: '', image: '' }
+    const initialValues = { name: '', product_categories_id: '', image: '', brand: '' }
 
     const onSubmit = (values, onSubmitProps) => {
         dispatch(saveProduct(values)) && onSubmitProps.resetForm()
@@ -28,6 +28,12 @@ const Create = () => {
         name: 'name',
         type: 'text',
         placeholder: 'Choose product name..',
+    }
+
+    const brandProps = {
+        name: 'brand',
+        type: 'text',
+        placeholder: 'Choose brand name..',
     }
 
     const categoryProps = {
@@ -61,6 +67,10 @@ const Create = () => {
                         <div className="select-position">
                             <Select props={categoryProps} error={errors.product_categories_id && touched.product_categories_id ? true : false} />
                         </div>
+                    </div>
+
+                    <div className="input-style-1">
+                        <Input props={brandProps} error={errors.brand && touched.brand ? true : false} />
                     </div>
 
                     <div className="input-style-1">

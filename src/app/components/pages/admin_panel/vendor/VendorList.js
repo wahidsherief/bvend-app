@@ -54,7 +54,6 @@ const VendorList = () => {
 
     const RenderItems = (props) => {
         const { vendor } = props
-        const image = getImageURL('vendor') + vendor.image
         const info = {
             id: vendor.id,
             name: vendor.name,
@@ -79,7 +78,7 @@ const VendorList = () => {
                         />
                     </td> */}
                     <td>
-                        <img src={image} className="image-in-list me-3" alt={vendor.name} />
+                        <img src={vendor.image} className="image-in-list me-3" alt={vendor.name} />
                     </td>
                     <td>
                         <p className="text-bold">{vendor.name}</p>
@@ -139,8 +138,8 @@ const VendorList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {vendors.length > 0 &&
-                            vendors.map((vendor) => (
+                        {vendors?.length > 0 &&
+                            vendors?.map((vendor) => (
                                 <RenderItems key={vendor.id} vendor={vendor} />
                             ))
                         }
@@ -160,7 +159,7 @@ const VendorList = () => {
                                 status === STATUS.LOADING && <Loading />
                             }
                             {
-                                vendors.length > 0 ? RenderVendors(vendors) : status !== STATUS.LOADING && <Empty props='No vendor found' />
+                                vendors?.length > 0 ? RenderVendors(vendors) : status !== STATUS.LOADING && <Empty props='No vendor found' />
                             }
                         </div>
                     </div>

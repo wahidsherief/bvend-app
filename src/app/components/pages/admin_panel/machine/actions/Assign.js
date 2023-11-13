@@ -24,8 +24,6 @@ const Assign = (props) => {
 
     const initialValues = { ...modalInfo.data }
 
-    console.log(initialValues)
-
     const onSubmit = (values, onSubmitProps) => {
         const assignValues = { ...values, id: machine.id }
         console.log(assignValues)

@@ -29,7 +29,7 @@ export const saveVendor = createAsyncThunk(
         }
         try {
             const response = await axios.post(url, data, headers)
-            return response.data.data
+            return response.data
         } catch (err) {
             return err.message
         }
@@ -48,7 +48,7 @@ export const updateVendor = createAsyncThunk(
         }
         try {
             const response = await axios.post(url, getFormData(data), headers)
-            return response.data.data
+            return response.data
         } catch (err) {
             return err.message
         }
@@ -62,7 +62,7 @@ export const deleteVendor = createAsyncThunk(
         const url = `${API_URL}vendor/${data}`;
         try {
             const response = await axios.delete(url)
-            return response.data.data
+            return response.data
         } catch (err) {
             return err.message
         }

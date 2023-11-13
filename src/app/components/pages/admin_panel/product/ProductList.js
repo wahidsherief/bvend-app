@@ -52,7 +52,6 @@ const ProductList = () => {
     }
 
     const RenderItems = ({ product }) => {
-        const image = getImageURL('product') + product.image
         const info = {
             id: product.id,
             name: product.name,
@@ -73,7 +72,7 @@ const ProductList = () => {
                         />
                     </td> */}
                     <td>
-                        <img src={image} className="image-in-list me-3" alt={product.name} />
+                        <img src={product.image} className="image-in-list me-3" alt={product.name} />
                     </td>
                     <td>
                         <p className="text-bold">{product.name}</p>
@@ -81,7 +80,7 @@ const ProductList = () => {
                     <td>
                         <div>
                             <p>{product.category.name}</p>
-                            <p className="text-black-50">{product.category.brand}</p>
+                            <p className="text-black-50">{product.brand}</p>
                         </div>
                     </td>
                     {/* <td>

@@ -1,6 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+
+    const { user } = useSelector((state) => state.auth.data)
+
     return (
         <React.Fragment>
             <header className="header">
@@ -30,18 +34,18 @@ const Header = () => {
                                     >
                                         <div className="profile-info">
                                             <div className="info">
-                                                <h6>John Doe</h6>
+                                                <h6>{user.name}</h6>
                                                 <div className="image">
                                                     <img
-                                                        src="assets/images/profile/profile-image.png"
-                                                        alt=""
+                                                        src={user.image}
+                                                        alt="profile-image"
+                                                        style={{ objectFit: 'cover', width: '100%', height: '100%' }}
                                                     />
                                                     <span className="status"></span>
                                                 </div>
                                             </div>
                                         </div>
                                     </button>
-
                                 </div>
                             </div>
                         </div>
