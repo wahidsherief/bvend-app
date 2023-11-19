@@ -7,6 +7,7 @@ const adminAside = () => {
             <li className="nav-item">
                 <Link to={'/admin'} className="active">Dashboard</Link>
             </li>
+
             <li className="nav-item nav-item-has-children">
                 <a
                     href="#1"
@@ -28,12 +29,34 @@ const adminAside = () => {
                     </li>
                 </ul>
             </li>
+
+            <li className="nav-item nav-item-has-children">
+                <a
+                    href="#3"
+                    className="collapsed"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#ddmenu_3"
+                    aria-controls="ddmenu_3"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span className="text">Machine</span>
+                </a>
+                <ul id="ddmenu_3" className="collapse dropdown-nav">
+                    <li>
+                        <Link to={'/machines'}>Machines</Link>
+                    </li>
+                    <li>
+                        <Link to={'/machine/type'}>Types</Link>
+                    </li>
+                </ul>
+            </li>
+
+
             <li className="nav-item">
                 <Link to={'/vendors'}>Vendor</Link>
             </li>
-            <li className="nav-item">
-                <Link to={'/machines'}>Machine</Link>
-            </li>
+
             <li className="nav-item">
                 <Link to={'/transactions'}>Transaction</Link>
             </li>

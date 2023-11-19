@@ -1,7 +1,7 @@
 import React from "react"
 import Button from 'react-bootstrap/Button';
 import { useDispatch } from "react-redux"
-import { deleteCategory } from "features/ProductCategorySlice";
+import { remove as deleteCategory } from "features/ProductCategorySlice";
 
 
 const Delete = (props) => {

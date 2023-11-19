@@ -1,141 +1,33 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice } from "@reduxjs/toolkit";
 import { API_URL } from "config";
 import { STATUS } from 'services/CommonService';
+import { createAsyncReducerHandlers, createAsyncApiThunk, convertNameToPrefix } from "services/ReducerService";
 
-/* fetch all items */
-export const fetchProduct = createAsyncThunk(
-    'product/fetch',
-    async () => {
-        const url = `${API_URL}product`
-        try {
-            const response = await axios.get(url)
-            return response.data
-        } catch (err) {
-            return err.message
-        }
-    }
-)
+const name = 'product'
 
-/* save new item */
-export const saveProduct = createAsyncThunk(
-    'product/product/save',
-    async (data) => {
-        try {
-            const url = `${API_URL}product`;
-            const headers = {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                }
-            }
-            const response = await axios.post(url, data, headers)
-            return response.data.data
-        } catch (err) {
-            return err.message
-        }
-    }
-)
+const prefix = convertNameToPrefix(name)
 
-/* update existing item */
-export const updateProduct = createAsyncThunk(
-    'product/update',
-    async (data) => {
-        const url = `${API_URL}product/${data.id}`;
-        const headers = {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            }
-        }
-        try {
-            const response = await axios.post(url, getFormData(data), headers)
-            return response.data.data
-        } catch (err) {
-            return err.message
-        }
-    }
-)
+const url = (endpoint) => `${API_URL}/${endpoint}`;
 
-/* delete item */
-export const deleteProduct = createAsyncThunk(
-    'product/delete',
-    async (data) => {
-        const url = `${API_URL}product/${data}`;
-        try {
-            const response = await axios.delete(url)
-            return response.data.data
-        } catch (err) {
-            return err.message
-        }
-    }
-)
-
-const getFormData = data => {
-    const formData = new FormData();
-
-    formData.append('_method', 'PUT')
-    formData.append('name', data.name)
-    formData.append('product_categories_id', data.product_categories_id)
-    data.image !== null && formData.append('image', data.image)
-    // formData.append('is_active', data.is_active)
-
-    return formData;
-}
+export const fetch = createAsyncApiThunk(`${prefix}/fetch`, () => url(prefix), 'get', false);
+export const save = createAsyncApiThunk(`${prefix}/save`, () => url(prefix), 'post', true);
+export const update = createAsyncApiThunk(`${prefix}/update`, (data) => url(`${prefix}/${data.id}`), 'put', true);
+export const remove = createAsyncApiThunk(`${prefix}/delete`, (id) => url(`${prefix}/${id}`), 'delete', true);
 
 
-export const product = createSlice({
-    name: 'product',
-    initialState: {
-        data: [],
-        status: STATUS.IDLE,
-    },
+const initialState = { data: [], status: STATUS.IDLE, validationErros: {} };
+
+export const productCategory = createSlice({
+    name,
+    initialState,
     extraReducers: (builder) => {
-        builder
-            .addCase(fetchProduct.pending, (state) => {
-                state.status = STATUS.LOADING
-            })
-            .addCase(fetchProduct.fulfilled, (state, action) => {
-                state.data = action.payload
-                state.status = STATUS.IDLE
-            })
-            .addCase(fetchProduct.rejected, (state) => {
-                state.status = STATUS.ERROR
-            })
+        createAsyncReducerHandlers(builder, fetch);
+        createAsyncReducerHandlers(builder, save);
+        createAsyncReducerHandlers(builder, update);
+        createAsyncReducerHandlers(builder, remove);
+    },
+});
 
-            .addCase(saveProduct.pending, (state) => {
-                state.status = STATUS.LOADING
-            })
-            .addCase(saveProduct.fulfilled, (state, action) => {
-                state.data = action.payload
-                state.status = STATUS.IDLE
-            })
-            .addCase(saveProduct.rejected, (state) => {
-                state.status = STATUS.ERROR
-            })
-
-            .addCase(updateProduct.pending, (state) => {
-                state.status = STATUS.LOADING
-            })
-            .addCase(updateProduct.fulfilled, (state, action) => {
-                state.data = action.payload
-                state.status = STATUS.IDLE
-            })
-            .addCase(updateProduct.rejected, (state) => {
-                state.status = STATUS.ERROR
-            })
-
-            .addCase(deleteProduct.pending, (state) => {
-                state.status = STATUS.LOADING
-            })
-            .addCase(deleteProduct.fulfilled, (state, action) => {
-                state.data = action.payload
-                state.status = STATUS.IDLE
-            })
-            .addCase(deleteProduct.rejected, (state) => {
-                state.status = STATUS.ERROR
-            })
-    }
-})
-
-export default product.reducer;
+export default productCategory.reducer;
 
 

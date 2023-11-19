@@ -17,6 +17,8 @@ import './assets/css/morris.css'
 import './assets/css/fullcalendar.css'
 import store, { persistor } from './app/store'
 import { PersistGate } from 'redux-persist/integration/react'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
@@ -29,6 +31,7 @@ root.render(
         </PersistGate>
       </Provider>
     </BrowserRouter>
+    <ToastContainer />
   </React.StrictMode>
 );
 

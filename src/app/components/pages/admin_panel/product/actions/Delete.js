@@ -1,7 +1,7 @@
 import React from "react"
 import Button from 'react-bootstrap/Button';
 import { useDispatch } from "react-redux"
-import { deleteProduct } from "features/ProductSlice"
+import { remove as deleteProduct } from "features/ProductSlice"
 
 
 const Delete = (props) => {

@@ -3,6 +3,7 @@ import productCategory from "features/ProductCategorySlice";
 import vendor from "features/VendorSlice";
 import transaction from "features/TransactionSlice";
 import machine from "features/MachineSlice";
+import machineType from "features/MachineTypeSlice";
 import vendorMachine from "features/VendorMachineSlice";
 import store from "features/StoreSlice";
 import cart from "features/CartSlice";
@@ -17,6 +18,7 @@ const appReducer = combineReducers({
     vendor,
     transaction,
     machine,
+    machineType,
     vendorMachine,
     store,
     cart

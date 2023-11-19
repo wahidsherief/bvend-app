@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { Input, Select } from "app/components/utils/form_elements"
 import { RefillFormValidationRules } from "../validation";
 import { noOfProductsData } from "assets/data";
-import { fetchProduct } from "features/ProductSlice";
+import { fetch as fetchProduct } from "features/ProductSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { storeRefill } from "features/VendorMachineSlice";

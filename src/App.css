@@ -157,3 +157,18 @@ button {
 .error-item {
     margin-bottom: 5px;
 }
+
+/* .inline-item-container {
+    display: flex;
+} */
+
+.col-item-inline {
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+}
+
+
+/* .col-text-top {
+    margin-top: 3px
+} */

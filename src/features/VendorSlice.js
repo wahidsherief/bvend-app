@@ -7,7 +7,7 @@ import { STATUS } from 'services/CommonService';
 export const fetchVendor = createAsyncThunk(
     'vendor/fetch',
     async () => {
-        const url = `${API_URL}vendor`
+        const url = `${API_URL}/vendor`
         try {
             const response = await axios.get(url)
             return response.data
@@ -21,7 +21,7 @@ export const fetchVendor = createAsyncThunk(
 export const saveVendor = createAsyncThunk(
     'vendor/save',
     async (data) => {
-        const url = `${API_URL}vendor`;
+        const url = `${API_URL}/vendor`;
         const headers = {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -40,7 +40,7 @@ export const saveVendor = createAsyncThunk(
 export const updateVendor = createAsyncThunk(
     'vendor/update',
     async (data) => {
-        const url = `${API_URL}vendor/${data.id}`;
+        const url = `${API_URL}/vendor/${data.id}`;
         const headers = {
             headers: {
                 'Content-Type': 'multipart/form-data',

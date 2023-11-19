@@ -7,8 +7,8 @@ import React from "react";
 
 const guestRoutes = () => (
     <React.Fragment>
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Registration />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Registration />} />
     </React.Fragment>
 );
 

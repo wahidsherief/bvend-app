@@ -4,6 +4,7 @@ import { persistor } from 'app/store';
 import { useSelector } from 'react-redux';
 import { logoutUser, removeAuthUser } from 'services/AuthService';
 
+
 export const logout = createAsyncThunk('reset/logout', async (role) => {
     await logoutUser(role);
     await persistor.purge();
@@ -17,7 +18,7 @@ const resetSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(logout.fulfilled, (state) => {
             // Any additional state changes after successful logout
-            console.log('Logout successful');
+            // toast('Logout successful');
         });
     }
 });

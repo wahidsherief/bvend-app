@@ -1,57 +1,38 @@
-import { Formik, Form } from "formik";
-import Button from 'react-bootstrap/Button';
-import { Input } from "app/components/utils/form_elements"
-import { useDispatch } from "react-redux"
-import { CreateFormValidationRules } from "../validation";
-import { saveCategory } from "features/ProductCategorySlice";
+// Create.js
 
+import { useDispatch } from "react-redux";
+import { CreateFormValidationRules } from "../validation";
+import { save as saveCategory } from "features/ProductCategorySlice";
+import ProductCategoryForm from "./ProductCategoryForm";
 
 const Create = () => {
-
-    const dispatch = useDispatch()
-
-    const initialValues = { name: '', brand: '' }
+    const dispatch = useDispatch();
+    const initialValues = { name: '' };
 
     const onSubmit = (values, onSubmitProps) => {
-        dispatch(saveCategory(values)) && onSubmitProps.resetForm()
-    }
+        dispatch(saveCategory(values)) && onSubmitProps.resetForm();
+    };
 
     const categoryProps = {
         name: 'name',
         type: 'text',
         placeholder: 'Enter category name..',
-    }
+    };
 
-    const brandProps = {
-        name: 'brand',
-        type: 'text',
-        placeholder: 'Enter brand name..',
-    }
+    const handleClose = () => {
+        // Define handleClose function for Create if needed
+    };
 
     return (
-        <Formik
+        <ProductCategoryForm
             initialValues={initialValues}
             validationSchema={CreateFormValidationRules}
             onSubmit={onSubmit}
-            enableReinitialize={true}
-        >
-            {({ errors, touched }) => (
-                <Form>
-                    <div className="input-style-1">
-                        <Input props={categoryProps} error={errors.name && touched.name ? true : false} />
-                    </div>
+            handleClose={handleClose}
+            categoryProps={categoryProps}
+            buttonText="Create"
+        />
+    );
+};
 
-                    <div className="input-style-1">
-                        <Input props={brandProps} error={errors.brand && touched.brand ? true : false} />
-                    </div>
-
-                    <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <Button type="submit" className="main-btn primary-btn btn-hover btn-sm">Create</Button>
-                    </div>
-                </Form>
-            )}
-        </Formik >
-    )
-}
-
-export default Create
+export default Create;

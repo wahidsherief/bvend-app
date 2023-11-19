@@ -5,10 +5,10 @@ import {
     Outlet
 } from "react-router-dom";
 import UserLayout from "./UserLayout";
+import { getAuthRole } from "services/AuthService";
 
 const AuthLayout = () => {
-    const { role } = useSelector((state) => state.auth);
-    // const role = 'admin'
+    const role = getAuthRole()
 
     const location = useLocation()
 

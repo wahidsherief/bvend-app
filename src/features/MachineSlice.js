@@ -1,119 +1,36 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice } from "@reduxjs/toolkit";
 import { API_URL } from "config";
 import { STATUS } from 'services/CommonService';
+import { createAsyncReducerHandlers, createAsyncApiThunk, convertNameToPrefix } from "services/ReducerService";
 
-/* fetch all items */
-export const fetchMachine = createAsyncThunk(
-    'machine/fetch',
-    async () => {
-        const url = `${API_URL}machine`
-        try {
-            const response = await axios.get(url)
-            return response.data
-        } catch (err) {
-            return err.message
-        }
-    }
-)
+const name = 'machine'
 
-/* save new item */
-export const saveMachine = createAsyncThunk(
-    'machine/save',
-    async (data) => {
-        const url = `${API_URL}machine`;
-        try {
-            const response = await axios.post(url, data)
-            return response.data.data
-        } catch (err) {
-            return err.message
-        }
-    }
-)
+const prefix = convertNameToPrefix(name)
 
-/* update existing item */
-export const updateMachine = createAsyncThunk(
-    'machine/update',
-    async (data) => {
-        const url = `${API_URL}machine/${data.id}`;
-        try {
-            const response = await axios.put(url, data)
-            return response.data.data
-        } catch (err) {
-            return err.message
-        }
-    }
-)
+const url = (endpoint) => `${API_URL}/${endpoint}`;
 
-/* delete item */
-export const deleteMachine = createAsyncThunk(
-    'machine/delete',
-    async (data) => {
-        const url = `${API_URL}machine/${data}`;
-        try {
-            const response = await axios.delete(url)
-            return response.data.data
-        } catch (err) {
-            return err.message
-        }
-    }
-)
+export const fetch = createAsyncApiThunk(`${prefix}/fetch`, () => url(prefix), 'get', false);
+export const save = createAsyncApiThunk(`${prefix}/save`, () => url(prefix), 'post', true);
+export const update = createAsyncApiThunk(`${prefix}/update`, (data) => url(`${prefix}/${data.id}`), 'put', true);
+export const remove = createAsyncApiThunk(`${prefix}/delete`, (id) => url(`${prefix}/${id}`), 'delete', true);
+// export const assign = createAsyncApiThunk(`${prefix}/assign`, (id) => url(`${prefix}/${id}`), 'post', true);
 
+const initialState = { data: [], status: STATUS.IDLE, validationErros: {} };
 
 export const machine = createSlice({
-    name: 'machine',
-    initialState: {
-        data: [],
-        status: STATUS.IDLE,
-    },
+    name,
+    initialState,
     extraReducers: (builder) => {
-        builder
-            .addCase(fetchMachine.pending, (state) => {
-                state.status = STATUS.LOADING
-            })
-            .addCase(fetchMachine.fulfilled, (state, action) => {
-                state.data = action.payload
-                state.status = STATUS.IDLE
-            })
-            .addCase(fetchMachine.rejected, (state) => {
-                state.status = STATUS.ERROR
-            })
-
-            .addCase(saveMachine.pending, (state) => {
-                state.status = STATUS.LOADING
-            })
-            .addCase(saveMachine.fulfilled, (state, action) => {
-                state.data = action.payload
-                state.status = STATUS.IDLE
-            })
-            .addCase(saveMachine.rejected, (state) => {
-                state.status = STATUS.ERROR
-            })
-
-            .addCase(updateMachine.pending, (state) => {
-                state.status = STATUS.LOADING
-            })
-            .addCase(updateMachine.fulfilled, (state, action) => {
-                state.data = action.payload
-                state.status = STATUS.IDLE
-            })
-            .addCase(updateMachine.rejected, (state) => {
-                state.status = STATUS.ERROR
-            })
-
-            .addCase(deleteMachine.pending, (state) => {
-                state.status = STATUS.LOADING
-            })
-            .addCase(deleteMachine.fulfilled, (state, action) => {
-                state.data = action.payload
-                state.status = STATUS.IDLE
-            })
-            .addCase(deleteMachine.rejected, (state) => {
-                state.status = STATUS.ERROR
-            })
-    }
-})
+        createAsyncReducerHandlers(builder, fetch);
+        createAsyncReducerHandlers(builder, save);
+        createAsyncReducerHandlers(builder, update);
+        createAsyncReducerHandlers(builder, remove);
+    },
+});
 
 export default machine.reducer;
+
+
+
 
 

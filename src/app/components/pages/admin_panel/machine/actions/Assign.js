@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Input, Select, TextArea, Checkbox } from "app/components/utils/form_elements"
 import { AssignFormValidationRules } from "../validation";
 import { fetchVendor } from "features/VendorSlice";
-import { updateMachine } from "features/MachineSlice";
+import { update as updateMachine } from "features/MachineSlice";
 
 const Assign = (props) => {
 

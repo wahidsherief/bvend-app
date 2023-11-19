@@ -3,7 +3,6 @@ import ErrorText from "app/components/common/ErrorText";
 
 
 const Input = ({ props, error }) => {
-
     const { name, ...rest } = props
 
     return (

@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react"
 import PageTitle from "app/components/common/PageTitle"
-import { useDispatch, useSelector } from "react-redux"
-import { fetchCategory } from "features/ProductCategorySlice";
-import { Loading, Empty, STATUS } from "services/CommonService";
-import Edit from "./actions/Edit";
-import Delete from "./actions/Delete";
-import AppModal from "app/components/utils/AppModal";
+import { useSelector, useDispatch } from "react-redux"
+import { fetch as fetchProductCategory } from "features/ProductCategorySlice";
+import PageContent from "app/components/common/PageContent";
+import ProductCategoryTableContent from "./ProductCategoryTableContent";
 
 
 const action = {
@@ -21,123 +19,37 @@ const ProductCategoryList = () => {
     const { data: categories, status } = useSelector((state) => state.productCategory)
 
     useEffect(() => {
-        dispatch(fetchCategory())
+        dispatch(fetchProductCategory())
     }, [dispatch])
 
-
-    const [modal, setModal] = useState(false)
-
-    const [modalInfo, setModalInfo] = useState({})
-
-    const showModal = () => setModal(modal => !modal)
-
-    const hideModal = () => setModal(false)
-
-    const triggerEditModal = (categoryInfo) => {
-        setModalInfo({
-            title: 'Edit Category',
-            body: Edit,
-            data: categoryInfo
-        })
-
-        showModal()
-    }
-
-    const triggerDeleteModal = (categoryInfo) => {
-        setModalInfo({
-            title: 'Delete Category',
-            body: Delete,
-            data: categoryInfo
-        })
-
-        showModal()
-    }
-
-    const RenderItems = ({ category }) => {
-        const info = {
-            id: category.id,
-            name: category.name,
-            brand: category.brand
-        }
+    const ProductCategoryTable = ({ items, status }) => {
         return (
-            <>
-                <tr>
-                    {/* <td>
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            id="checkbox-1"
-                        />
-                    </td> */}
-                    <td>
-                        <p className="text-bold">{category.name}</p>
-                    </td>
-
-                    <td>
-                        <div className="action">
-                            <button onClick={() => triggerEditModal(info)} className="text-dark">
-                                <i className="lni lni-pencil-alt"></i>
-                            </button>
-                            <button onClick={() => triggerDeleteModal(info)} className="ms-3 text-dark">
-                                <i className="lni lni-trash-can"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </>
-        )
-    }
-
-    const RenderCategories = () => (
-        <React.Fragment>
-            <h6 className="mb-10">Total Categories : {categories.length}</h6>
             <div className="table-wrapper table-responsive mt-4">
                 <table className="table">
                     <thead>
                         <tr>
-                            <th><h6>Category</h6></th>
-                            <th><h6>Action</h6></th>
+                            <th>Category</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {categories?.length > 0 &&
-                            categories.map((category) => (
-                                <RenderItems key={category.id} category={category} />
-                            ))
-                        }
+                        {items?.length > 0 &&
+                            items?.map((item) => (
+                                <ProductCategoryTableContent key={item.id} item={item} status={status} />
+                            ))}
                     </tbody>
                 </table>
             </div>
-        </React.Fragment>
-    )
-
-    const RenderCategoryList = ({ categories }) => (
-        <React.Fragment>
-            <div className="tables-wrapper">
-                <div className="row">
-                    <div className="col-lg-12">
-                        <div className="card-style mb-30">
-                            {status === STATUS.LOADING && (<Loading />)}
-
-                            {
-                                categories?.length > 0 ? RenderCategories(categories) : status !== STATUS.LOADING && <Empty props='No product found' />
-                            }
-
-                        </div>
-                    </div>
-                </div >
-            </div>
-        </React.Fragment >
-    )
+        );
+    }
 
     return (
         <React.Fragment>
-            <AppModal modalInfo={modalInfo} modal={modal} hideModal={hideModal} />
-            <PageTitle title='Product Categories' action={action} />
-            <RenderCategoryList categories={categories} />
-        </React.Fragment >
+            <PageTitle title='Product Category List' action={action} />
+            <PageContent items={categories} status={status} component={ProductCategoryTable} />
+        </React.Fragment>
     )
-
 }
 
-export default ProductCategoryList
+export default ProductCategoryList;
+
